@@ -124,15 +124,3 @@ public class TPSProcessor : LEUnitProcessor {
     }
 
 }
-/*
- * Log: 在原本我将此处理器 与 Input 以及 枪械控制器绑定在了一块儿。 
- *      后来决定将 枪械控制器 单独抽象出来， 并且创建 ItemInputSystem Interface 接口。
- *      
- *      其目的在于面对不同控制体系。
- *      例如：
- *          当玩家拿着枪械时， Input 直接对 手中的枪 发布指令
- *          当玩家开车时， Input 直接作用于 玩家所开的车
- *          当玩家空着手时， Input 。。。。。。。。
- *     
- 
- */

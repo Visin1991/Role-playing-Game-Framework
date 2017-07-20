@@ -129,6 +129,8 @@ public struct Damage_Stun : Damage
 
 public enum LE_Animation_EventType
 {
+    moveInfo,
+    shootInfo,
     Stun,
     SlowDown,
     Die,
@@ -138,8 +140,25 @@ public enum LE_Animation_EventType
 public interface LE_Animation_Event
 {
     LE_Animation_EventType Type { get; set; }
-    void Init(); //因为Struct 不能使用 explicit parameterless constructors 所有我们必须手动初始化。
+    void Init(); //Because Struct We can't use explicit parameterless constructors
 }
+
+public struct LE_Animation_Event_moveInfo : LE_Animation_Event
+{
+    LE_Animation_EventType type;
+    public LE_Animation_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Animation_EventType.moveInfo; }
+    public float moveSpeed;
+}
+
+public struct LE_Animation_Event_shootInfo : LE_Animation_Event
+{
+    LE_Animation_EventType type;
+    public LE_Animation_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Animation_EventType.shootInfo; }
+    public bool isShoot;
+}
+
 
 public struct LE_Animation_Event_Stun : LE_Animation_Event
 {
@@ -157,8 +176,8 @@ public struct LE_Animation_Event_SlowDown : LE_Animation_Event
     public LE_Animation_EventType Type { get { return type; } set { type = value; } }
     public void Init() { type = LE_Animation_EventType.SlowDown; }
 
-    public float 减速时间;
-    public int 减速值;
+    public float slowTime;
+    public int slowValue;
 }
 
 public struct LE_Animation_Event_ReloadBullet : LE_Animation_Event
@@ -185,7 +204,7 @@ public enum LE_UI_EventType
 public interface LE_UI_Event
 {
     LE_UI_EventType Type { get; set; }
-    void Init(); //因为Struct 不能使用 explicit parameterless constructors 所有我们必须手动初始化。
+    void Init(); 
 }
 
 public struct LE_UI_Event_UpdateHealthBar : LE_UI_Event
@@ -231,7 +250,7 @@ public enum SYS_UI_EventType
 public interface SYS_UI_Event
 {
     SYS_UI_EventType Type { get; set; }
-    void Init(); //因为Struct 不能使用 explicit parameterless constructors 所有我们必须手动初始化。
+    void Init(); 
 }
 
 public struct SYS_UI_Event_PrintSomeInfo : SYS_UI_Event

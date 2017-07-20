@@ -10,4 +10,6 @@ public interface PlayerCamera{
     void UpdateCamera();
     void LateUpdateCamera();
 }
+
 public enum CameraType { FirstPerson, ThridPerson, God }
+public enum CameraRotateModel { Fixed,Free,KeyBoardRestrict}

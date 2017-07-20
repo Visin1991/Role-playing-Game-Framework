@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SuperManAnimator : LEUnitAnimatorPr {
+
+    float RotateAngle;
 
     protected override void Start()
     {
@@ -11,29 +14,49 @@ public class SuperManAnimator : LEUnitAnimatorPr {
 
     protected override void MailBox_LE_AnimationEvent(LE_Animation_Event e)
     {
-        if (e.Type == LE_Animation_EventType.Stun)
+        if (e.Type == LE_Animation_EventType.moveInfo)
         {
-            LE_Animation_Event_Stun stun = (LE_Animation_Event_Stun)e;
-            执行眩晕动画(stun);
+            ProcessInfo_1( (LE_Animation_Event_moveInfo)e);
         }
-        if (e.Type == LE_Animation_EventType.SlowDown)
+        else if (e.Type == LE_Animation_EventType.shootInfo)
         {
-            LE_Animation_Event_SlowDown slowDown = (LE_Animation_Event_SlowDown)e;
-            执行减速动画(slowDown);
+            ProcessShootInfo((LE_Animation_Event_shootInfo)e);
+        }
+        else if (e.Type == LE_Animation_EventType.Stun)
+        {
+            StunAnimation((LE_Animation_Event_Stun)e);
+        }
+        else if (e.Type == LE_Animation_EventType.SlowDown)
+        {
+            SlowDownAnimation((LE_Animation_Event_SlowDown)e);
         }
     }
 
-
-
-    void 执行眩晕动画(LE_Animation_Event_Stun stun)
+    public override void CallBack1()
     {
-        Debug.LogFormat("执行动画 被眩晕{0}秒", stun.stunTime);
-        Debug.LogFormat("执行动画 被眩晕粒子特效{0}", stun.stunEffectIndex);
+        Debug.Log("TestA");
     }
 
-    void 执行减速动画(LE_Animation_Event_SlowDown info)
+    void ProcessShootInfo(LE_Animation_Event_shootInfo info)
     {
-        Debug.LogFormat("执行动画 被减速{0}秒", info.减速时间);
-        Debug.LogFormat("执行动画 被减速百分之{0}", info.减速值);
+        animator.SetBool("Shoot", info.isShoot);
+    }
+
+    void ProcessInfo_1(LE_Animation_Event_moveInfo info)
+    {
+        animator.SetFloat("Speed", info.moveSpeed);
+        //RotateAngle = animator.GetFloat("RotateAngle");
+    }
+
+    void StunAnimation(LE_Animation_Event_Stun stun)
+    {
+        Debug.LogFormat(" Stun Animation For {0}Seconds", stun.stunTime);
+        Debug.LogFormat(" Stun Special Effect {0}", stun.stunEffectIndex);
+    }
+
+    void SlowDownAnimation(LE_Animation_Event_SlowDown info)
+    {
+        Debug.LogFormat("SlowDown For {0}秒", info.slowTime);
+        Debug.LogFormat("SlowDown Percentage for{0}", info.slowValue);
     }
 }

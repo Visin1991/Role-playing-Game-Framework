@@ -12,6 +12,7 @@ public class LEUnitBasicMoveMentPr : MonoBehaviour {
 
     public float moveSpeed;
     public float speedScales;
+    float maxSpeed;
 
     public float turningSpeed = 10;
 
@@ -31,11 +32,18 @@ public class LEUnitBasicMoveMentPr : MonoBehaviour {
     float speedSmoothVelocity;
     public float reactionSpped;
 
+    LE_Animation_Event_moveInfo info = new LE_Animation_Event_moveInfo();
+
     void Start () {
+
+        maxSpeed = moveSpeed * speedScales;
+
         cp = GetComponent<LEUnitCentralPanel>();
         if (cp == null) { Debug.LogError("Can not get LEUnitCP"); initalSucced = false; }
         initialComponents();
-	}
+
+        info.Init();
+    }
 
 	void Update () {
         if (!initalSucced) return;
@@ -44,36 +52,26 @@ public class LEUnitBasicMoveMentPr : MonoBehaviour {
         {
             // First Person Camera
             if (cameraType == CameraType.ThridPerson)
-            {
-                
-                if (cp.Adapter_LE_InputVH != Vector2.zero)
-                {
-                    MoveDirection();
-                    CalculateMoveSpeed_();
-                    TurnAroundBasedOn_CameraDir();
-                }
-                else
-                {
-                    cp.Adapter_MoveVeclocity3D = Vector3.zero;
-                }
+            { 
+                MoveDirection();
+                CalculateMoveSpeed_();
+                TurnAroundBasedOn_CameraDir();
             }
+
             // First Person Camera
             if (cameraType == CameraType.FirstPerson)
             {
-                if (cp.Adapter_LE_InputVH != Vector2.zero)
-                {
-                    MoveDirection();
-                    CalculateMoveSpeed_();
-                }
-                else
-                {
-                    cp.Adapter_MoveVeclocity3D = Vector3.zero;
-                }
+                MoveDirection();
+                CalculateMoveSpeed_();
 
                 reactionSpped = 0.0f;
                 yaw += Input.GetAxis("Mouse X") * turningSpeed;
                 TurnAround();
             }
+
+          
+            info.moveSpeed = currentSpeed / maxSpeed;
+            cp.Rise_LE_Animation_Event(info);
         }
 	}
 
@@ -102,16 +100,18 @@ public class LEUnitBasicMoveMentPr : MonoBehaviour {
 
     void MoveDirection()
     {
-        velocityNor = cp.Adapter_LE_mainBody.forward;//按W 按键物体将会背对着摄像头 向前方移动
+        velocityNor = cp.Adapter_LE_mainBody.forward;
     }
 
     void CalculateMoveSpeed_()
     {
-        postTargetMoveSpeed = moveSpeed * speedScales * cp.Adapter_LE_InputVH.magnitude;
+        postTargetMoveSpeed = maxSpeed * cp.Adapter_LE_InputVH.normalized.magnitude;
+
         currentSpeed = Mathf.SmoothDamp(currentSpeed, postTargetMoveSpeed, ref speedSmoothVelocity, reactionSpped);
+
         velocity3D = currentSpeed * velocityNor;
 
-        cp.Adapter_MoveVeclocity3D = velocity3D;//把移动速度告诉 Living Entity Central Processor.
+        cp.Adapter_MoveVeclocity3D = velocity3D;
     }
 
     void TurnAroundBasedOn_CameraDir()

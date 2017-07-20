@@ -11,6 +11,10 @@ namespace Visin1_1
         public CameraType CameraType { get { return cameraType; } }
         public Transform Transform { get { return transform; } }
 
+        public CameraRotateModel cameraRotateModel = CameraRotateModel.Free;
+
+        public KeyCode controlKey;
+
         [SerializeField] private Vector2 pitchMinMax = new Vector2(0, 85);
         [SerializeField] private float rotationSmoothTime = 0.5f;
         private Vector3 rotationSmoothVelocity;
@@ -25,6 +29,7 @@ namespace Visin1_1
         private float pitch = 75;//Rotation around X Axis
 
         public bool XboxPad;
+        
 
         public void InitialCamera()
         {
@@ -53,14 +58,33 @@ namespace Visin1_1
                 pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
                 dstToTarget += Input.GetAxis("Trigger");
                 dstToTarget = Mathf.Clamp(dstToTarget, rangeToTarget.x, rangeToTarget.y);
-            }else{
-                yaw += Input.GetAxis("Mouse X") * cameraMoveSensitivity;
-                pitch -= Input.GetAxis("Mouse Y") * cameraMoveSensitivity;
-                pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
-                dstToTarget += Input.GetAxis("Mouse ScrollWheel");
-                dstToTarget = Mathf.Clamp(dstToTarget, rangeToTarget.x, rangeToTarget.y);
+            }
+            else
+            {
+
+                if (cameraRotateModel == CameraRotateModel.Free)
+                {
+                    yaw += Input.GetAxis("Mouse X") * cameraMoveSensitivity;
+                    pitch -= Input.GetAxis("Mouse Y") * cameraMoveSensitivity;
+
+                    pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
+                    dstToTarget = Mathf.Clamp(dstToTarget, rangeToTarget.x, rangeToTarget.y);
+                }
+                else if (cameraRotateModel == CameraRotateModel.KeyBoardRestrict)
+                {
+                    if (Input.GetKey(controlKey))
+                    {
+                        yaw += Input.GetAxis("Mouse X") * cameraMoveSensitivity;
+                        pitch -= Input.GetAxis("Mouse Y") * cameraMoveSensitivity;
+                    }
+
+                    dstToTarget += Input.GetAxis("Mouse ScrollWheel");
+                    pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
+                    dstToTarget = Mathf.Clamp(dstToTarget, rangeToTarget.x, rangeToTarget.y);
+                }                
             }
 #endif
+
             currentRotation = Vector3.SmoothDamp(currentRotation, new Vector3(pitch, yaw,0), ref rotationSmoothVelocity, rotationSmoothTime);
             transform.eulerAngles = currentRotation;
             transform.position = target.position - transform.forward * dstToTarget;

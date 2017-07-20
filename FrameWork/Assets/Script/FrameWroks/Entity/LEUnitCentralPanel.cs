@@ -37,7 +37,7 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
     public abstract void MailBox_LE_CentralPanel(LEEvent e);
   
     //========================================================
-    //主板外部接口
+    //Central Panel External Interface
     //========================================================
 
     public void Bind_LE_UI_Event_MailBox(System.Action<LE_UI_Event> func)
@@ -61,7 +61,7 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
     public Transform Adapter_playerCamera;
 
     //========================================================
-    //Processor 用于直调用
+    //Central Panel External Interface
     //========================================================
     public void Rise_LE_UI_Event(LE_UI_Event e)
     {
@@ -77,7 +77,7 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
 
     public void Rise_LE_Animation_Event(LE_Animation_Event e)
     {
-        if (adapter_LE_UIEvent != null)
+        if (adapter_LE_AnimationEvent != null)
         {
             adapter_LE_AnimationEvent(e);
         }

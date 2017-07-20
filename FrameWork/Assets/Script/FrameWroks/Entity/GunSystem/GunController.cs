@@ -8,9 +8,15 @@ public class GunController : MonoBehaviour, ItemInputSystem {
     public Gun[] allGuns;
     Gun currentGun;
 
+    LEUnitCentralPanel cp;
+    LE_Animation_Event_shootInfo info = new LE_Animation_Event_shootInfo();
+
     private void Start()
     {
-        EquipGun(allGuns[2]);
+        cp = GetComponent<LEUnitCentralPanel>();
+        info.Init();
+
+        EquipGun(allGuns[0]);
     }
 
     public void EquipGunIndex(int index)
@@ -30,12 +36,16 @@ public class GunController : MonoBehaviour, ItemInputSystem {
 
     public void GetKey_A()
     {
+        info.isShoot = true;
         OnTriggerHold();
+        cp.Rise_LE_Animation_Event(info);
     }
 
     public void GetKey_A_Up()
     {
+        info.isShoot = false;
         OnTriggerRelease();
+        cp.Rise_LE_Animation_Event(info);
     }
 
     public void GetKey_B_Down()
