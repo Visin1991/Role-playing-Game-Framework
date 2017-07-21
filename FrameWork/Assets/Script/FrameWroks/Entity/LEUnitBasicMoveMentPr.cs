@@ -55,7 +55,8 @@ public class LEUnitBasicMoveMentPr : MonoBehaviour {
             { 
                 MoveDirection();
                 CalculateMoveSpeed_();
-                TurnAroundBasedOn_CameraDir();
+                if (cp.Adapter_LE_InputVH != Vector2.zero){TurnAroundBasedOn_CameraDir();}
+                //LookAroundMouseDir();
             }
 
             // First Person Camera
@@ -69,7 +70,6 @@ public class LEUnitBasicMoveMentPr : MonoBehaviour {
                 TurnAround();
             }
 
-          
             info.moveSpeed = currentSpeed / maxSpeed;
             cp.Rise_LE_Animation_Event(info);
         }
@@ -100,7 +100,7 @@ public class LEUnitBasicMoveMentPr : MonoBehaviour {
 
     void MoveDirection()
     {
-        velocityNor = cp.Adapter_LE_mainBody.forward;
+        velocityNor = cp.Adapter_LE_mainBody.forward *  Mathf.Sign(cp.Adapter_LE_InputVH.x);
     }
 
     void CalculateMoveSpeed_()
@@ -118,6 +118,16 @@ public class LEUnitBasicMoveMentPr : MonoBehaviour {
     {
         float targetDegree = Mathf.Atan2(cp.Adapter_LE_InputVH.x,cp.Adapter_LE_InputVH.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
         cp.Adapter_LE_mainBody.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(cp.Adapter_LE_mainBody.eulerAngles.y, targetDegree, ref turnSmoothVelocity, reactionSpped);
+    }
+
+    void LookAroundMouseDir()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 mousePos = Visin1_1.MouseAndCamera.GetMouseGroundIntersectionPoint();
+            mousePos.y = cp.Adapter_LE_mainBody.position.y;
+            cp.Adapter_LE_mainBody.LookAt(mousePos);
+        }
     }
 
     void TurnAround()

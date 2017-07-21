@@ -32,11 +32,7 @@ namespace Visin1_1
 
         [SerializeField]
         public List<IntValueEnter> intValuesEnter = new List<IntValueEnter>();
-        
-        private delegate void EnterDelWP(LEUnitAnimatorPr controller,params object[] objs);
-        private EnterDelWP enterDelsWP;
-        [SerializeField]
-        public List<WPCallback> enterWPCallbackIndices = new List<WPCallback>();
+       
         
         private void OnEnable()
         {

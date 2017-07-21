@@ -7,6 +7,9 @@ public class SuperManAnimator : LEUnitAnimatorPr {
 
     float RotateAngle;
 
+    private delegate void UpdateDel();
+    UpdateDel updateDel;
+
     protected override void Start()
     {
         base.Start();
@@ -34,7 +37,13 @@ public class SuperManAnimator : LEUnitAnimatorPr {
 
     public override void CallBack1()
     {
-        Debug.Log("TestA");
+        updateDel -= AnimationLookAtMousePos_Offset;
+        updateDel += AnimationLookAtMousePos_Offset;
+    }
+
+    public override void CallBack2()
+    {
+        updateDel -= AnimationLookAtMousePos_Offset;
     }
 
     void ProcessShootInfo(LE_Animation_Event_shootInfo info)
@@ -58,5 +67,28 @@ public class SuperManAnimator : LEUnitAnimatorPr {
     {
         Debug.LogFormat("SlowDown For {0}秒", info.slowTime);
         Debug.LogFormat("SlowDown Percentage for{0}", info.slowValue);
+    }
+
+    private void Update()
+    {
+        if (updateDel != null)
+        {
+            updateDel();
+        }
+    }
+
+    void AnimationLookAtMousePos_Offset()
+    {
+        Vector3 mousePos = Visin1_1.MouseAndCamera.GetMouseGroundIntersectionPoint();
+
+        mousePos.y = cp.Adapter_LE_mainBody.position.y;
+
+        Vector3 toMouseVector = mousePos - cp.Adapter_LE_mainBody.position;
+
+        Vector3 destVector = Visin1_1.WeiVector3.RotateVectorAround(toMouseVector, Vector3.up, 40);
+
+        Vector3 destPos = cp.Adapter_LE_mainBody.position + destVector;
+        
+        cp.Adapter_LE_mainBody.LookAt(destPos);
     }
 }

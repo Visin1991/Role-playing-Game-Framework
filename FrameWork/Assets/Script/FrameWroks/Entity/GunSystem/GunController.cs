@@ -36,9 +36,11 @@ public class GunController : MonoBehaviour, ItemInputSystem {
 
     public void GetKey_A()
     {
+        //LookAroundMouseDir();
         info.isShoot = true;
         OnTriggerHold();
         cp.Rise_LE_Animation_Event(info);
+        
     }
 
     public void GetKey_A_Up()
@@ -80,4 +82,13 @@ public class GunController : MonoBehaviour, ItemInputSystem {
         }
     }
 
+    void LookAroundMouseDir()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 mousePos = Visin1_1.MouseAndCamera.GetMouseGroundIntersectionPoint();
+            mousePos.y = cp.Adapter_LE_mainBody.position.y;
+            cp.Adapter_LE_mainBody.LookAt(mousePos);
+        }
+    }
 }

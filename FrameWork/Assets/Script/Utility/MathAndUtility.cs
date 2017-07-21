@@ -180,7 +180,7 @@ namespace Visin1_1
             else return new Vector3(0.0f, 0.0f, 0.0f); //only if the screen parralel or opsite with the ground
         }
 
-        public static void TramsformLookAtMouseGroundIntersection(Transform tramsform)
+        public static void TramsformLookAtMouseGroundIntersection(ref Transform tramsform)
         {
             Vector3 intersectpoint = GetMouseGroundIntersectionPoint();
             tramsform.LookAt(new Vector3(intersectpoint.x, tramsform.position.y, intersectpoint.z));

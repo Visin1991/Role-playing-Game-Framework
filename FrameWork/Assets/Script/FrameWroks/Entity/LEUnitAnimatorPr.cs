@@ -6,10 +6,11 @@ using UnityEngine;
 public abstract class LEUnitAnimatorPr : MonoBehaviour {
 
     protected Animator animator;
+    protected LEUnitCentralPanel cp;
+    // Use this for initialization
+    protected virtual void Start () {
 
-	// Use this for initialization
-	protected virtual void Start () {
-        LEUnitCentralPanel cp = GetComponent<LEUnitCentralPanel>();
+        cp = GetComponent<LEUnitCentralPanel>();
         cp.Bind_LE_Animation_Event_MailBox(MailBox_LE_AnimationEvent);
 
         animator = GetComponent<Animator>();
@@ -25,5 +26,9 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
     protected abstract void MailBox_LE_AnimationEvent(LE_Animation_Event e);
 
     [Visin1_1.AMBCallback()]
-    public abstract void CallBack1();
+    public virtual void CallBack1() { }
+
+    [Visin1_1.AMBCallback()]
+    public virtual void CallBack2() { }
+
 }

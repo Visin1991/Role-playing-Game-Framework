@@ -246,11 +246,11 @@ namespace Visin1_1
                         {
                             GUILayout.Label("AC WP Callbacks Enter");
                             GUI.color = Color.green;
-                            if (GUILayout.Button("Add")) { if (amb.enterWPCallbackIndices.Count < functionNames.Length) { AMB.WPCallback wpCallback = new AMB.WPCallback(); amb.enterWPCallbackIndices.Add(wpCallback); } }
+                            //if (GUILayout.Button("Add")) { if (amb.enterWPCallbackIndices.Count < functionNames.Length) { AMB.WPCallback wpCallback = new AMB.WPCallback(); amb.enterWPCallbackIndices.Add(wpCallback); } }
                             GUI.color = Color.white;
                         }
                         GUILayout.EndHorizontal();
-                        DrawEnterWPCallbacksEnum(functionNames, parameterInfos);
+                        //DrawEnterWPCallbacksEnum(functionNames, parameterInfos);
                     }
                     GUILayout.EndVertical();
                 }
@@ -292,6 +292,7 @@ namespace Visin1_1
             }
         }
 
+        /*
         void DrawEnterWPCallbacksEnum(string[] functionNames, List<ParameterInfo[]> parametInfos)
         {
             
@@ -321,6 +322,7 @@ namespace Visin1_1
                 GUILayout.EndVertical();
            }
         }
+        */
 
         #endregion
 
