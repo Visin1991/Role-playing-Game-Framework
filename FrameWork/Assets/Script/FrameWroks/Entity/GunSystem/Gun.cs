@@ -44,12 +44,8 @@ public class Gun : MonoBehaviour
 
     Transform leftHand;
 
-    
-    
-
     void Start()
     {
-        Debug.Log("Gun Start");
         shootsRemainingInBurst = burstCount;
         muzzleFlash = GetComponent<MuzzleFlash>();
         projectilesRemainingInMag = projectilesPerMag;
@@ -57,7 +53,6 @@ public class Gun : MonoBehaviour
         if (leftHand == null) { leftHand = transform.root.GetComponentInChildren<LeftHandHolder>().transform; }
         Invoke("AlignTarget", 0.2f);
     }
-
 
     void LateUpdate()
     {
@@ -115,7 +110,8 @@ public class Gun : MonoBehaviour
             muzzleFlash.Activate();
             transform.localPosition -= Vector3.forward * Random.Range(recoilMoveMinMax.x, recoilMoveMinMax.y);
 
-            AudioManager.instance.PlaySound(shootAudio, transform.position);
+            if(AudioManager.instance != null)
+                AudioManager.instance.PlaySound(shootAudio, transform.position);
 
         }
     }
@@ -125,7 +121,8 @@ public class Gun : MonoBehaviour
         if (!isReloading)
         {
             StartCoroutine(AnimateReload());
-            AudioManager.instance.PlaySound(reloadAudio, transform.position);
+            if (AudioManager.instance != null)
+                AudioManager.instance.PlaySound(reloadAudio, transform.position);
         }
 
     }
@@ -165,11 +162,10 @@ public class Gun : MonoBehaviour
         shootsRemainingInBurst = burstCount;
     }
 
-    Vector3 offset = new Vector3(0f, 0.04f, 0f);
+    Vector3 offset = new Vector3(0f, 0.1f, 0f);
 
     public void AlignTarget()
     {
-        Debug.Log("AlignTarget Gun");
         transform.LookAt(leftHand.position - offset);
     }
 }

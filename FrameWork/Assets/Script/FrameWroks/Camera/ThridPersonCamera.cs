@@ -46,9 +46,9 @@ namespace Visin1_1
         public void LateUpdateCamera()
         {
             //Add detal Camera Value each frame
-            yaw += detal_yaw;
-            pitch += detal_pitch;
-            dstToTarget += detal_dstToTarget;
+            yaw += detal_yaw * cameraMoveSensitivity;
+            pitch += detal_pitch * cameraMoveSensitivity;
+            dstToTarget += detal_dstToTarget * cameraMoveSensitivity;
 
             pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
             dstToTarget = Mathf.Clamp(dstToTarget, rangeToTarget.x, rangeToTarget.y);

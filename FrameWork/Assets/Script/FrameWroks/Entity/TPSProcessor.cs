@@ -9,6 +9,8 @@ public class TPSProcessor : LEUnitProcessor {
     private Vector2 inputVH;
 
     private float delta_dstToTarget;
+    private float delta_yaw;
+    private float delta_pitch;
 
     LE_Camera_Event_UpdateVlaue cameraDelta;
 
@@ -39,12 +41,16 @@ public class TPSProcessor : LEUnitProcessor {
     private void Update()
     {
         UpdateInput();
-        if (inputVH != Vector2.zero && delta_dstToTarget != 0)
+        if (delta_dstToTarget != 0 || delta_pitch != 0 || delta_yaw != 0)
         {
-            cameraDelta.delta_pitch = inputVH.x;
-            cameraDelta.delta_yaw = inputVH.y;
+            cameraDelta.delta_pitch = delta_yaw;
+            cameraDelta.delta_yaw = delta_pitch;
             cameraDelta.delta_dstToTarget = delta_dstToTarget;
+
             centralPanel.Rise_LE_CameraManager_Event(cameraDelta);
+
+            delta_yaw = 0;
+            delta_pitch = 0;
         }
     }
 
@@ -99,7 +105,14 @@ public class TPSProcessor : LEUnitProcessor {
 #else
         inputVH.x = CrossPlatformInputManager.GetAxisRaw("Horizontal");
         inputVH.y = CrossPlatformInputManager.GetAxisRaw("Vertical");
+
         delta_dstToTarget = Input.GetAxis("Mouse ScrollWheel");
+
+        if (Input.GetMouseButton(1))
+        {
+            delta_yaw = -Input.GetAxis("Mouse Y");
+            delta_pitch = Input.GetAxis("Mouse X");
+        }
 
         StandaredKeyInput();
 #endif
@@ -121,13 +134,12 @@ public class TPSProcessor : LEUnitProcessor {
     protected  void StandaredKeyInput()
     {
 
-        if (Input.GetKey(Key_A))
+        if (Input.GetMouseButton(0))
         {
-           
             itemInput.GetKey_A();
         }
 
-        if (Input.GetKeyUp(Key_A))
+        if (Input.GetMouseButtonUp(0))
         {
             itemInput.GetKey_A_Up();
         }
@@ -136,6 +148,8 @@ public class TPSProcessor : LEUnitProcessor {
         {
             itemInput.GetKey_B_Down();
         }
+
+
     }
 
     //===============================================

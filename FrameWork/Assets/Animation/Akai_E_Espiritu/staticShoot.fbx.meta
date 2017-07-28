@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 5739ebb6d0c684449bd93783594c0d6b
-timeCreated: 1500234314
+guid: 87c15abd693692d4f989ab06c5552c49
+timeCreated: 1501277768
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
@@ -167,14 +167,14 @@ ModelImporter:
       name: staticShoot
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 17
+      lastFrame: 35
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
