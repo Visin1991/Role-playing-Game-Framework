@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour, ItemInputSystem {
 
-    public Transform GunHolder;
+    Transform GunHolder;
     public Gun[] allGuns;
     Gun currentGun;
 
@@ -13,6 +13,7 @@ public class GunController : MonoBehaviour, ItemInputSystem {
 
     private void Start()
     {
+        GunHolder = GetComponentInChildren<RightHandHolder>().transform;
         cp = GetComponent<LEUnitCentralPanel>();
         info.Init();
 
@@ -30,6 +31,7 @@ public class GunController : MonoBehaviour, ItemInputSystem {
         {
             Destroy(currentGun.gameObject);
         }
+
         currentGun = Instantiate(gun, GunHolder.position, GunHolder.rotation) as Gun;
         currentGun.transform.SetParent(GunHolder);
     }

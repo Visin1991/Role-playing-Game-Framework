@@ -10,7 +10,7 @@ namespace Visin1_1
 {
     public class CameraManager : MonoBehaviour
     {
-        public LEUnitCentralPanel cp;
+        private LEUnitCentralPanel cp;
 
         public CameraType cameraType = CameraType.FirstPerson;
 
@@ -53,5 +53,6 @@ namespace Visin1_1
                 currentCamera.SetCameraDetal((LE_Camera_Event_UpdateVlaue)e);
             }
         }
+
     }
 }

@@ -42,22 +42,30 @@ public class Gun : MonoBehaviour
     Vector3 recoilSmoothDampVelocity;
     float recoilRotationDegreeSmoothDampVelocity;
 
+    Transform leftHand;
+
+    
+    
+
     void Start()
     {
+        Debug.Log("Gun Start");
         shootsRemainingInBurst = burstCount;
         muzzleFlash = GetComponent<MuzzleFlash>();
         projectilesRemainingInMag = projectilesPerMag;
+
+        if (leftHand == null) { leftHand = transform.root.GetComponentInChildren<LeftHandHolder>().transform; }
+        Invoke("AlignTarget", 0.2f);
     }
 
 
     void LateUpdate()
     {
+        
         //animate recoil
         transform.localPosition = Vector3.SmoothDamp(transform.localPosition, Vector3.zero, ref recoilSmoothDampVelocity, recoilMoveSettleTime);
-        recoilAngle = Mathf.SmoothDamp(recoilAngle, 0, ref recoilRotationDegreeSmoothDampVelocity, recoilRotionSettleTime);
         if (!isReloading)
         {
-            transform.localEulerAngles = Vector3.zero + Vector3.left * recoilAngle;
             if (projectilesRemainingInMag == 0)
             {
                 Reload();
@@ -67,6 +75,8 @@ public class Gun : MonoBehaviour
 
     void Shoot()
     {
+        AlignTarget();
+
         if (!isReloading && Time.time > nextShootTime && projectilesRemainingInMag > 0)
         {
            
@@ -104,8 +114,6 @@ public class Gun : MonoBehaviour
             Instantiate(shell, shellEjection.position, shellEjection.rotation);
             muzzleFlash.Activate();
             transform.localPosition -= Vector3.forward * Random.Range(recoilMoveMinMax.x, recoilMoveMinMax.y);
-            recoilAngle += Random.Range(recoilAngleMinMax.x, recoilAngleMinMax.y);
-            recoilAngle = Mathf.Clamp(recoilAngle, 0, 20);
 
             AudioManager.instance.PlaySound(shootAudio, transform.position);
 
@@ -155,5 +163,13 @@ public class Gun : MonoBehaviour
     {
         triggerReleasedSinceLastShot = true;
         shootsRemainingInBurst = burstCount;
+    }
+
+    Vector3 offset = new Vector3(0f, 0.04f, 0f);
+
+    public void AlignTarget()
+    {
+        Debug.Log("AlignTarget Gun");
+        transform.LookAt(leftHand.position - offset);
     }
 }
