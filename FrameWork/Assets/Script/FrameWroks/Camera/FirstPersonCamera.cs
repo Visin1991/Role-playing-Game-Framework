@@ -158,5 +158,16 @@ namespace Visin1_1
             }
             return Mathf.Clamp(angle, min, max);
         }
+
+        public float detal_yaw;
+        public float detal_pitch;
+        public float detal_dstToTarget;
+
+        public void SetCameraDetal(LE_Camera_Event_UpdateVlaue e)
+        {
+            detal_yaw = e.delta_yaw;
+            detal_pitch = e.delta_pitch;
+            detal_dstToTarget = e.delta_dstToTarget;
+        }
     }
 }

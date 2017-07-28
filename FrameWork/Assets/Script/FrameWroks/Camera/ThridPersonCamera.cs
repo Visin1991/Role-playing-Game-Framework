@@ -23,7 +23,7 @@ namespace Visin1_1
         [SerializeField] private Transform target;
         [SerializeField] private Vector2 rangeToTarget = new Vector2(2, 10);
         [SerializeField] private float cameraMoveSensitivity = 10;
-        private float dstToTarget = 10;
+        private float dstToTarget = 5;
 
         private float yaw;  //Rotation around Y Axis
         private float pitch = 75;//Rotation around X Axis
@@ -41,53 +41,40 @@ namespace Visin1_1
 
         }
 
+        
+
         public void LateUpdateCamera()
         {
-#if UNITY_IOS || UNITY_ANDROID
-            Vector2 yawPitch = TouchLib.GetSwipe2D() * cameraMoveSensitivity;
-            yaw += yawPitch.x;
-            pitch -= yawPitch.y;
+            //Add detal Camera Value each frame
+            yaw += detal_yaw;
+            pitch += detal_pitch;
+            dstToTarget += detal_dstToTarget;
+
             pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
-            dstToTarget += TouchLib.GetDeltaMagnitudeDifferent();
             dstToTarget = Mathf.Clamp(dstToTarget, rangeToTarget.x, rangeToTarget.y);
-#elif UNITY_STANDALONE
-            if (XboxPad)
-            {
-                yaw += Input.GetAxis("RXAxis") * cameraMoveSensitivity;
-                pitch -= Input.GetAxis("RYAxis") * cameraMoveSensitivity;
-                pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
-                dstToTarget += Input.GetAxis("Trigger");
-                dstToTarget = Mathf.Clamp(dstToTarget, rangeToTarget.x, rangeToTarget.y);
-            }
-            else
-            {
-
-                if (cameraRotateModel == CameraRotateModel.Free)
-                {
-                    yaw += Input.GetAxis("Mouse X") * cameraMoveSensitivity;
-                    pitch -= Input.GetAxis("Mouse Y") * cameraMoveSensitivity;
-
-                    pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
-                    dstToTarget = Mathf.Clamp(dstToTarget, rangeToTarget.x, rangeToTarget.y);
-                }
-                else if (cameraRotateModel == CameraRotateModel.KeyBoardRestrict)
-                {
-                    if (Input.GetKey(controlKey))
-                    {
-                        yaw += Input.GetAxis("Mouse X") * cameraMoveSensitivity;
-                        pitch -= Input.GetAxis("Mouse Y") * cameraMoveSensitivity;
-                    }
-
-                    dstToTarget += Input.GetAxis("Mouse ScrollWheel");
-                    pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
-                    dstToTarget = Mathf.Clamp(dstToTarget, rangeToTarget.x, rangeToTarget.y);
-                }                
-            }
-#endif
 
             currentRotation = Vector3.SmoothDamp(currentRotation, new Vector3(pitch, yaw,0), ref rotationSmoothVelocity, rotationSmoothTime);
             transform.eulerAngles = currentRotation;
             transform.position = target.position - transform.forward * dstToTarget;
+
+            //Reset detal value to zero each frame
+            SetCameraDetal(0,0,0);
+        }
+
+        public void SetCameraDetal(float dy, float dp, float dd)
+        {
+            detal_yaw = dy; detal_pitch = dp; detal_dstToTarget = dd;
+        }
+
+        public float detal_yaw;
+        public float detal_pitch;
+        public float detal_dstToTarget;
+
+        public void SetCameraDetal(LE_Camera_Event_UpdateVlaue e)
+        {
+            detal_yaw = e.delta_yaw;
+            detal_pitch = e.delta_pitch;
+            detal_dstToTarget = e.delta_dstToTarget;
         }
 
         public float Yaw

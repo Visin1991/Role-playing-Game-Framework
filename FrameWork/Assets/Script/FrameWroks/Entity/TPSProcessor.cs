@@ -7,6 +7,11 @@ using UnityStandardAssets.CrossPlatformInput;
 public class TPSProcessor : LEUnitProcessor {
 
     private Vector2 inputVH;
+
+    private float delta_dstToTarget;
+
+    LE_Camera_Event_UpdateVlaue cameraDelta;
+
     public string fireButton;
 
     public KeyCode Key_A;
@@ -23,6 +28,9 @@ public class TPSProcessor : LEUnitProcessor {
 
         itemInput = GetComponent<GunController>();
 
+        cameraDelta = new LE_Camera_Event_UpdateVlaue();
+        cameraDelta.Init();
+
         if (centralPanel == null) { Debug.LogError("There is no CentralPanle Please add It"); }
 
         if (itemInput == null) { Debug.LogError("Losing Game System, Please Add Gun System"); }
@@ -31,6 +39,18 @@ public class TPSProcessor : LEUnitProcessor {
     private void Update()
     {
         UpdateInput();
+        if (inputVH != Vector2.zero && delta_dstToTarget != 0)
+        {
+            cameraDelta.delta_pitch = inputVH.x;
+            cameraDelta.delta_yaw = inputVH.y;
+            cameraDelta.delta_dstToTarget = delta_dstToTarget;
+            centralPanel.Rise_LE_CameraManager_Event(cameraDelta);
+        }
+    }
+
+    public void Initial_All_Component()
+    {
+
     }
 
     public override void MailBox_LE_ProcessEvent(LEEvent e)
@@ -79,6 +99,8 @@ public class TPSProcessor : LEUnitProcessor {
 #else
         inputVH.x = CrossPlatformInputManager.GetAxisRaw("Horizontal");
         inputVH.y = CrossPlatformInputManager.GetAxisRaw("Vertical");
+        delta_dstToTarget = Input.GetAxis("Mouse ScrollWheel");
+
         StandaredKeyInput();
 #endif
     }

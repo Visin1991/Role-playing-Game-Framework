@@ -21,6 +21,7 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
     //========================================================
     System.Action<LE_Animation_Event> adapter_LE_AnimationEvent;
     System.Action<LE_UI_Event> adapter_LE_UIEvent;
+    System.Action<LE_Camera_Event> adapter_LE_CameraManager_Event;
 
     [SerializeField] private Transform adapter_LE_mainBody;
     private Vector3 adapter_LE_MoveVeclocity3D;
@@ -35,6 +36,11 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
     protected abstract void ChangeProcessor();
 
     public abstract void MailBox_LE_CentralPanel(LEEvent e);
+
+    public void Intial_All_Component()
+    {
+       
+    }
   
     //========================================================
     //Central Panel External Interface
@@ -50,6 +56,12 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
     {
         adapter_LE_AnimationEvent -= func;
         adapter_LE_AnimationEvent += func;
+    }
+
+    public void Bind_lE_CameraManager_Event_MailBox(System.Action<LE_Camera_Event> func)
+    {
+        adapter_LE_CameraManager_Event -= func;
+        adapter_LE_CameraManager_Event += func;
     }
 
     public Transform Adapter_LE_mainBody { get { return adapter_LE_mainBody; } set { adapter_LE_mainBody = value; } } //主躯干。 一般是物体模型所在的那个物体
@@ -87,5 +99,18 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
             return;
         }
     }
-   
+
+    public void Rise_LE_CameraManager_Event(LE_Camera_Event e)
+    {
+        if (adapter_LE_CameraManager_Event != null)
+        {
+            adapter_LE_CameraManager_Event(e);
+        }
+        else
+        {
+            Debug.LogError(" There is no Subscriber bind to 'adapter_LE_CameraManager_Event' ");
+            return;
+        }
+    }
+
 }

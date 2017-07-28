@@ -278,3 +278,36 @@ public struct SYS_UI_Event_PressSettingButton : SYS_UI_Event
 }
 
 #endregion
+
+#region Camera_Event Define
+public enum LE_Camera_EventType
+{
+    UpdateValue,
+    ChangeCameraType
+}
+
+public interface LE_Camera_Event
+{
+    LE_Camera_EventType Type { get; set; }
+    void Init(); //Because Struct We can't use explicit parameterless constructors
+}
+
+public struct LE_Camera_Event_UpdateVlaue : LE_Camera_Event
+{
+    LE_Camera_EventType type;
+    public LE_Camera_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Camera_EventType.UpdateValue; }
+    public float delta_yaw;
+    public float delta_pitch;
+    public float delta_dstToTarget;
+}
+
+public struct LE_Camera_Event_ChangeCamera : LE_Camera_Event
+{
+    LE_Camera_EventType type;
+    public LE_Camera_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Camera_EventType.ChangeCameraType; }
+    public int cameraType;
+}
+
+#endregion
