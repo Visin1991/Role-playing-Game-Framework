@@ -20,7 +20,6 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
         }
         if (animator == null)
             Debug.LogError("There is no Animator in this Object, or its children");
-
     }
    
     protected abstract void MailBox_LE_AnimationEvent(LE_Animation_Event e);

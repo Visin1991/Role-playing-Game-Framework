@@ -2,19 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 自动化计划目标：
-///     
-/// </summary>
-//Living Entity Unity Central Panel
-// Living Entity单位 的中心主板， 相当于电脑中连接 鼠标键盘显示器等等一系列东西的中介
-// 在此处连接 动画UI 控制键输入等等。。。。
-//
-//把 Processor 从Central Panel 中抽出来的好处：
-//     1.随时更换 Processor.
+
 public abstract class LEUnitCentralPanel : MonoBehaviour{
 
-    //主板的基层Class 绑定一个processor 基层接口。
+
     protected LEUnitProcessor currentProcessor;
     //========================================================
     //LivingEntity external Adapter
@@ -22,6 +13,7 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
     System.Action<LE_Animation_Event> adapter_LE_AnimationEvent;
     System.Action<LE_UI_Event> adapter_LE_UIEvent;
     System.Action<LE_Camera_Event> adapter_LE_CameraManager_Event;
+    System.Action<LE_BasicMovement_Event> adapter_LE_BasicMovement_Event;
 
     [SerializeField] private Transform adapter_LE_mainBody;
     private Vector3 adapter_LE_MoveVeclocity3D;
@@ -50,6 +42,12 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
     {
         adapter_LE_UIEvent -= func;
         adapter_LE_UIEvent += func;
+    }
+
+    public void Bind_LE_BasicMovement_Event_MailBox(System.Action<LE_BasicMovement_Event> func)
+    {
+        adapter_LE_BasicMovement_Event -= func;
+        adapter_LE_BasicMovement_Event += func;
     }
 
     public void Bind_LE_Animation_Event_MailBox(System.Action<LE_Animation_Event> func)
@@ -109,6 +107,19 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
         else
         {
             Debug.LogError(" There is no Subscriber bind to 'adapter_LE_CameraManager_Event' ");
+            return;
+        }
+    }
+
+    public void Rise_LE_BasicMovement_Event(LE_BasicMovement_Event e)
+    {
+        if (adapter_LE_BasicMovement_Event != null)
+        {
+            adapter_LE_BasicMovement_Event(e);
+        }
+        else
+        {
+            Debug.LogError("There is no Subscriber bind to the BasicMovement Event");
             return;
         }
     }

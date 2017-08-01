@@ -148,7 +148,8 @@ public struct LE_Animation_Event_moveInfo : LE_Animation_Event
     LE_Animation_EventType type;
     public LE_Animation_EventType Type { get { return type; } set { type = value; } }
     public void Init() { type = LE_Animation_EventType.moveInfo; }
-    public float moveSpeed;
+    public float forward;
+    public float strafe;
 }
 
 public struct LE_Animation_Event_shootInfo : LE_Animation_Event
@@ -308,6 +309,40 @@ public struct LE_Camera_Event_ChangeCamera : LE_Camera_Event
     public LE_Camera_EventType Type { get { return type; } set { type = value; } }
     public void Init() { type = LE_Camera_EventType.ChangeCameraType; }
     public int cameraType;
+}
+
+#endregion
+
+#region Movement Define
+
+public enum LE_BasicMovement_EventType
+{
+    UpdateBasicInfo,
+    Strafe
+}
+
+public interface LE_BasicMovement_Event
+{
+    LE_BasicMovement_EventType Type { get; set; }
+    void Init(); //Because Struct We can't use explicit parameterless constructors
+}
+
+public struct LE_BasicMovement_Event_Info : LE_BasicMovement_Event
+{
+    LE_BasicMovement_EventType type;
+    public LE_BasicMovement_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_BasicMovement_EventType.UpdateBasicInfo; }
+    public Vector2 InputVH;
+}
+
+public struct LE_BasicMovement_Event_Strafe : LE_BasicMovement_Event
+{
+    //Strafe event will tell the character movement will not depends on the Camera facing direction.
+    //It will fully depends on the Input
+    LE_BasicMovement_EventType type;
+    public LE_BasicMovement_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_BasicMovement_EventType.Strafe; }
+    public bool strafe;
 }
 
 #endregion
