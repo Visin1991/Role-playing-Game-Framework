@@ -16,9 +16,9 @@ public class Akai_Animation : LEUnitAnimatorPr
         {
             ProcessMovementInfo((LE_Animation_Event_moveInfo)e);
         }
-        else if (e.Type == LE_Animation_EventType.shootInfo)
+        else if (e.Type == LE_Animation_EventType.getInput)
         {
-            ProcessShootInfo((LE_Animation_Event_shootInfo)e);
+            ProcessInputInfo((LE_Animation_Event_GetInput)e);
         }
         else if (e.Type == LE_Animation_EventType.changeStatu)
         {
@@ -34,9 +34,9 @@ public class Akai_Animation : LEUnitAnimatorPr
         }
     }
 
-    void ProcessShootInfo(LE_Animation_Event_shootInfo info)
-    { 
-        animator.SetBool("Shoot", info.isShoot);
+    void ProcessInputInfo(LE_Animation_Event_GetInput info)
+    {
+        animator.SetBool(info.inputIndex.ToString(),info.InputValue);
     }
 
     void ProcessMovementInfo(LE_Animation_Event_moveInfo info)
@@ -49,14 +49,7 @@ public class Akai_Animation : LEUnitAnimatorPr
 
     void ProcessChangeStatu(LE_Animation_Event_ChangeStatu changeStatu)
     {
-        if (changeStatu.statu == LE_AnimationStatuType.holdGun)
-        {
-            animator.SetBool("HoldGun", true);
-        }
-        else
-        {
-            animator.SetBool("HoldGun", false);
-        }
+        animator.SetInteger("StatuType", (int)changeStatu.statu);
     }
 
     void StunAnimation(LE_Animation_Event_Stun stun)
@@ -71,13 +64,4 @@ public class Akai_Animation : LEUnitAnimatorPr
         Debug.LogFormat("SlowDown Percentage for{0}", info.slowValue);
     }
 
-    public override void CallBack1()
-    {
-
-    }
-
-    public override void CallBack2()
-    {
-
-    }
 }

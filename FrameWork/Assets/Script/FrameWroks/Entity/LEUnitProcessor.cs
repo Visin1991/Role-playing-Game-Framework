@@ -15,11 +15,11 @@ public abstract class LEUnitProcessor : MonoBehaviour {
 
     public abstract void MailBox_LE_ProcessEvent(LEEvent_StartFlyModel e);
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartShootGunModel e);
+    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartHoldGunModel e);
 
     public abstract void MailBox_LE_ProcessEvent(LEEvent_StartMeleeModel e);
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartNormalModel e);
+    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartNonModel e);
 
     public abstract Vector2 InputVH { get; }
 }

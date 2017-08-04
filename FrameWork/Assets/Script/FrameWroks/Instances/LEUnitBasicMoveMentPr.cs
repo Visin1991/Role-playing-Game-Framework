@@ -22,8 +22,12 @@ public class LEUnitBasicMoveMentPr : LEUnitBasicMoveMent
     float speedSmoothVelocity;
     public float reactionSpped;
 
+    bool enable = true;
+
 	void Update () {
         if (!initalSucced) return;
+
+        if (enable == false) { return; }
 
         if (drivenByInput)
         {
@@ -102,6 +106,14 @@ public class LEUnitBasicMoveMentPr : LEUnitBasicMoveMent
         else if (e.Type == LE_BasicMovement_EventType.UpdateBasicInfo)
         {
             ProcessBasicInfo((LE_BasicMovement_Event_Info)e);
+        }
+        else if (e.Type == LE_BasicMovement_EventType.Enable)
+        {
+            enable = true;
+        }
+        else if (e.Type == LE_BasicMovement_EventType.Disable)
+        {
+            enable = false;
         }
     }
 

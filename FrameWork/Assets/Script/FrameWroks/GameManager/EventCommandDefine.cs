@@ -4,6 +4,14 @@ using UnityEngine;
 using System.Runtime.CompilerServices;
 using System.Linq;
 
+public enum InputIndex
+{
+    A,
+    B,
+    C,
+    D
+}
+
 #region LivingEntity Event Define
 
 public enum LEEventType
@@ -13,9 +21,9 @@ public enum LEEventType
     Sleep,
     StartDrive,
     StartFlyModel,
-    StartShootGunModel,
+    StartHoldGunModel,
     StartMeleeModel,
-    StartNormalModel
+    StartNonModel
 }
 
 public interface LEEvent
@@ -61,11 +69,11 @@ public struct LEEvent_StartFlyModel : LEEvent
     public void Init() { type = LEEventType.StartFlyModel; }
 }
 
-public struct LEEvent_StartShootGunModel : LEEvent
+public struct LEEvent_StartHoldGunModel : LEEvent
 {
     LEEventType type;
     public LEEventType Type { get { return type; } set { type = value; } }
-    public void Init() { type = LEEventType.StartShootGunModel; }
+    public void Init() { type = LEEventType.StartHoldGunModel; }
 }
 
 public struct LEEvent_StartMeleeModel : LEEvent
@@ -75,11 +83,11 @@ public struct LEEvent_StartMeleeModel : LEEvent
     public void Init() { type = LEEventType.StartMeleeModel; }
 }
 
-public struct LEEvent_StartNormalModel : LEEvent
+public struct LEEvent_StartNonModel : LEEvent
 {
     LEEventType type;
     public LEEventType Type { get { return type; } set { type = value; } }
-    public void Init() { type = LEEventType.StartNormalModel; }
+    public void Init() { type = LEEventType.StartNonModel; }
 }
 
 #endregion
@@ -138,7 +146,7 @@ public struct Damage_Stun : Damage
 public enum LE_Animation_EventType
 {
     moveInfo,
-    shootInfo,
+    getInput,
     changeStatu,
     Stun,
     SlowDown,
@@ -149,6 +157,7 @@ public enum LE_Animation_EventType
 public enum LE_AnimationStatuType
 {
     normal,
+    melee,
     holdGun
 }
 
@@ -167,12 +176,13 @@ public struct LE_Animation_Event_moveInfo : LE_Animation_Event
     public float strafe;
 }
 
-public struct LE_Animation_Event_shootInfo : LE_Animation_Event
+public struct LE_Animation_Event_GetInput : LE_Animation_Event
 {
     LE_Animation_EventType type;
     public LE_Animation_EventType Type { get { return type; } set { type = value; } }
-    public void Init() { type = LE_Animation_EventType.shootInfo; }
-    public bool isShoot;
+    public void Init() { type = LE_Animation_EventType.getInput; }
+    public InputIndex inputIndex;
+    public bool InputValue;
 }
 
 public struct LE_Animation_Event_ChangeStatu : LE_Animation_Event
@@ -340,7 +350,9 @@ public struct LE_Camera_Event_ChangeCamera : LE_Camera_Event
 public enum LE_BasicMovement_EventType
 {
     UpdateBasicInfo,
-    Strafe
+    Strafe,
+    Enable,
+    Disable
 }
 
 public interface LE_BasicMovement_Event
@@ -366,5 +378,25 @@ public struct LE_BasicMovement_Event_Strafe : LE_BasicMovement_Event
     public void Init() { type = LE_BasicMovement_EventType.Strafe; }
     public bool strafe;
 }
+
+public struct LE_BasicMovement_Event_Enable : LE_BasicMovement_Event
+{
+    //Strafe event will tell the character movement will not depends on the Camera facing direction.
+    //It will fully depends on the Input
+    LE_BasicMovement_EventType type;
+    public LE_BasicMovement_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_BasicMovement_EventType.Enable; }
+}
+
+public struct LE_BasicMovement_Event_Disable : LE_BasicMovement_Event
+{
+    //Strafe event will tell the character movement will not depends on the Camera facing direction.
+    //It will fully depends on the Input
+    LE_BasicMovement_EventType type;
+    public LE_BasicMovement_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_BasicMovement_EventType.Disable; }
+}
+
+
 
 #endregion

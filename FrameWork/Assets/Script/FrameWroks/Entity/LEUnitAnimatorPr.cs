@@ -25,9 +25,17 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
     protected abstract void MailBox_LE_AnimationEvent(LE_Animation_Event e);
 
     [Visin1_1.AMBCallback()]
-    public virtual void CallBack1() { }
+    public virtual void EnableBasicMoveMent() {
+        LE_BasicMovement_Event_Enable enable = new LE_BasicMovement_Event_Enable();
+        enable.Init();
+        cp.Rise_LE_BasicMovement_Event(enable);
+    }
 
     [Visin1_1.AMBCallback()]
-    public virtual void CallBack2() { }
+    public virtual void DisableBasicMovement() {
+        LE_BasicMovement_Event_Disable basicDisable = new LE_BasicMovement_Event_Disable();
+        basicDisable.Init();
+        cp.Rise_LE_BasicMovement_Event(basicDisable);
+    }
 
 }

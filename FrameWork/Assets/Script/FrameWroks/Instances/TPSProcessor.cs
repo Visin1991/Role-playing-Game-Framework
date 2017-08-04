@@ -29,7 +29,7 @@ public class TPSProcessor : LEUnitProcessor {
 
     ItemInputSystem itemInput;
 
-    bool holdGun = false;
+    int statu = 0;
 
     private void Start() 
     {
@@ -130,10 +130,17 @@ public class TPSProcessor : LEUnitProcessor {
     {
         if (itemInput == null) { return; }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            itemInput.GetKey_A_Down();
+        }
+
         if (Input.GetMouseButton(0))
         {
             itemInput.GetKey_A();
         }
+
+        
 
         if (Input.GetMouseButtonUp(0))
         {
@@ -188,10 +195,17 @@ public class TPSProcessor : LEUnitProcessor {
 
     public override void MailBox_LE_ProcessEvent(LEEvent_StartMeleeModel e)
     {
+        //1. Change The the item Input System
+        ItemInputSystem meleeInputSys = transform.GetComponent<MeleeWeaponController>();
+        ChangeItemInputSystem(meleeInputSys);
+
+        //2. Change the Animation Status
+        changeAnimationStatu.statu = LE_AnimationStatuType.melee;
+        centralPanel.Rise_LE_Animation_Event(changeAnimationStatu);
 
     }
 
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartShootGunModel e)
+    public override void MailBox_LE_ProcessEvent(LEEvent_StartHoldGunModel e)
     {
         //1. Change The the item Input System
         ItemInputSystem gunInputSys = transform.GetOrAddComponent<GunController>();
@@ -202,7 +216,7 @@ public class TPSProcessor : LEUnitProcessor {
         centralPanel.Rise_LE_Animation_Event(changeAnimationStatu);
     }
 
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartNormalModel e)
+    public override void MailBox_LE_ProcessEvent(LEEvent_StartNonModel e)
     {
         ChangeItemInputSystem(null);
 
@@ -217,20 +231,29 @@ public class TPSProcessor : LEUnitProcessor {
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (!holdGun)
+           
+            if (statu == 1)
             {
-                LEEvent_StartShootGunModel e = new LEEvent_StartShootGunModel();
+                LEEvent_StartHoldGunModel e = new LEEvent_StartHoldGunModel();
+                e.Init();
+                MailBox_LE_ProcessEvent(e);
+            }
+            else if (statu == 2)
+            {
+                LEEvent_StartMeleeModel e = new LEEvent_StartMeleeModel();
                 e.Init();
                 MailBox_LE_ProcessEvent(e);
             }
             else
             {
-                LEEvent_StartNormalModel e = new LEEvent_StartNormalModel();
+                LEEvent_StartNonModel e = new LEEvent_StartNonModel();
                 e.Init();
                 MailBox_LE_ProcessEvent(e);
             }
-            holdGun = !holdGun;
-
+            statu += 1;
+            statu %= 3;
         }
+
+
     }
 }

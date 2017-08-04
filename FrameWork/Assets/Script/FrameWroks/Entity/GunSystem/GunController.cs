@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class GunController :  ItemInputSystem {
     Gun currentGun;
 
     LEUnitCentralPanel cp;
-    LE_Animation_Event_shootInfo info = new LE_Animation_Event_shootInfo();
+    LE_Animation_Event_GetInput info;
 
     private void OnEnable()
     {
@@ -33,6 +34,7 @@ public class GunController :  ItemInputSystem {
         {
             Destroy(currentGun.gameObject);
         }
+        GetKey_A_Up();
     }
 
     public void EquipGunIndex(int index)
@@ -51,10 +53,16 @@ public class GunController :  ItemInputSystem {
         currentGun.transform.SetParent(GunHolder);
     }
 
+    public override void GetKey_A_Down()
+    {
+        
+    }
+
     public override void GetKey_A()
     {
         //LookAroundMouseDir();
-        info.isShoot = true;
+        info.inputIndex = InputIndex.A;
+        info.InputValue = true;
         OnTriggerHold();
         cp.Rise_LE_Animation_Event(info);
         
@@ -62,7 +70,8 @@ public class GunController :  ItemInputSystem {
 
     public override void GetKey_A_Up()
     {
-        info.isShoot = false;
+        info.inputIndex = InputIndex.A;
+        info.InputValue = false;
         OnTriggerRelease();
         cp.Rise_LE_Animation_Event(info);
     }

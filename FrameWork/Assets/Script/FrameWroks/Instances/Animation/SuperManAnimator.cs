@@ -21,9 +21,9 @@ public class SuperManAnimator : LEUnitAnimatorPr {
         {
             ProcessInfo_1( (LE_Animation_Event_moveInfo)e);
         }
-        else if (e.Type == LE_Animation_EventType.shootInfo)
+        else if (e.Type == LE_Animation_EventType.getInput)
         {
-            ProcessShootInfo((LE_Animation_Event_shootInfo)e);
+            ProcessShootInfo((LE_Animation_Event_GetInput)e);
         }
         else if (e.Type == LE_Animation_EventType.Stun)
         {
@@ -35,19 +35,9 @@ public class SuperManAnimator : LEUnitAnimatorPr {
         }
     }
 
-    public override void CallBack1()
+    void ProcessShootInfo(LE_Animation_Event_GetInput info)
     {
-      
-    }
-
-    public override void CallBack2()
-    {
-        
-    }
-
-    void ProcessShootInfo(LE_Animation_Event_shootInfo info)
-    {
-        animator.SetBool("Shoot", info.isShoot);
+        //animator.SetBool("Shoot", info.isShoot);
     }
 
     void ProcessInfo_1(LE_Animation_Event_moveInfo info)

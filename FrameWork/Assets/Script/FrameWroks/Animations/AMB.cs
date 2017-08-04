@@ -170,23 +170,5 @@ namespace Visin1_1
                 value = v;
             }
         }
-
-        /// <summary>
-        ///     For some reason, when we add list of Vector3 or list of int in side the class
-        /// and work with custorm editor. we will just get non-reference error everytime we reopen
-        /// the inspector.
-        /// 
-        ///     when we create a delegate. we should keep the index for each type of parameter.
-        /// make sure the parameters pass by correct order
-        /// </summary>
-        [System.Serializable]
-        public struct WPCallback
-        {
-            [SerializeField] public Vector3[] v3s;
-            [SerializeField] public int[] ints;
-            [SerializeField] public float[] floats;
-            [SerializeField] public bool[] bools;
-        }
-
     }
 }
