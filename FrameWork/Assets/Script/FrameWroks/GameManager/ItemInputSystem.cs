@@ -1,6 +1,8 @@
-﻿
-public interface ItemInputSystem {
-    void GetKey_A();
-    void GetKey_A_Up();
-    void GetKey_B_Down();
+﻿using UnityEngine;
+
+public abstract class ItemInputSystem : MonoBehaviour {
+    public abstract void GetKey_A();
+    public abstract void GetKey_A_Up();
+    public abstract void GetKey_B_Down();
+    public abstract void ShutDown();
 }

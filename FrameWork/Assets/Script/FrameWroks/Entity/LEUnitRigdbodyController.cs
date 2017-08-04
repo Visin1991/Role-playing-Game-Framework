@@ -8,6 +8,8 @@ public class LEUnitRigdbodyController : MonoBehaviour {
     LEUnitCentralPanel cp;
     private Rigidbody rg;
 
+    CapsuleCollider collider;
+
     private void Start()
     {
         cp = GetComponent<LEUnitCentralPanel>();
@@ -17,12 +19,20 @@ public class LEUnitRigdbodyController : MonoBehaviour {
             Debug.LogError("Can not find the LEUnitCP");
 
         rg = transform.GetOrAddComponent<Rigidbody>();
+        collider = GetComponent<CapsuleCollider>();
     }
 
-    private void FixedUpdate()
+    /*
+        private void FixedUpdate()
+        {
+            rg.MovePosition(rg.position + cp.Adapter_MoveVeclocity3D * Time.fixedDeltaTime);
+        }
+    */
+
+    private void Update()
     {
-        rg.MovePosition(rg.position + cp.Adapter_MoveVeclocity3D * Time.fixedDeltaTime);
+        //Debug.DrawRay(transform.position, -Vector3.up * 0.2f, Color.red);
+       // if(Physics.Raycast(transform.position,-Vector3.up * 0.2f,))
     }
-
 
 }

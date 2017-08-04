@@ -20,6 +20,10 @@ public class Akai_Animation : LEUnitAnimatorPr
         {
             ProcessShootInfo((LE_Animation_Event_shootInfo)e);
         }
+        else if (e.Type == LE_Animation_EventType.changeStatu)
+        {
+            ProcessChangeStatu((LE_Animation_Event_ChangeStatu)e);
+        }
         else if (e.Type == LE_Animation_EventType.Stun)
         {
             StunAnimation((LE_Animation_Event_Stun)e);
@@ -41,6 +45,18 @@ public class Akai_Animation : LEUnitAnimatorPr
         animator.SetFloat("Forward", info.forward);
         animator.SetFloat("Strafe", info.strafe);
 
+    }
+
+    void ProcessChangeStatu(LE_Animation_Event_ChangeStatu changeStatu)
+    {
+        if (changeStatu.statu == LE_AnimationStatuType.holdGun)
+        {
+            animator.SetBool("HoldGun", true);
+        }
+        else
+        {
+            animator.SetBool("HoldGun", false);
+        }
     }
 
     void StunAnimation(LE_Animation_Event_Stun stun)

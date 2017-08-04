@@ -14,7 +14,8 @@ public enum LEEventType
     StartDrive,
     StartFlyModel,
     StartShootGunModel,
-    StartMeleeModel
+    StartMeleeModel,
+    StartNormalModel
 }
 
 public interface LEEvent
@@ -74,6 +75,13 @@ public struct LEEvent_StartMeleeModel : LEEvent
     public void Init() { type = LEEventType.StartMeleeModel; }
 }
 
+public struct LEEvent_StartNormalModel : LEEvent
+{
+    LEEventType type;
+    public LEEventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LEEventType.StartNormalModel; }
+}
+
 #endregion
 
 #region Damage Event Define
@@ -131,10 +139,17 @@ public enum LE_Animation_EventType
 {
     moveInfo,
     shootInfo,
+    changeStatu,
     Stun,
     SlowDown,
     Die,
     ReloadBullet
+}
+
+public enum LE_AnimationStatuType
+{
+    normal,
+    holdGun
 }
 
 public interface LE_Animation_Event
@@ -160,6 +175,13 @@ public struct LE_Animation_Event_shootInfo : LE_Animation_Event
     public bool isShoot;
 }
 
+public struct LE_Animation_Event_ChangeStatu : LE_Animation_Event
+{
+    LE_Animation_EventType type;
+    public LE_Animation_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Animation_EventType.changeStatu; }
+    public LE_AnimationStatuType statu;
+}
 
 public struct LE_Animation_Event_Stun : LE_Animation_Event
 {

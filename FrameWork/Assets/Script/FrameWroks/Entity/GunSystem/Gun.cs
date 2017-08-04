@@ -44,14 +44,16 @@ public class Gun : MonoBehaviour
 
     Transform leftHand;
 
+    private void OnEnable()
+    {
+        Invoke("AlignTarget", 0.5f);
+    }
+
     void Start()
     {
         shootsRemainingInBurst = burstCount;
         muzzleFlash = GetComponent<MuzzleFlash>();
         projectilesRemainingInMag = projectilesPerMag;
-
-        if (leftHand == null) { leftHand = transform.root.GetComponentInChildren<LeftHandHolder>().transform; }
-        Invoke("AlignTarget", 0.2f);
     }
 
     void LateUpdate()
@@ -166,6 +168,7 @@ public class Gun : MonoBehaviour
 
     public void AlignTarget()
     {
+        if (leftHand == null) { leftHand = transform.root.GetComponentInChildren<LeftHandHolder>().transform; }
         transform.LookAt(leftHand.position - offset);
     }
 }

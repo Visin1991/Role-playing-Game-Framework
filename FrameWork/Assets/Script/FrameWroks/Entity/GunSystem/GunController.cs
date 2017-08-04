@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunController : MonoBehaviour, ItemInputSystem {
+public class GunController :  ItemInputSystem {
 
     Transform GunHolder;
     public Gun[] allGuns;
@@ -11,13 +11,28 @@ public class GunController : MonoBehaviour, ItemInputSystem {
     LEUnitCentralPanel cp;
     LE_Animation_Event_shootInfo info = new LE_Animation_Event_shootInfo();
 
-    private void Start()
+    private void OnEnable()
+    {
+        InitItems();
+    }
+
+    //private void Start(){InitItems();}
+
+    void InitItems()
     {
         GunHolder = GetComponentInChildren<RightHandHolder>().transform;
         cp = GetComponent<LEUnitCentralPanel>();
         info.Init();
 
         EquipGun(allGuns[0]);
+    }
+
+    public override void ShutDown()
+    {
+        if (currentGun != null)
+        {
+            Destroy(currentGun.gameObject);
+        }
     }
 
     public void EquipGunIndex(int index)
@@ -36,7 +51,7 @@ public class GunController : MonoBehaviour, ItemInputSystem {
         currentGun.transform.SetParent(GunHolder);
     }
 
-    public void GetKey_A()
+    public override void GetKey_A()
     {
         //LookAroundMouseDir();
         info.isShoot = true;
@@ -45,14 +60,14 @@ public class GunController : MonoBehaviour, ItemInputSystem {
         
     }
 
-    public void GetKey_A_Up()
+    public override void GetKey_A_Up()
     {
         info.isShoot = false;
         OnTriggerRelease();
         cp.Rise_LE_Animation_Event(info);
     }
 
-    public void GetKey_B_Down()
+    public override void GetKey_B_Down()
     {
         ReLoad();
     }

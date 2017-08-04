@@ -17,6 +17,7 @@ public class TPSProcessor : LEUnitProcessor {
 
     LE_Camera_Event_UpdateVlaue cameraDelta;
     LE_Animation_Event_moveInfo animationMoveInfo;
+    LE_Animation_Event_ChangeStatu changeAnimationStatu;
     LE_BasicMovement_Event_Strafe basicMovement_Strafe;
 
     public string fireButton;
@@ -28,29 +29,19 @@ public class TPSProcessor : LEUnitProcessor {
 
     ItemInputSystem itemInput;
 
+    bool holdGun = false;
+
     private void Start() 
     {
-
         centralPanel = GetComponent<LEUnitCentralPanel>();
-
-        itemInput = GetComponent<GunController>();
-
-        cameraDelta = new LE_Camera_Event_UpdateVlaue();
-        cameraDelta.Init();
-
-        animationMoveInfo = new LE_Animation_Event_moveInfo();
-        animationMoveInfo.Init();
-
-        basicMovement_Strafe = new LE_BasicMovement_Event_Strafe();
-        basicMovement_Strafe.Init();
-
+        Initial_All_Component();
         if (centralPanel == null) { Debug.LogError("There is no CentralPanle Please add It"); }
-
-        if (itemInput == null) { Debug.LogError("Losing Game System, Please Add Gun System"); }
     }
 
     private void Update()
     {
+        TestForSwitchPlayModel();
+
         UpdateInput();
 
         //Input for Camera
@@ -83,42 +74,14 @@ public class TPSProcessor : LEUnitProcessor {
         }
 
         centralPanel.Rise_LE_Animation_Event(animationMoveInfo);
-
     }
 
     public void Initial_All_Component()
     {
-
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent e)
-    {
-
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_GetDamage e)
-    {
-        
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartDrive e)
-    {
-       
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartFlyModel e)
-    {
-        
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartMeleeModel e)
-    {
-        
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartShootGunModel e)
-    {
-
+        cameraDelta.Init();
+        animationMoveInfo.Init();
+        changeAnimationStatu.Init();
+        basicMovement_Strafe.Init();
     }
 
     public override Vector2 InputVH { get { return inputVH; } }
@@ -187,9 +150,87 @@ public class TPSProcessor : LEUnitProcessor {
 
     //===============================================
 
-    public void ChangeItemInputSystem(ItemInputSystem _itemInput)
+    void ChangeItemInputSystem(ItemInputSystem _itemInput)
     {
+        if (itemInput != null) {
+            itemInput.ShutDown();
+            itemInput.enabled = false;
+        }
         itemInput = _itemInput;
+
+        //Non Item
+        if(itemInput != null)
+            itemInput.enabled = true;
     }
 
+    //===============================================
+    // Mail Box------Event Comb
+    //===============================================
+    public override void MailBox_LE_ProcessEvent(LEEvent e)
+    {
+
+    }
+
+    public override void MailBox_LE_ProcessEvent(LEEvent_GetDamage e)
+    {
+
+    }
+
+    public override void MailBox_LE_ProcessEvent(LEEvent_StartDrive e)
+    {
+
+    }
+
+    public override void MailBox_LE_ProcessEvent(LEEvent_StartFlyModel e)
+    {
+
+    }
+
+    public override void MailBox_LE_ProcessEvent(LEEvent_StartMeleeModel e)
+    {
+
+    }
+
+    public override void MailBox_LE_ProcessEvent(LEEvent_StartShootGunModel e)
+    {
+        //1. Change The the item Input System
+        ItemInputSystem gunInputSys = transform.GetOrAddComponent<GunController>();
+        ChangeItemInputSystem(gunInputSys);
+
+        //2. Change the Animation Status
+        changeAnimationStatu.statu = LE_AnimationStatuType.holdGun;
+        centralPanel.Rise_LE_Animation_Event(changeAnimationStatu);
+    }
+
+    public override void MailBox_LE_ProcessEvent(LEEvent_StartNormalModel e)
+    {
+        ChangeItemInputSystem(null);
+
+        //2. Change the Animation Status
+        changeAnimationStatu.statu = LE_AnimationStatuType.normal;
+        centralPanel.Rise_LE_Animation_Event(changeAnimationStatu);
+    }
+
+    //===============================================
+    //Test for Switch Play Model
+    void TestForSwitchPlayModel()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!holdGun)
+            {
+                LEEvent_StartShootGunModel e = new LEEvent_StartShootGunModel();
+                e.Init();
+                MailBox_LE_ProcessEvent(e);
+            }
+            else
+            {
+                LEEvent_StartNormalModel e = new LEEvent_StartNormalModel();
+                e.Init();
+                MailBox_LE_ProcessEvent(e);
+            }
+            holdGun = !holdGun;
+
+        }
+    }
 }
