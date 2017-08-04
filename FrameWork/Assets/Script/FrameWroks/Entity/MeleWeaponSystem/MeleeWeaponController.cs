@@ -8,6 +8,11 @@ public class MeleeWeaponController : ItemInputSystem {
     LEUnitCentralPanel cp;
     LE_Animation_Event_GetInput info;
 
+    Transform weaponHolder;
+
+    public GameObject[] weapons;
+    GameObject currentWeapon;
+
     private void OnEnable()
     {
         InitItems();
@@ -21,11 +26,33 @@ public class MeleeWeaponController : ItemInputSystem {
     {
         cp = GetComponent<LEUnitCentralPanel>();
         info.Init();
+
+        weaponHolder = GetComponentInChildren<RightHandHolder>().transform;
+        EquipWeapon(weapons[0]);
+
+    }
+
+    public void EquiWeaponIndex(int index)
+    {
+
+    }
+
+    void EquipWeapon(GameObject weapon)
+    {
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);
+        }
+        currentWeapon = Instantiate(weapon, weaponHolder.position, weaponHolder.rotation) as GameObject;
+        currentWeapon.transform.SetParent(weaponHolder);
     }
 
     public override void ShutDown()
     {
-        
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);
+        }
     }
 
     public override void GetKey_A_Down()

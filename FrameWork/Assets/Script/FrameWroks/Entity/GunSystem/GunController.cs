@@ -17,7 +17,7 @@ public class GunController :  ItemInputSystem {
         InitItems();
     }
 
-    //private void Start(){InitItems();}
+    private void Start(){InitItems();}
 
     void InitItems()
     {
