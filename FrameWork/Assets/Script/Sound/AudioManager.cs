@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour {
 
@@ -55,7 +56,12 @@ public class AudioManager : MonoBehaviour {
 		}
 	}
 
-	void Update()
+    private void Start()
+    {
+
+    }
+
+    void Update()
 	{
 		if(playerT != null)
 		{

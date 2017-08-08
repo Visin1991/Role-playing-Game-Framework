@@ -8,7 +8,7 @@ public class LEUnitRigdbodyController : MonoBehaviour {
     LEUnitCentralPanel cp;
     private Rigidbody rg;
 
-    CapsuleCollider collider;
+    //CapsuleCollider collider;
 
     private void Start()
     {
@@ -19,7 +19,7 @@ public class LEUnitRigdbodyController : MonoBehaviour {
             Debug.LogError("Can not find the LEUnitCP");
 
         rg = transform.GetOrAddComponent<Rigidbody>();
-        collider = GetComponent<CapsuleCollider>();
+        //collider = GetComponent<CapsuleCollider>();
     }
 
     /*

@@ -29,6 +29,8 @@ public class TPSProcessor : LEUnitProcessor {
 
     ItemInputSystem itemInput;
 
+    bool pause;
+
     int statu = 0;
 
     private void Start() 
@@ -40,6 +42,8 @@ public class TPSProcessor : LEUnitProcessor {
 
     private void Update()
     {
+        if (pause) return;
+
         TestForSwitchPlayModel();
 
         UpdateInput();
@@ -175,7 +179,6 @@ public class TPSProcessor : LEUnitProcessor {
     //===============================================
     public override void MailBox_LE_ProcessEvent(LEEvent e)
     {
-
     }
 
     public override void MailBox_LE_ProcessEvent(LEEvent_GetDamage e)
@@ -225,6 +228,11 @@ public class TPSProcessor : LEUnitProcessor {
         centralPanel.Rise_LE_Animation_Event(changeAnimationStatu);
     }
 
+    public override void Pause(bool p)
+    {
+        pause = p;
+    }
+
     //===============================================
     //Test for Switch Play Model
     void TestForSwitchPlayModel()
@@ -253,7 +261,5 @@ public class TPSProcessor : LEUnitProcessor {
             statu += 1;
             statu %= 3;
         }
-
-
     }
 }

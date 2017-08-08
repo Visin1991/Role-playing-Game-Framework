@@ -23,7 +23,8 @@ public enum LEEventType
     StartFlyModel,
     StartHoldGunModel,
     StartMeleeModel,
-    StartNonModel
+    StartNonModel,
+    Pause
 }
 
 public interface LEEvent
@@ -277,6 +278,7 @@ public enum SYS_UI_EventType
     StartGame,
     ExitGame,
     PrintSomeInfo,
+    PauseEvent,
     PressSettingButton,
 }
 
@@ -308,6 +310,13 @@ public struct SYS_UI_Event_PressSettingButton : SYS_UI_Event
     SYS_UI_EventType type;
     public SYS_UI_EventType Type { get { return type; } set { type = value; } }
     public void Init() { type = SYS_UI_EventType.PressSettingButton; }
+}
+
+public struct SYS_UI_Event_PauseGame : SYS_UI_Event
+{
+    SYS_UI_EventType type;
+    public SYS_UI_EventType Type { get { return type;} set { type = value; } }
+    public void Init() { type = SYS_UI_EventType.PauseEvent; }
 }
 
 #endregion

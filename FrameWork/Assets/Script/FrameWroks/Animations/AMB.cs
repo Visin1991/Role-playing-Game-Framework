@@ -65,7 +65,7 @@ namespace Visin1_1
             if (controller != null)
             {
                 if (enterDels != null) { enterDels(controller); }
-                else { Debug.Log("enterDels = null"); }
+                //else { Debug.Log("enterDels = null"); }
             }
             else
             {
@@ -76,7 +76,7 @@ namespace Visin1_1
                 }
                 else {
                     if (enterDels != null) { enterDels(controller); }
-                    else { Debug.Log("enterDels = null"); }
+                    //else { Debug.Log("enterDels = null"); }
                 }
             }
         }
@@ -96,7 +96,7 @@ namespace Visin1_1
             if (controller != null)
             {
                 if (exitDels != null) { exitDels(controller); }
-                else { Debug.Log("enterDels = null"); }
+                //else { Debug.Log("enterDels = null"); }
             }
             else
             {
@@ -108,7 +108,7 @@ namespace Visin1_1
                 else
                 {
                     if (exitDels != null) { exitDels(controller); }
-                    else { Debug.Log("enterDels = null"); }
+                   //else { Debug.Log("enterDels = null"); }
                 }
             }
         }

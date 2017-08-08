@@ -19,7 +19,11 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
     private Vector3 adapter_LE_MoveVeclocity3D;
     private Vector2 adapter_LE_InputVH;
     //========================================================
-    protected virtual void Start() { GetAndDisableAllProcessor(); InitalProcessor(); }
+    protected virtual void Start() {
+        GetAndDisableAllProcessor(); InitalProcessor();
+        GameCentalPr.Instance.Adapter_Pause -= Rise_SYS_PauseEvent;
+        GameCentalPr.Instance.Adapter_Pause += Rise_SYS_PauseEvent;
+    }
 
     protected abstract void GetAndDisableAllProcessor();
 
@@ -71,7 +75,7 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
     public Transform Adapter_playerCamera;
 
     //========================================================
-    //Central Panel External Interface
+    //Central Rise Event Interface
     //========================================================
     public void Rise_LE_UI_Event(LE_UI_Event e)
     {
@@ -122,6 +126,11 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
             Debug.LogError("There is no Subscriber bind to the BasicMovement Event");
             return;
         }
+    }
+
+    public void Rise_SYS_PauseEvent(bool p)
+    {
+        currentProcessor.Pause(p);
     }
 
 }

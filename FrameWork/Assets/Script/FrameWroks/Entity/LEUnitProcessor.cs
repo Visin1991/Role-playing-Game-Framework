@@ -21,5 +21,7 @@ public abstract class LEUnitProcessor : MonoBehaviour {
 
     public abstract void MailBox_LE_ProcessEvent(LEEvent_StartNonModel e);
 
+    public abstract void Pause(bool b);
+
     public abstract Vector2 InputVH { get; }
 }
