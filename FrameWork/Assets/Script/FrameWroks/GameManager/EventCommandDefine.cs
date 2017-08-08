@@ -275,6 +275,7 @@ public struct LE_UI_Event_GetStun : LE_UI_Event
 //Systen UI Event
 public enum SYS_UI_EventType
 {
+    UpdateHealthBar,
     StartGame,
     ExitGame,
     PrintSomeInfo,
@@ -317,6 +318,15 @@ public struct SYS_UI_Event_PauseGame : SYS_UI_Event
     SYS_UI_EventType type;
     public SYS_UI_EventType Type { get { return type;} set { type = value; } }
     public void Init() { type = SYS_UI_EventType.PauseEvent; }
+}
+
+public struct SYS_UI_Event_UpdateHealthBar : SYS_UI_Event
+{
+    SYS_UI_EventType type;
+    public SYS_UI_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = SYS_UI_EventType.UpdateHealthBar; }
+    public float currentHealth;
+    public float maxHealth;
 }
 
 #endregion

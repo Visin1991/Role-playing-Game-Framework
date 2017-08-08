@@ -15,12 +15,25 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 
 	public System.Action<bool> Adapter_Pause;
 	public System.Action Adapter_GameOver;
+    public System.Action<float, float> Adapter_Healthbar;
     
     GameObject settingPanelObj;
 
+    GameObject mainManueObj;
+
+    SYS_UI_Event_UpdateHealthBar healthBarInfo;
+
     public void MailBox_SYS_UIEvent(SYS_UI_Event uiEvent)
 	{
-        if (uiEvent.Type == SYS_UI_EventType.StartGame)
+        if (uiEvent.Type == SYS_UI_EventType.UpdateHealthBar)
+        {
+            if (Adapter_Healthbar != null)
+            {
+                healthBarInfo = (SYS_UI_Event_UpdateHealthBar)uiEvent;
+                Adapter_Healthbar.Invoke(healthBarInfo.currentHealth, healthBarInfo.maxHealth);
+            }
+        }
+        else if (uiEvent.Type == SYS_UI_EventType.StartGame)
         {
             Debug.Log("StartGame");
         }
@@ -37,6 +50,11 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 
     void Start()
     {
+
+        if (mainManueObj == null)
+        {
+            mainManueObj = GetComponentInChildren<MainManue>().gameObject;
+        }
         if (settingPanelObj == null)
         {
             settingPanelObj = GetComponentInChildren<SettingPanel>().gameObject;
@@ -62,17 +80,41 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 
     }
 
+    public void SwitchActivePanel(PanelType current,PanelType target)
+    {
+        //Disable current
+        if (current == PanelType.MainMenue)
+        {
+            mainManueObj.SetActive(false);
+        }
+        else if (current == PanelType.Setting)
+        {
+            settingPanelObj.SetActive(false);
+        }
+
+        //Enable Target
+        if (target == PanelType.MainMenue)
+        {
+            mainManueObj.SetActive(true);
+        }
+        else if (target == PanelType.Setting)
+        {
+            settingPanelObj.SetActive(true);
+        }
+        
+    }
+
     public void PauseResumeEvent()
     {
-        if (settingPanelObj != null)
+        if (mainManueObj != null)
         {
-            settingPanelObj.SetActive(!settingPanelObj.activeSelf);
-            if (settingPanelObj.activeSelf)
+            mainManueObj.SetActive(!mainManueObj.activeSelf);
+            if (mainManueObj.activeSelf)
             {
-                settingPanelObj.transform.SetAsLastSibling();
+                mainManueObj.transform.SetAsLastSibling();
             }
-            Time.timeScale = settingPanelObj.activeSelf ? 0 : 1;
-            Adapter_Pause.Invoke(settingPanelObj.activeSelf);
+            Time.timeScale = mainManueObj.activeSelf ? 0 : 1;
+            Adapter_Pause.Invoke(mainManueObj.activeSelf);
         }
     }
 
@@ -88,6 +130,12 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 #else
         Application.Quit();
 #endif
+    }
+
+    public enum PanelType
+    {
+        MainMenue,
+        Setting
     }
 }
 

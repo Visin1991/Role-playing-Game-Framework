@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainManue : MonoBehaviour {
+public class MainManue : UIPanel {
 
-	// Use this for initialization
-	void Start () {
-		GameUIPr.Instance.mainMenu = transform;
-		gameObject.SetActive(false);
-	}
-		
+    public override GameCentalPr.PanelType GetPanelType()
+    {
+        return GameCentalPr.PanelType.MainMenue;
+    } 
 }
