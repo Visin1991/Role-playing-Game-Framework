@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SettingPanel : UIPanel {
+public class LoadSavePanel : UIPanel {
     public override GameCentalPr.PanelType GetPanelType()
     {
-        return GameCentalPr.PanelType.SaveGame;
+        return GameCentalPr.PanelType.LoadSave;
     }
 }

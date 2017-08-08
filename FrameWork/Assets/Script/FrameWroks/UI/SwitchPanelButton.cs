@@ -6,16 +6,17 @@ using UnityEngine.UI;
 //This is the Setting Button in the Main Panel
 public class SwitchPanelButton : MonoBehaviour {
 
-    GameCentalPr.PanelType parentPanelType;
+    //GameCentalPr.PanelType parentPanelType;
+
     public GameCentalPr.PanelType target;
     
     Button switchPanelButton;
 
     private void Start()
     {
-        UIPanel uiPanel = GetComponentInParent<UIPanel>();
+       /* UIPanel uiPanel = GetComponentInParent<UIPanel>();
         if (uiPanel == null) { Debug.LogError("Parent Don't have an UIPanel"); }
-        else { parentPanelType = uiPanel.GetPanelType(); }
+        else { parentPanelType = uiPanel.GetPanelType(); }*/
 
         switchPanelButton = GetComponent<Button>();
         if (switchPanelButton != null)
@@ -26,6 +27,7 @@ public class SwitchPanelButton : MonoBehaviour {
 
     public void OnClick()
     {
-        GameCentalPr.Instance.SwitchActivePanel(parentPanelType, target);
+        GameCentalPr.Instance.SwitchActivePanel(target);
+        transform.parent.gameObject.SetActive(false);
     }
 }

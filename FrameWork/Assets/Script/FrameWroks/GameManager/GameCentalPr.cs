@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -21,7 +22,16 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 
     GameObject mainManueObj;
 
+    GameObject LoadSaveObj;
+    GameObject SaveGameObj;
+
+    GameObject backGroundObj;
+
     SYS_UI_Event_UpdateHealthBar healthBarInfo;
+
+    int lastLoadIndex = 0;
+
+    public GameData gameData;
 
     public void MailBox_SYS_UIEvent(SYS_UI_Event uiEvent)
 	{
@@ -50,11 +60,13 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 
     void Start()
     {
-
+       // Debug.Log("GameCentalPr Start");
+        //mainManue Panel
         if (mainManueObj == null)
         {
             mainManueObj = GetComponentInChildren<MainManue>().gameObject;
         }
+        //Setting Panel
         if (settingPanelObj == null)
         {
             settingPanelObj = GetComponentInChildren<SettingPanel>().gameObject;
@@ -63,6 +75,26 @@ public class GameCentalPr : Singleton<GameCentalPr> {
         {
             settingPanelObj.SetActive(false);
         }
+        //LoadSave Panel
+        if (LoadSaveObj == null)
+        {
+            LoadSaveObj = GetComponentInChildren<LoadSavePanel>().gameObject;
+        }
+        if (LoadSaveObj != null)
+        {
+            LoadSaveObj.SetActive(false);
+        }
+        if (SaveGameObj == null)
+        {
+            SaveGameObj = GetComponentInChildren<SaveGamePanel>().gameObject;
+        }
+        if (SaveGameObj != null)
+        {
+            SaveGameObj.SetActive(false);
+        }
+
+        backGroundObj = GetComponentInChildren<StartbackGround>().gameObject;
+
         DontDestroyOnLoad(this);
     }
 
@@ -80,18 +112,8 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 
     }
 
-    public void SwitchActivePanel(PanelType current,PanelType target)
+    public void SwitchActivePanel(PanelType target)
     {
-        //Disable current
-        if (current == PanelType.MainMenue)
-        {
-            mainManueObj.SetActive(false);
-        }
-        else if (current == PanelType.Setting)
-        {
-            settingPanelObj.SetActive(false);
-        }
-
         //Enable Target
         if (target == PanelType.MainMenue)
         {
@@ -100,6 +122,10 @@ public class GameCentalPr : Singleton<GameCentalPr> {
         else if (target == PanelType.Setting)
         {
             settingPanelObj.SetActive(true);
+        }
+        else if (target == PanelType.LoadSave)
+        {
+            LoadSaveObj.SetActive(true);
         }
         
     }
@@ -114,8 +140,20 @@ public class GameCentalPr : Singleton<GameCentalPr> {
                 mainManueObj.transform.SetAsLastSibling();
             }
             Time.timeScale = mainManueObj.activeSelf ? 0 : 1;
-            Adapter_Pause.Invoke(mainManueObj.activeSelf);
+
+            if (Adapter_Pause!=null)
+                Adapter_Pause.Invoke(mainManueObj.activeSelf);
         }
+    }
+
+    void ResumeFromeSave()
+    {
+        SaveGameObj.SetActive(false);
+        Time.timeScale = 1;
+
+        if (Adapter_Pause != null)
+            Adapter_Pause.Invoke(false);
+        
     }
 
     void OnApplicationQuit()
@@ -132,10 +170,74 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 #endif
     }
 
+    public void StartNewGame()
+    {
+        mainManueObj.SetActive(false);
+        Time.timeScale = 1;
+        backGroundObj.SetActive(false);
+        //SceneManager.LoadScene("LoadScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+    }
+
+    public void OpenSavelPanel()
+    {
+        if (SaveGameObj != null)
+        {
+            SaveGameObj.SetActive(!SaveGameObj.activeSelf);
+            if (SaveGameObj.activeSelf)
+            {
+                SaveGameObj.transform.SetAsLastSibling();
+            }
+            Time.timeScale = SaveGameObj.activeSelf ? 0 : 1;
+
+            if (Adapter_Pause != null)
+                Adapter_Pause.Invoke(SaveGameObj.activeSelf);
+        }
+    }
+
+    public void LoadSave(int index)
+    {
+        
+        if (index < 0 && index > gameData.saves.Length) {
+            Debug.LogErrorFormat("Sene {0} is out of range", index);
+            return;
+        }
+
+        if (gameData.saves[index - 1].isEmpty)
+        {
+            Debug.LogFormat("Save {0} is empty", index);
+        }else
+        {
+            Time.timeScale = 1;
+            lastLoadIndex = index;
+            backGroundObj.SetActive(false);
+            LoadSaveObj.SetActive(false);
+            string sceneName = gameData.saves[index - 1].sceneName;
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        }
+        
+    }
+
+    public void  LoadLPlayerDataFromLastIndex()
+    {
+        if (lastLoadIndex > 0 && lastLoadIndex <= gameData.saves.Length)
+            FindObjectOfType<LPlayer>().gameObject.transform.position = gameData.saves[lastLoadIndex - 1].playerData.pos;
+    }
+
+    public void SaveGame(int index)
+    {
+        ResumeFromeSave();
+        gameData.saves[index - 1].sceneName = SceneManager.GetActiveScene().name;
+        gameData.saves[index - 1].playerData.pos = FindObjectOfType<LPlayer>().gameObject.transform.position;
+        gameData.saves[index - 1].isEmpty = false;
+    }
+
     public enum PanelType
     {
         MainMenue,
-        Setting
+        Setting,
+        LoadSave,
+        SaveGame
     }
 }
 

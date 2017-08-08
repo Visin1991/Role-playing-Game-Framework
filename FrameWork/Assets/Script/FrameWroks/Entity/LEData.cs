@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu]
 public class LEData : ScriptableObject {
 
+    public GameObject PrefabInstance;
+
     public Vector3 pos;
     public float maxHealth;
     public float currentHealth;

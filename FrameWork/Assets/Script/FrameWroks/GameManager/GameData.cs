@@ -4,8 +4,5 @@ using UnityEngine;
 
 [CreateAssetMenu]
 public class GameData : ScriptableObject {
-
-    public int currentSceneIndex;
-    public LEData playerData;
-	
+    public GameSave[] saves;
 }
