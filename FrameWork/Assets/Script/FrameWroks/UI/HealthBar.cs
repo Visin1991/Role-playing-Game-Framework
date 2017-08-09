@@ -5,20 +5,20 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour {
 
-    Slider healthSlider;
+    Image healthImage;
 
     private void Start()
     {
-        healthSlider = GetComponent<Slider>();
+        healthImage = GetComponent<Image>();
         GameCentalPr.Instance.Adapter_Healthbar -= ValueChange;
         GameCentalPr.Instance.Adapter_Healthbar += ValueChange;
     }
 
     public void ValueChange(float current,float max)
     {
-        if (healthSlider != null)
+        if (healthImage != null)
         {
-            healthSlider.value = current / max;
+            healthImage.fillAmount = current / max;
         }
     }
 }

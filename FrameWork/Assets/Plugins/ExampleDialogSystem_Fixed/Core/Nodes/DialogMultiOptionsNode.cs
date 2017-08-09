@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using NodeEditorFramework;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+	using UnityEditor;
+#endif
 
 [Node(false, "Dialog/Dialog With Options Node", new Type[]{typeof(DialogNodeCanvas)})]
 public class DialogMultiOptionsNode : BaseDialogNode
@@ -50,6 +52,7 @@ public class DialogMultiOptionsNode : BaseDialogNode
 
 	protected internal override void NodeGUI()
 	{
+		#if UNITY_EDITOR
 		EditorGUILayout.BeginVertical("Box", GUILayout.ExpandHeight(true));
 
 		EditorGUILayout.BeginVertical("Box");
@@ -103,9 +106,10 @@ public class DialogMultiOptionsNode : BaseDialogNode
 
 		GUILayout.ExpandWidth(false);
 		GUILayout.EndVertical();
-	#endregion
+		#endregion
 
 		EditorGUILayout.EndVertical();
+		#endif
 	}
 	
 	private void RemoveLastOption()
@@ -121,6 +125,7 @@ public class DialogMultiOptionsNode : BaseDialogNode
 
 	private void DrawOptions()
 	{
+		#if UNITY_EDITOR
 		EditorGUILayout.BeginVertical();
 		for (var i = 0; i < _options.Count; i++)
 		{
@@ -142,6 +147,7 @@ public class DialogMultiOptionsNode : BaseDialogNode
 			GUILayout.Space(4);
 		}
 		GUILayout.EndVertical();
+		#endif
 	}
 
 	private void AddNewOption()

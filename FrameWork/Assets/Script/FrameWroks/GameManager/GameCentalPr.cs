@@ -94,6 +94,7 @@ public class GameCentalPr : Singleton<GameCentalPr> {
         }
 
         backGroundObj = GetComponentInChildren<StartbackGround>().gameObject;
+        Debug.Log(backGroundObj);
 
         DontDestroyOnLoad(this);
     }
@@ -174,7 +175,6 @@ public class GameCentalPr : Singleton<GameCentalPr> {
     {
         mainManueObj.SetActive(false);
         Time.timeScale = 1;
-        backGroundObj.SetActive(false);
         //SceneManager.LoadScene("LoadScene", LoadSceneMode.Single);
         SceneManager.LoadScene("Level1", LoadSceneMode.Single);
     }
@@ -208,9 +208,10 @@ public class GameCentalPr : Singleton<GameCentalPr> {
             Debug.LogFormat("Save {0} is empty", index);
         }else
         {
+
             Time.timeScale = 1;
             lastLoadIndex = index;
-            backGroundObj.SetActive(false);
+            backGroundObj.SetActive(true);
             LoadSaveObj.SetActive(false);
             string sceneName = gameData.saves[index - 1].sceneName;
             SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
@@ -220,6 +221,8 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 
     public void  LoadLPlayerDataFromLastIndex()
     {
+        if(backGroundObj != null)
+            backGroundObj.SetActive(false);
         if (lastLoadIndex > 0 && lastLoadIndex <= gameData.saves.Length)
             FindObjectOfType<LPlayer>().gameObject.transform.position = gameData.saves[lastLoadIndex - 1].playerData.pos;
     }

@@ -1,7 +1,10 @@
 ﻿using System;
 using NodeEditorFramework;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+	using UnityEditor;
+#endif
 
 [Node(false, "Dialog/Dialog Start Node", new Type[] { typeof(DialogNodeCanvas) })]
 public class DialogStartNode : BaseDialogNode
@@ -36,6 +39,7 @@ public class DialogStartNode : BaseDialogNode
 
 	protected internal override void NodeGUI()
 	{
+		#if UNITY_EDITOR
 		EditorGUILayout.BeginVertical("Box", GUILayout.ExpandHeight(true));
 
 		EditorGUILayout.BeginVertical("Box");
@@ -69,6 +73,7 @@ public class DialogStartNode : BaseDialogNode
 		GUILayout.EndHorizontal();
 
 		EditorGUILayout.EndVertical();
+		#endif
 	}
 
 	public override BaseDialogNode Input(int inputValue)
