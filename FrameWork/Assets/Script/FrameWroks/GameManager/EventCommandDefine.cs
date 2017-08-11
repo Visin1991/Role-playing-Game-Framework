@@ -16,6 +16,7 @@ public enum InputIndex
 
 public enum LEEventType
 {
+    
     GetDamage,
     Die,
     Sleep,

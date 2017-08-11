@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class LECentralPanel1 : LEUnitCentralPanel
 {
-    TPSProcessor fpsProcessor;
+    LEUnitProcessor fpsProcessor;
 
     protected override void Start () {
         base.Start();
@@ -16,8 +16,9 @@ public class LECentralPanel1 : LEUnitCentralPanel
 
     protected override void GetAndDisableAllProcessor()
     {/// get all Processor, then disable. Function will be Auto call through base.Start()
-        fpsProcessor = transform.GetOrAddComponent<TPSProcessor>();
-        fpsProcessor.enabled = false;
+        fpsProcessor = transform.GetComponent<LEUnitProcessor>();
+        if(fpsProcessor != null)
+            fpsProcessor.enabled = false;
     }
 
     protected override void InitalProcessor()
