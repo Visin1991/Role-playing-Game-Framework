@@ -169,5 +169,10 @@ namespace Visin1_1
             detal_pitch = e.delta_pitch;
             detal_dstToTarget = e.delta_dstToTarget;
         }
+
+        public float Yaw
+        {
+            get { return rotAverageY; }
+        }
     }
 }

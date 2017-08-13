@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(LEUnitCentralPanel))]
 public abstract class LEUnitAnimatorPr : MonoBehaviour {
 
+    LEUnitProcessor processor;
+
     protected Animator animator;
-    protected LEUnitCentralPanel cp;
     // Use this for initialization
     protected virtual void Start () {
-
-        cp = GetComponent<LEUnitCentralPanel>();
-        cp.Bind_LE_Animation_Event_MailBox(MailBox_LE_AnimationEvent);
-
+        processor = GetComponent<LEUnitProcessor>();
         animator = GetComponent<Animator>();
         if (animator == null)
         {
@@ -21,21 +18,36 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
         if (animator == null)
             Debug.LogError("There is no Animator in this Object, or its children");
     }
+
+    public abstract void UpdateAnimation();
    
-    protected abstract void MailBox_LE_AnimationEvent(LE_Animation_Event e);
+    public abstract void MailBox_LE_AnimationEvent(LE_Animation_Event e);
 
     [Visin1_1.AMBCallback()]
     public virtual void EnableBasicMoveMent() {
+        if (processor == null) return;
         LE_BasicMovement_Event_Enable enable = new LE_BasicMovement_Event_Enable();
         enable.Init();
-        cp.Rise_LE_BasicMovement_Event(enable);
+        processor.MailBox_LE_AnimationManager_CallBack(enable);
     }
 
     [Visin1_1.AMBCallback()]
     public virtual void DisableBasicMovement() {
+        if (processor == null) return;
         LE_BasicMovement_Event_Disable basicDisable = new LE_BasicMovement_Event_Disable();
         basicDisable.Init();
-        cp.Rise_LE_BasicMovement_Event(basicDisable);
+        processor.MailBox_LE_AnimationManager_CallBack(basicDisable);
     }
 
+    [Visin1_1.AMBCallback()]
+    public virtual void Attack_Statue_True()
+    {
+
+    }
+
+    [Visin1_1.AMBCallback()]
+    public virtual void Attack_Statue_False()
+    {
+
+    }
 }

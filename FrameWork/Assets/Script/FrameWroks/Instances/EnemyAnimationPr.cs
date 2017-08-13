@@ -11,7 +11,12 @@ public class EnemyAnimationPr : LEUnitAnimatorPr
         base.Start();
     }
 
-    protected override void MailBox_LE_AnimationEvent(LE_Animation_Event e)
+    public override void UpdateAnimation()
+    {
+        
+    }
+
+    public override void MailBox_LE_AnimationEvent(LE_Animation_Event e)
     {
        
     }

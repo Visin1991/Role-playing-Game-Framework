@@ -420,3 +420,15 @@ public struct LE_BasicMovement_Event_Disable : LE_BasicMovement_Event
 
 
 #endregion
+
+#region ItemInputCallBack
+public interface ItemInputCallbackInfo
+{
+
+}
+
+public struct ItemInputCallbackInfo_UpdateAnimation : ItemInputCallbackInfo
+{
+    public LE_Animation_Event_GetInput info;
+}
+#endregion

@@ -5,18 +5,17 @@ using UnityEngine;
 
 public class MeleeWeaponController : ItemInputSystem {
 
-    LEUnitCentralPanel cp;
     LE_Animation_Event_GetInput info;
 
-    Transform weaponHolder;
+    public Sword1[] weapons;
+    Sword1 currentWeapon;
 
-    public GameObject[] weapons;
-    GameObject currentWeapon;
-
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        InitItems();
+        base.OnEnable();
+        EquiWeaponIndex(0);
     }
+
     // Update is called once per frame
     void Update () {
 		
@@ -24,27 +23,26 @@ public class MeleeWeaponController : ItemInputSystem {
 
     void InitItems()
     {
-        cp = GetComponent<LEUnitCentralPanel>();
-        info.Init();
-
-        weaponHolder = GetComponentInChildren<RightHandHolder>().transform;
-        EquipWeapon(weapons[0]);
+        rightHandTF = GetComponentInChildren<RightHandHolder>().transform;
+        if(weapons.Length >0)
+            EquipWeapon(weapons[0]);
 
     }
 
     public void EquiWeaponIndex(int index)
     {
-
+        EquipWeapon(weapons[0]);
     }
 
-    void EquipWeapon(GameObject weapon)
+    void EquipWeapon(Sword1 weapon)
     {
         if (currentWeapon != null)
         {
             Destroy(currentWeapon.gameObject);
         }
-        currentWeapon = Instantiate(weapon, weaponHolder.position, weaponHolder.rotation) as GameObject;
-        currentWeapon.transform.SetParent(weaponHolder);
+        currentWeapon = Instantiate(weapon, rightHandTF.position, rightHandTF.rotation) as Sword1;
+        currentWeapon.transform.SetParent(rightHandTF);
+        currentWeapon.SetUpLayer(transform.root.gameObject.layer);
     }
 
     public override void ShutDown()
@@ -57,10 +55,12 @@ public class MeleeWeaponController : ItemInputSystem {
 
     public override void GetKey_A_Down()
     {
+        Debug.Log("Get GetKey_A_Down");
         info.inputIndex = InputIndex.A;
         info.InputValue = true;
-        cp.Rise_LE_Animation_Event(info);
+        animationManager.MailBox_LE_AnimationEvent(info);
     }
+
     public override void GetKey_A()
     {
         
@@ -75,6 +75,6 @@ public class MeleeWeaponController : ItemInputSystem {
     {
         info.inputIndex = InputIndex.B;
         info.InputValue = true;
-        cp.Rise_LE_Animation_Event(info);
+        animationManager.MailBox_LE_AnimationEvent(info);
     }
 }

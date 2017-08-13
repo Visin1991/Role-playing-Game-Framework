@@ -15,7 +15,12 @@ public class SuperManAnimator : LEUnitAnimatorPr {
         base.Start();
     }
 
-    protected override void MailBox_LE_AnimationEvent(LE_Animation_Event e)
+    public override void UpdateAnimation()
+    {
+        
+    }
+
+    public override void MailBox_LE_AnimationEvent(LE_Animation_Event e)
     {
         if (e.Type == LE_Animation_EventType.moveInfo)
         {
@@ -58,12 +63,5 @@ public class SuperManAnimator : LEUnitAnimatorPr {
         Debug.LogFormat("SlowDown Percentage for{0}", info.slowValue);
     }
 
-    private void Update()
-    {
-        if (updateDel != null)
-        {
-            updateDel();
-        }
-    }
 
 }

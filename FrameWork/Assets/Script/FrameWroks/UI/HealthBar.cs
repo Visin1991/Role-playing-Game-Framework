@@ -10,8 +10,8 @@ public class HealthBar : MonoBehaviour {
     private void Start()
     {
         healthImage = GetComponent<Image>();
-        GameCentalPr.Instance.Adapter_Healthbar -= ValueChange;
-        GameCentalPr.Instance.Adapter_Healthbar += ValueChange;
+        GameUIPr.Instance.Adapter_Healthbar -= ValueChange;
+        GameUIPr.Instance.Adapter_Healthbar += ValueChange;
     }
 
     public void ValueChange(float current,float max)

@@ -24,7 +24,7 @@ public class EnemyHealth : MonoBehaviour
         enemyAudio = GetComponent <AudioSource> ();
         hitParticles = GetComponentInChildren <ParticleSystem> ();
         capsuleCollider = GetComponent <CapsuleCollider> ();
-        anim.SetBool("Dead", false);
+        //anim.SetBool("Dead", false);
 
         currentHealth = startingHealth;
     }
@@ -44,12 +44,12 @@ public class EnemyHealth : MonoBehaviour
         if(isDead)
             return;
 
-        enemyAudio.Play ();
+        //enemyAudio.Play ();
 
         currentHealth -= amount;
             
-        hitParticles.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
-        hitParticles.Play();
+       // hitParticles.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+        //hitParticles.Play();
 
         if(currentHealth <= 0)
         {
@@ -64,10 +64,10 @@ public class EnemyHealth : MonoBehaviour
 
         capsuleCollider.isTrigger = true;
 
-        anim.SetBool ("Dead", true);
+        //anim.SetBool ("Dead", true);
 
-        enemyAudio.clip = deathClip;
-        enemyAudio.Play ();
+        //enemyAudio.clip = deathClip;
+        //enemyAudio.Play ();
     }
 
 

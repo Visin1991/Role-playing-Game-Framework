@@ -5,27 +5,16 @@ using UnityEngine;
 
 public class GunController :  ItemInputSystem {
 
-    Transform GunHolder;
+    
     public Gun[] allGuns;
     Gun currentGun;
 
-    LEUnitCentralPanel cp;
     LE_Animation_Event_GetInput info;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        InitItems();
-    }
-
-    private void Start(){InitItems();}
-
-    void InitItems()
-    {
-        GunHolder = GetComponentInChildren<RightHandHolder>().transform;
-        cp = GetComponent<LEUnitCentralPanel>();
-        info.Init();
-
-        EquipGun(allGuns[0]);
+        base.OnEnable();
+        EquipGunIndex(0);
     }
 
     public override void ShutDown()
@@ -48,9 +37,8 @@ public class GunController :  ItemInputSystem {
         {
             Destroy(currentGun.gameObject);
         }
-
-        currentGun = Instantiate(gun, GunHolder.position, GunHolder.rotation) as Gun;
-        currentGun.transform.SetParent(GunHolder);
+        currentGun = Instantiate(gun, rightHandTF.position, rightHandTF.rotation) as Gun;
+        currentGun.transform.SetParent(rightHandTF);
     }
 
     public override void GetKey_A_Down()
@@ -58,13 +46,14 @@ public class GunController :  ItemInputSystem {
         
     }
 
+
     public override void GetKey_A()
     {
         //LookAroundMouseDir();
         info.inputIndex = InputIndex.A;
         info.InputValue = true;
         OnTriggerHold();
-        cp.Rise_LE_Animation_Event(info);
+        animationManager.MailBox_LE_AnimationEvent(info);
         
     }
 
@@ -73,7 +62,7 @@ public class GunController :  ItemInputSystem {
         info.inputIndex = InputIndex.A;
         info.InputValue = false;
         OnTriggerRelease();
-        cp.Rise_LE_Animation_Event(info);
+        animationManager.MailBox_LE_AnimationEvent(info);
     }
 
     public override void GetKey_B_Down()
@@ -88,6 +77,7 @@ public class GunController :  ItemInputSystem {
             currentGun.OnTriggerHold();
         }
         else {
+            EquipGunIndex(0);
             Debug.LogError("Current Gun is Null");
         }
     }
@@ -113,8 +103,8 @@ public class GunController :  ItemInputSystem {
         if (Input.GetMouseButton(0))
         {
             Vector3 mousePos = Visin1_1.MouseAndCamera.GetMouseGroundIntersectionPoint();
-            mousePos.y = cp.Adapter_LE_mainBody.position.y;
-            cp.Adapter_LE_mainBody.LookAt(mousePos);
+            //mousePos.y = cp.Adapter_LE_mainBody.position.y;
+            //cp.Adapter_LE_mainBody.LookAt(mousePos);
         }
     }
 }

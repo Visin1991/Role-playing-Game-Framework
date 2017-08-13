@@ -7,6 +7,14 @@ using UnityEngine;
 
 public abstract class LEUnitProcessor : MonoBehaviour {
 
+    protected delegate void CentralPanelUpdateDel();
+    protected CentralPanelUpdateDel tpspUpdateDel;
+
+    protected UserInputPr userInputManager;
+    protected LEUnitBasicMoveMent basicMovementManager;
+    protected LEUnitAnimatorPr animationManager;
+    protected Visin1_1.CameraManager cameraManager;
+
     public abstract void MailBox_LE_ProcessEvent(LEEvent e);
 
     public abstract void MailBox_LE_ProcessEvent(LEEvent_GetDamage e);
@@ -23,5 +31,19 @@ public abstract class LEUnitProcessor : MonoBehaviour {
 
     public abstract void Pause(bool b);
 
-    public abstract Vector2 InputVH { get; }
+    public virtual void MailBox_LE_AnimationManager_CallBack(LE_BasicMovement_Event e) { }
+
+    public virtual void MailBox_LE_BasicMoveMentManager_Callback() { }
+
+    public virtual void MailBox_LE_CameraManager_Callback() { }
+
+    public abstract void GetKey_A_Down();
+
+    public abstract void GetKey_A();
+
+    public abstract void GetKey_A_Up();
+
+    public abstract void GetKey_B_Down();
+
+    public abstract void GetKey_B_Up();
 }

@@ -56,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
 
        // healthSlider.value = currentHealth;
 
-        playerAudio.Play ();
+       // playerAudio.Play ();
 
         if(currentHealth <= 0 && !isDead)
         {
@@ -71,12 +71,12 @@ public class PlayerHealth : MonoBehaviour
 
        // playerShooting.DisableEffects ();
 
-        anim.SetTrigger ("Die");
+        //anim.SetTrigger ("Die");
 
-        playerAudio.clip = deathClip;
-        playerAudio.Play ();
+       // playerAudio.clip = deathClip;
+       // playerAudio.Play ();
 
-        playerMovement.enabled = false;
+       // playerMovement.enabled = false;
        // playerShooting.enabled = false;
     }
 

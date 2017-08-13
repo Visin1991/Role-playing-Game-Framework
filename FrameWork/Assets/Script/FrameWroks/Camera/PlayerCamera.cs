@@ -10,6 +10,8 @@ public interface PlayerCamera{
     void UpdateCamera();
     void LateUpdateCamera();
     void SetCameraDetal(LE_Camera_Event_UpdateVlaue e);
+    float Yaw { get; }
+
 }
 
 public enum CameraType { FirstPerson, ThridPerson, God }

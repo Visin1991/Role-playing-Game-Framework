@@ -18,6 +18,6 @@ public class NextLevelButton : MonoBehaviour {
 
     public void OnClick()
     {
-        GameCentalPr.Instance.GotoNextLevel();
+        GameUIPr.Instance.LoadLevel();
     }
 }

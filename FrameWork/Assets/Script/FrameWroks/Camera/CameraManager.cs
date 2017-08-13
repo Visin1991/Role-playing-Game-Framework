@@ -10,7 +10,6 @@ namespace Visin1_1
 {
     public class CameraManager : MonoBehaviour
     {
-        private LEUnitCentralPanel cp;
 
         public CameraType cameraType = CameraType.FirstPerson;
 
@@ -19,11 +18,6 @@ namespace Visin1_1
         // Use this for initialization
         void Start()
         {
-
-            cp = transform.root.GetComponent<LEUnitCentralPanel>();
-
-            cp.Bind_lE_CameraManager_Event_MailBox(MailBox_LE_CameraManager_Event);
-
             if (cameraType == CameraType.FirstPerson)
             {
                 currentCamera = GetComponent<FirstPersonCamera>();
@@ -36,7 +30,7 @@ namespace Visin1_1
         }
 
         // Update is called once per frame
-        void Update()
+        public void  UpdateCameraManager()
         {
             currentCamera.UpdateCamera();
         }
@@ -52,6 +46,11 @@ namespace Visin1_1
             {
                 currentCamera.SetCameraDetal((LE_Camera_Event_UpdateVlaue)e);
             }
+        }
+
+        public float Yaw()
+        {
+            return currentCamera.Yaw;
         }
 
     }
