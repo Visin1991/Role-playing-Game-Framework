@@ -16,12 +16,14 @@ public class DragItem : MonoBehaviour,IDragHandler,IPointerDownHandler,IEndDragH
     private Transform draggedItemBox;
     private Transform previewsSlot;
     private readonly Vector3 slotCenter = new Vector3(0,0,0);
+    private WeiClickManager clickManager;
 
     public delegate void ItemDelegate();
     public static event ItemDelegate UpdateInventoryList;
 
     private void Start()
     {
+        clickManager = new WeiClickManager();
         itemObjRectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>(); //used to modify the state of children elements  Alpha, Raycasting, Enabled....
         dragSlotRectTransform = GameObject.FindGameObjectWithTag("DraggingItem").GetComponent<RectTransform>();
@@ -51,6 +53,10 @@ public class DragItem : MonoBehaviour,IDragHandler,IPointerDownHandler,IEndDragH
     //interface of IPointerDownHandler
     public void OnPointerDown(PointerEventData data) {
         if (data.button == PointerEventData.InputButton.Left) {
+            if (clickManager.DoubleClick())
+            {
+                GetComponent<ItemHandleOnGUI>().DoubleClick();
+            }
             ///https://docs.unity3d.com/ScriptReference/RectTransformUtility.ScreenPointToLocalPointInRectangle.html
             //RectTransformUtility.ScreenPointToLocalPointInRectangle(itemObjRectTransform, data.position, data.pressEventCamera, out pointerOffset);
             oldSlot = transform.parent.gameObject;
@@ -73,7 +79,7 @@ public class DragItem : MonoBehaviour,IDragHandler,IPointerDownHandler,IEndDragH
 #endif
                 GameObject otherItemObj = null;
                 //1.1.1 check if it is a ItemObject UI
-                if (releaseRTF.parent.GetComponent<ItemHandle>() != null)
+                if (releaseRTF.parent.GetComponent<ItemHandleOnGUI>() != null)
                 {
                     otherItemObj = releaseRTF.parent.gameObject;
                     Transform otherItemObjSlot = otherItemObj.transform.parent;
@@ -109,7 +115,7 @@ public class DragItem : MonoBehaviour,IDragHandler,IPointerDownHandler,IEndDragH
             else {//if we didn't hit any UI element
                 transform.SetParent(oldSlot.transform);
                 transform.localPosition = slotCenter;
-                GetComponent<ItemHandle>().Clean();
+                GetComponent<ItemHandleOnGUI>().Clean();
             }
             canvasGroup.blocksRaycasts = true; //when we EndDrag, we need to reset it to true. So we can Drag it next time.
         }//end of Left Button

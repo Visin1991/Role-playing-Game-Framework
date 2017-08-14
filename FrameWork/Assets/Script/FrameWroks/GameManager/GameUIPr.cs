@@ -16,6 +16,7 @@ public class GameUIPr : Singleton<GameUIPr> {
     GameObject SaveGameObj;
     GameObject loadingPanelObj;
     GameObject LevelPanelObj;
+    GameObject inventoryPanelObj;
 
     SYS_UI_Event_UpdateHealthBar healthBarInfo;
     List<GameObject> subMainPanelObjs = new List<GameObject>();
@@ -72,6 +73,15 @@ public class GameUIPr : Singleton<GameUIPr> {
                 
                 subMainPanelObjs.Add(LevelPanelObj);
                 LevelPanelObj.SetActive(false);
+            }
+        }
+
+        if (inventoryPanelObj == null)
+        {
+            inventoryPanelObj = GetComponentInChildren<InventoryPanel>().gameObject;
+            if (inventoryPanelObj != null)
+            {
+                inventoryPanelObj.SetActive(false);
             }
         }
 
@@ -199,6 +209,18 @@ public class GameUIPr : Singleton<GameUIPr> {
                 mainManueObj.transform.SetAsLastSibling();
             }
             GameCentalPr.Instance.PauseResumeEvent(mainManueObj.activeSelf);
+        }
+    }
+
+    public void InventoryPanelEvent()
+    {
+        if (inventoryPanelObj != null)
+        {
+            inventoryPanelObj.SetActive(!inventoryPanelObj.activeSelf);
+            if (inventoryPanelObj.activeSelf)
+            {
+                inventoryPanelObj.transform.localPosition = Vector3.zero;
+            }
         }
     }
 

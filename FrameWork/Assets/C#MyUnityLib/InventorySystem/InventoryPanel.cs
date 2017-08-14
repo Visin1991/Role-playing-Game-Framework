@@ -5,19 +5,18 @@ using System.Linq;
 
 public class InventoryPanel : MonoBehaviour {
 
-    ItemHandle[] allHandles;
+    ItemHandleOnGUI[] allHandles;
 
-    [SerializeField]
-    private ItemDataBaseList itemDatabase;
+    
 
     // Use this for initialization
     void Start () {
-        allHandles = GetComponentsInChildren<ItemHandle>();
+        allHandles = GetComponentsInChildren<ItemHandleOnGUI>();
         List<Item> items = new List<Item>();
 
         for (int i = 0; i < 20; i++)
         {
-            items.Add(itemDatabase.getItemCopyByID(i % 2));
+            items.Add(GameDataManager.Instance.itemDatabase.getItemCopyByID(i % 2));
         }
 
         ReSetItems(items);
@@ -27,7 +26,7 @@ public class InventoryPanel : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            AddItem(itemDatabase.getItemCopyByID(2));
+            AddItem(GameDataManager.Instance.itemDatabase.getItemCopyByID(2));
         }
     }
 

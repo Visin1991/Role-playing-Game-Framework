@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemHandle : MonoBehaviour {
+public class ItemHandleOnGUI : MonoBehaviour {
 
     public GameObject itemImageObj;
     public Image itemImage;
@@ -47,6 +47,11 @@ public class ItemHandle : MonoBehaviour {
         if(itemImageObj)
             itemImageObj.SetActive(false);
         isEmpty = true;
+    }
+
+    public void DoubleClick()
+    {
+        Debug.Log("Double Click on Item");
     }
 
 }

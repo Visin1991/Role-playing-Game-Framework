@@ -23,7 +23,7 @@ public class ShowItemInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerEnter(PointerEventData data) {
 
         if (itemInfo != null) {
-            item = GetComponent<ItemHandle>().item;
+            item = GetComponent<ItemHandleOnGUI>().item;
             itemInfo.item = item;
             itemInfo.ActivateItemInfo();
             if (canvasRectTransform == null)

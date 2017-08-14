@@ -187,7 +187,7 @@ public class InventoryUISetting : MonoBehaviour {
         while (slotList.Count > column * row)
         {
             GameObject go = slotList[slotList.Count - 1];
-            ItemHandle itemInSlot = go.GetComponentInChildren<ItemHandle>();
+            ItemHandleOnGUI itemInSlot = go.GetComponentInChildren<ItemHandleOnGUI>();
             if (itemInSlot != null) {
                 itemsToMove.Add(itemInSlot.item);
                 itemsInPanel.Remove(itemInSlot.item);
@@ -254,11 +254,11 @@ public class InventoryUISetting : MonoBehaviour {
             { 
                 if(prefabItemObj == null) { prefabItemObj = Resources.Load("Prefabs/ItemObj") as GameObject; }
                 GameObject itemObj = (GameObject)Instantiate(prefabItemObj);
-                itemObj.GetComponent<ItemHandle>().item = itemDatabase.getItemCopyByID(id);
+                itemObj.GetComponent<ItemHandleOnGUI>().item = itemDatabase.getItemCopyByID(id);
                 itemObj.transform.SetParent(slotsGroup.transform.GetChild(i));                  // set the slot as parent
                 itemObj.GetComponent<RectTransform>().localPosition = Vector3.zero;             // set the Obj to the center of the slot
-                itemObj.transform.GetChild(0).GetComponent<Image>().sprite = itemObj.GetComponent<ItemHandle>().item.itemIcon;
-                itemObj.GetComponent<ItemHandle>().item.indexItemInList = itemsInPanel.Count - 1;
+                itemObj.transform.GetChild(0).GetComponent<Image>().sprite = itemObj.GetComponent<ItemHandleOnGUI>().item.itemIcon;
+                itemObj.GetComponent<ItemHandleOnGUI>().item.indexItemInList = itemsInPanel.Count - 1;
                 break;
             }
         }
@@ -274,7 +274,7 @@ public class InventoryUISetting : MonoBehaviour {
             Transform slotTrans = slotsGroup.transform.GetChild(i);
             //if the there is a ItemObj in side the Slot
             if (slotTrans.childCount != 0) {
-                itemsInPanel.Add(slotTrans.GetChild(0).GetComponent<ItemHandle>().item);
+                itemsInPanel.Add(slotTrans.GetChild(0).GetComponent<ItemHandleOnGUI>().item);
             }
         }
     }
@@ -282,7 +282,7 @@ public class InventoryUISetting : MonoBehaviour {
     public void statckableSettings() {
         for (int i = 0; i < slotsGroup.transform.childCount; i++) {
             if (slotsGroup.transform.GetChild(i).childCount > 0) {
-                ItemHandle itemHandle = slotsGroup.transform.GetChild(i).GetChild(0).GetComponent<ItemHandle>();
+                ItemHandleOnGUI itemHandle = slotsGroup.transform.GetChild(i).GetChild(0).GetComponent<ItemHandleOnGUI>();
                 if (itemHandle.item.maxStack > 1) {
                     
                 }

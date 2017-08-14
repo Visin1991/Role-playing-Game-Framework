@@ -370,7 +370,7 @@ public class UIManagerEditor : EditorWindow {
                                                     itemDatabaseList.itemList[i].itemAttributes = iA;
                                                     GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
                                                     for (int z = 0; z < items.Length; z++) {
-                                                        ItemHandle itemhandle = items[z].GetComponent<ItemHandle>();
+                                                        ItemHandleOnGUI itemhandle = items[z].GetComponent<ItemHandleOnGUI>();
                                                         if (itemhandle.item.itemID == itemDatabaseList.itemList[i].itemID) {
                                                             itemhandle.item = itemDatabaseList.itemList[i];
                                                             Debug.Log("Reset");

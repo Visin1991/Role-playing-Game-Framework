@@ -61,7 +61,7 @@ public class Hotbar : MonoBehaviour {
     {
         for (int i = 0; i < slotsInTotal; i++) {
             if (Input.GetKeyDown(keyCodesForSlots[i])) {
-                if (transform.GetChild(1).GetChild(i).childCount != 0 && transform.GetChild(1).GetChild(0).GetComponent<ItemHandle>().item.itemType != ItemType.UFPS_Ammo) {
+                if (transform.GetChild(1).GetChild(i).childCount != 0 && transform.GetChild(1).GetChild(0).GetComponent<ItemHandleOnGUI>().item.itemType != ItemType.UFPS_Ammo) {
                     //........
                 }
             }
