@@ -7,14 +7,12 @@ using UnityStandardAssets.CrossPlatformInput;
 public class CentralProcessorA : LEUnitProcessor {
 
     ItemInputSystem itemInput;
-    LE_Camera_Event_UpdateVlaue cameraDelta;
-    LE_Animation_Event_moveInfo animationMoveInfo;
-    LE_Animation_Event_ChangeStatu changeAnimationStatu;
-    LE_BasicMovement_Event_Strafe basicMovement_Strafe;
-    LE_BasicMovement_Event_Info basicMovement_info;
+    Visin1_1.CameraManager.CameraDelta cameraDelta;
 
-  
     bool pause;
+    bool enableBaiscMovement = true;
+    LEUnitAnimatorPr.AnimationAttackStatue animationAttackStatue = LEUnitAnimatorPr.AnimationAttackStatue.Off;
+    public LEUnitAnimatorPr.AnimationAttackStatue AnimationAttackStatue { get { return animationAttackStatue; } }
 
     /// <summary>
     /// Controll all component's update inside the CentralProcessor
@@ -51,11 +49,6 @@ public class CentralProcessorA : LEUnitProcessor {
             tpspUpdateDel += UpdateCamera;
         }
 
-        cameraDelta.Init();
-        animationMoveInfo.Init();
-        changeAnimationStatu.Init();
-        basicMovement_Strafe.Init();
-
     }
     //==================================================
     // Update the Processor and Update all sub-Component
@@ -73,14 +66,12 @@ public class CentralProcessorA : LEUnitProcessor {
 
     void UpdateBasicMovement()
     {
+        if (!enableBaiscMovement) return;
         if (userInputManager.Shift)
         {
-            basicMovement_Strafe.strafe = true;
-            basicMovementManager.MailBox_LE_BasicMovementEvent(basicMovement_Strafe);
+            basicMovementManager.SetStrafe(true);
         }
-        basicMovement_info.InputVH = userInputManager.currentVH;
-
-        basicMovementManager.MailBox_LE_BasicMovementEvent(basicMovement_info);
+        basicMovementManager.SetInputVH(userInputManager.currentVH);
         basicMovementManager.UpdateBasicMoveMent();
     }
 
@@ -88,15 +79,14 @@ public class CentralProcessorA : LEUnitProcessor {
     {
         if (userInputManager.Shift)
         {
-            animationMoveInfo.forward = userInputManager.currentVH.y;
-            animationMoveInfo.strafe = userInputManager.currentVH.x;
+            animationManager.SetMovementForward(userInputManager.currentVH.y);
+            animationManager.SetMovementStrafe(userInputManager.currentVH.x);
         }
         else
         {
-            animationMoveInfo.forward = userInputManager.currentVH.magnitude;
-            animationMoveInfo.strafe = 0.0f;
+            animationManager.SetMovementForward(userInputManager.currentVH.magnitude);
+            animationManager.SetMovementStrafe(0);
         }
-        animationManager.MailBox_LE_AnimationEvent(animationMoveInfo);
     }
 
     void UpdateCamera()
@@ -108,7 +98,7 @@ public class CentralProcessorA : LEUnitProcessor {
             cameraDelta.delta_yaw = userInputManager.mouseHorizontal;
             cameraDelta.delta_dstToTarget = userInputManager.mouseScroll;
 
-            cameraManager.MailBox_LE_CameraManager_Event(cameraDelta);
+            cameraManager.SetCameraDelta(cameraDelta);
 
             userInputManager.mouseVertical = 0;
             userInputManager.mouseHorizontal = 0;
@@ -121,61 +111,50 @@ public class CentralProcessorA : LEUnitProcessor {
     //===============================================
     #region MailBox
 
-    public override void MailBox_LE_ProcessEvent(LEEvent e)
-    {
-    }
 
-    public override void MailBox_LE_ProcessEvent(LEEvent_GetDamage e)
-    {
-
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartDrive e)
-    {
-
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartFlyModel e)
-    {
-
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartMeleeModel e)
+    public override void SetToMeleeWeaponModel()
     {
         //1. Change The the item Input System
         ItemInputSystem meleeInputSys = transform.GetComponent<MeleeWeaponController>();
         ChangeItemInputSystem(meleeInputSys);
 
         //2. Change the Animation Status
-        changeAnimationStatu.statu = LE_AnimationStatuType.melee;
         if (animationManager != null)
-            animationManager.MailBox_LE_AnimationEvent(changeAnimationStatu);
-
+            animationManager.SetMotionType( LEUnitAnimatorPr.AnimationMotionType.melee);
     }
 
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartHoldGunModel e)
+    public override void SetToRangeWeaponModel()
     {
         //1. Change The the item Input System
         ItemInputSystem gunInputSys = transform.GetOrAddComponent<GunController>();
         ChangeItemInputSystem(gunInputSys);
 
         //2. Change the Animation Status
-        changeAnimationStatu.statu = LE_AnimationStatuType.holdGun;
         if(animationManager != null)
-            animationManager.MailBox_LE_AnimationEvent(changeAnimationStatu);
+            animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.holdGun);
     }
 
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartNonModel e)
+    public override void SetToDefaultModel()
     {
         ChangeItemInputSystem(null);
 
         //2. Change the Animation Status
-        changeAnimationStatu.statu = LE_AnimationStatuType.normal;
         if (animationManager != null)
-            animationManager.MailBox_LE_AnimationEvent(changeAnimationStatu);
+            animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.normal);
     }
 
     #endregion
+
+    public override void AnimationManager_EnableBasicMoveMent(bool isable)
+    {
+        enableBaiscMovement = isable;
+    }
+
+    public override void AnimationManager_SetAnimationStatue(LEUnitAnimatorPr.AnimationAttackStatue s)
+    {
+        animationAttackStatue = s;
+    }
+
 
     public override void Pause(bool p)
     {

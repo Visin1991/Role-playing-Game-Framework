@@ -40,17 +40,21 @@ namespace Visin1_1
             currentCamera.LateUpdateCamera();
         }
 
-        public void MailBox_LE_CameraManager_Event(LE_Camera_Event e)
+        public void SetCameraDelta(CameraDelta delta)
         {
-            if (e.Type == LE_Camera_EventType.UpdateValue)
-            {
-                currentCamera.SetCameraDetal((LE_Camera_Event_UpdateVlaue)e);
-            }
+            currentCamera.SetCameraDetal(delta);
         }
 
         public float Yaw()
         {
             return currentCamera.Yaw;
+        }
+
+        public struct CameraDelta
+        {
+            public float delta_yaw;
+            public float delta_pitch;
+            public float delta_dstToTarget;
         }
 
     }

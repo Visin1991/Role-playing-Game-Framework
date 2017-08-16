@@ -9,11 +9,9 @@ public class EnemyProcessor : LEUnitProcessor {
     private Vector2 inputVH;
     public  Vector2 InputVH { get { return inputVH; } }
 
-    LE_Animation_Event_moveInfo animationMoveInfo;
-
     private void Start()
     {
-        animationMoveInfo.Init();
+
     }
 
     private void Update()
@@ -29,38 +27,13 @@ public class EnemyProcessor : LEUnitProcessor {
     //===============================================
     // Mail Box------Event Comb
     //===============================================
-    public override void MailBox_LE_ProcessEvent(LEEvent e)
-    {
 
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_GetDamage e)
-    {
-
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartDrive e)
-    {
-
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartFlyModel e)
-    {
-
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartMeleeModel e)
-    {
-       
-
-    }
-
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartHoldGunModel e)
+    public override void SetToRangeWeaponModel()
     {
         
     }
 
-    public override void MailBox_LE_ProcessEvent(LEEvent_StartNonModel e)
+    public override void SetToDefaultModel()
     {
        
     }
@@ -73,20 +46,6 @@ public class EnemyProcessor : LEUnitProcessor {
     //===============================================
     // Mail Box------Message from Sub-Component
     //===============================================
-    public override void MailBox_LE_AnimationManager_CallBack(LE_BasicMovement_Event e)
-    {
-
-    }
-
-    public override void MailBox_LE_BasicMoveMentManager_Callback()
-    {
-        
-    }
-
-    public override void MailBox_LE_CameraManager_Callback()
-    {
-        
-    }
 
     public override void GetKey_A_Down()
     {

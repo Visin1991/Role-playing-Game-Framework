@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LEUnitBasicMoveMentPr : LEUnitBasicMoveMent
 {
-    bool strafe = false;
+   
 
     bool enable = true;
 
@@ -27,40 +27,12 @@ public class LEUnitBasicMoveMentPr : LEUnitBasicMoveMent
             // First Person Camera
             else if (cameraType == CameraType.FirstPerson)
             {
-                MoveTransformBasedOnForwardDirection_2D();
-                CalculateMoveSpeed_();
+                VelocityDirBasedOnForwardDirection_2D();
+                CalculateCurrentVelocity3D();
                 TransformLookAtCameraForward();
             }
         }
     } 
 
-    public override void MailBox_LE_BasicMovementEvent(LE_BasicMovement_Event e)
-    {
-        if (e is LE_BasicMovement_Event_Strafe)
-        {
-            ProcessStrafe((LE_BasicMovement_Event_Strafe)e);
-        }
-        else if (e is LE_BasicMovement_Event_Info)
-        {
-            ProcessBasicInfo((LE_BasicMovement_Event_Info)e);
-        }
-        else if (e is LE_BasicMovement_Event_Enable)
-        {
-            enable = true;
-        }
-        else if (e is LE_BasicMovement_Event_Disable)
-        {
-            enable = false;
-        }
-    }
 
-    void ProcessBasicInfo(LE_BasicMovement_Event_Info e)
-    {
-        InputVH = e.InputVH;
-    }
-
-    void ProcessStrafe(LE_BasicMovement_Event_Strafe e)
-    {   
-        strafe = e.strafe;
-    }
 }

@@ -16,58 +16,24 @@ public class Akai_Animation : LEUnitAnimatorPr
        
     }
 
-    public override void MailBox_LE_AnimationEvent(LE_Animation_Event e)
+    public override void SetKeyStatue(InputIndex index, bool state)
     {
-        if (e is LE_Animation_Event_moveInfo)
-        {
-            ProcessMovementInfo((LE_Animation_Event_moveInfo)e);
-        }
-        else if (e is LE_Animation_Event_GetInput)
-        {
-            ProcessInputInfo((LE_Animation_Event_GetInput)e);
-        }
-        else if (e is LE_Animation_Event_ChangeStatu)
-        {
-            ProcessChangeStatu((LE_Animation_Event_ChangeStatu)e);
-        }
-        else if (e is LE_Animation_Event_Stun)
-        {
-            StunAnimation((LE_Animation_Event_Stun)e);
-        }
-        else if (e is LE_Animation_Event_SlowDown)
-        {
-            SlowDownAnimation((LE_Animation_Event_SlowDown)e);
-        }
+        animator.SetBool(index.ToString(), state);
     }
 
-    void ProcessInputInfo(LE_Animation_Event_GetInput info)
+    public override void SetMovementForward(float forward)
     {
-        animator.SetBool(info.inputIndex.ToString(),info.InputValue);
+        animator.SetFloat("Forward", forward);
     }
 
-    void ProcessMovementInfo(LE_Animation_Event_moveInfo info)
+    public override void SetMovementStrafe(float strafe)
     {
-      
-        animator.SetFloat("Forward", info.forward);
-        animator.SetFloat("Strafe", info.strafe);
-
+        animator.SetFloat("Strafe", strafe);
     }
 
-    void ProcessChangeStatu(LE_Animation_Event_ChangeStatu changeStatu)
+    public override void SetMotionType(AnimationMotionType type)
     {
-        animator.SetInteger("StatuType", (int)changeStatu.statu);
-    }
-
-    void StunAnimation(LE_Animation_Event_Stun stun)
-    {
-        Debug.LogFormat(" Stun Animation For {0}Seconds", stun.stunTime);
-        Debug.LogFormat(" Stun Special Effect {0}", stun.stunEffectIndex);
-    }
-
-    void SlowDownAnimation(LE_Animation_Event_SlowDown info)
-    {
-        Debug.LogFormat("SlowDown For {0} second", info.slowTime);
-        Debug.LogFormat("SlowDown Percentage for{0}", info.slowValue);
+        animator.SetInteger("StatuType", (int)type);
     }
 
 

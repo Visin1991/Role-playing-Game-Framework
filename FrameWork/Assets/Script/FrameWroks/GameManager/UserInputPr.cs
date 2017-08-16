@@ -101,32 +101,23 @@ public class UserInputPr : MonoBehaviour{
         }
     }
 
-
-
     //===============================================
     //Test for Switch Play Model
     void TestForSwitchPlayModel()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
             if (statu == 1)
             {
-                LEEvent_StartHoldGunModel e = new LEEvent_StartHoldGunModel();
-                e.Init();
-                leUnitProcessor.MailBox_LE_ProcessEvent(e);
+                leUnitProcessor.SetToRangeWeaponModel();
             }
             else if (statu == 2)
             {
-                LEEvent_StartMeleeModel e = new LEEvent_StartMeleeModel();
-                e.Init();
-                leUnitProcessor.MailBox_LE_ProcessEvent(e);
+                leUnitProcessor.SetToMeleeWeaponModel();
             }
             else
             {
-                LEEvent_StartNonModel e = new LEEvent_StartNonModel();
-                e.Init();
-                leUnitProcessor.MailBox_LE_ProcessEvent(e);
+                leUnitProcessor.SetToDefaultModel();
             }
             statu += 1;
             statu %= 3;

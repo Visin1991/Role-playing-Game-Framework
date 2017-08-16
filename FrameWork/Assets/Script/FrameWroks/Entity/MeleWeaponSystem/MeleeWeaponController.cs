@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class MeleeWeaponController : ItemInputSystem {
 
-    LE_Animation_Event_GetInput info;
-
     public Sword1[] weapons;
     Sword1 currentWeapon;
 
@@ -55,10 +53,7 @@ public class MeleeWeaponController : ItemInputSystem {
 
     public override void GetKey_A_Down()
     {
-        Debug.Log("Get GetKey_A_Down");
-        info.inputIndex = InputIndex.A;
-        info.InputValue = true;
-        animationManager.MailBox_LE_AnimationEvent(info);
+        animationManager.SetKeyStatue(InputIndex.A,true);
     }
 
     public override void GetKey_A()
@@ -73,8 +68,6 @@ public class MeleeWeaponController : ItemInputSystem {
 
     public override void GetKey_B_Down()
     {
-        info.inputIndex = InputIndex.B;
-        info.InputValue = true;
-        animationManager.MailBox_LE_AnimationEvent(info);
+        animationManager.SetKeyStatue(InputIndex.B, true);
     }
 }

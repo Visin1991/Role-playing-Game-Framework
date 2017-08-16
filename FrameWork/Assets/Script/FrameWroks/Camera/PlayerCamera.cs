@@ -9,7 +9,7 @@ public interface PlayerCamera{
     void InitialCamera();
     void UpdateCamera();
     void LateUpdateCamera();
-    void SetCameraDetal(LE_Camera_Event_UpdateVlaue e);
+    void SetCameraDetal(Visin1_1.CameraManager.CameraDelta delta);
     float Yaw { get; }
 
 }

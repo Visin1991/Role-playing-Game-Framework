@@ -15,27 +15,21 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     protected LEUnitAnimatorPr animationManager;
     protected Visin1_1.CameraManager cameraManager;
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent e);
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_GetDamage e);
+    public virtual void SetToRangeWeaponModel() { }
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartDrive e);
+    public virtual void SetToMeleeWeaponModel() { }
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartFlyModel e);
-
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartHoldGunModel e);
-
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartMeleeModel e);
-
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartNonModel e);
+    public virtual void SetToDefaultModel() { }
 
     public abstract void Pause(bool b);
 
-    public virtual void MailBox_LE_AnimationManager_CallBack(LE_BasicMovement_Event e) { }
-
-    public virtual void MailBox_LE_BasicMoveMentManager_Callback() { }
-
-    public virtual void MailBox_LE_CameraManager_Callback() { }
+    //======================================================================
+    //Recive massage from AnimationManager.
+    //======================================================================
+    public virtual void AnimationManager_EnableBasicMoveMent(bool isable) { }
+    public virtual void AnimationManager_SetAnimationStatue(LEUnitAnimatorPr.AnimationAttackStatue s) { }
+    //======================================================================
 
     public abstract void GetKey_A_Down();
 

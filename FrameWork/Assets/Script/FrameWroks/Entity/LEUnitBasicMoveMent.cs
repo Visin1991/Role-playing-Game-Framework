@@ -6,7 +6,8 @@ public abstract class LEUnitBasicMoveMent : MonoBehaviour {
 
     
     private float yaw;  //Rotation around Y Axis
-    public float turnSmoothVelocity;
+    public float turnReactionSpped = 0.1f;
+    float turnSmoothVelocity;
 
     public bool drivenByInput;
 
@@ -18,8 +19,9 @@ public abstract class LEUnitBasicMoveMent : MonoBehaviour {
 
     protected float currentSpeed = 0.0f;
     protected float speedSmoothVelocity;
-    protected float reactionSpped;
+    
 
+    protected bool strafe = false;
     protected Vector2 InputVH;
     [SerializeField]
     protected float moveSpeed;
@@ -27,8 +29,6 @@ public abstract class LEUnitBasicMoveMent : MonoBehaviour {
     protected float speedScales;
     [SerializeField]
     protected float maxSpeed;
-
-    protected LE_Animation_Event_moveInfo basicMovementInfo = new LE_Animation_Event_moveInfo();
 
     protected Transform cameraT;
     protected CameraType cameraType;
@@ -49,7 +49,7 @@ public abstract class LEUnitBasicMoveMent : MonoBehaviour {
     protected void TransformLookAtCameraForward()
     {
         float targetDegree = Mathf.Atan2(InputVH.x, InputVH.y) * Mathf.Rad2Deg + cameramanager.Yaw();
-        transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetDegree, ref turnSmoothVelocity, reactionSpped);
+        transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetDegree, ref turnSmoothVelocity, turnReactionSpped);
     }
 
     protected void LookAroundMouseDir()
@@ -67,31 +67,33 @@ public abstract class LEUnitBasicMoveMent : MonoBehaviour {
     protected void TurnAroundBasedOn_CameraDir()
     {
         float targetDegree = Mathf.Atan2(InputVH.x, InputVH.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
-        transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetDegree, ref turnSmoothVelocity, reactionSpped);
+        transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetDegree, ref turnSmoothVelocity, turnReactionSpped);
     }
 
     //When player press W move direction will be transform.forward
     //When player press S move direction will be -transform.forward
-    protected void MoveTransformBasedOnForwardDirection_2D()
+    protected void VelocityDirBasedOnForwardDirection_2D()
     {
         velocityNor = transform.forward * Mathf.Sign(InputVH.x);
     }
 
-    protected void MoveTransformBasedOnForwardDirection_4D()
+    protected void VelocityDirBasedOnForwardDirection_4D()
     {
         velocityNor = transform.forward * Mathf.Sign(InputVH.x) + transform.right * Mathf.Sign(InputVH.y);
     }
 
     //This is used for riggid body driven.....
-    protected void CalculateMoveSpeed_()
+    protected void CalculateCurrentVelocity3D()
     {
         postTargetMoveSpeed = maxSpeed * InputVH.normalized.magnitude;
 
-        currentSpeed = Mathf.SmoothDamp(currentSpeed, postTargetMoveSpeed, ref speedSmoothVelocity, reactionSpped);
+        currentSpeed = Mathf.SmoothDamp(currentSpeed, postTargetMoveSpeed, ref speedSmoothVelocity, turnReactionSpped);
 
         velocity3D = currentSpeed * velocityNor;
     }
 
 
-    public abstract void MailBox_LE_BasicMovementEvent(LE_BasicMovement_Event e);
+    public virtual void SetStrafe(bool _strafe) { strafe = _strafe; }
+
+    public virtual void SetInputVH(Vector2 _inputVH) { InputVH = _inputVH; }
 }

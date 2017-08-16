@@ -20,34 +20,51 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
     }
 
     public abstract void UpdateAnimation();
-   
-    public abstract void MailBox_LE_AnimationEvent(LE_Animation_Event e);
+
+    public virtual void SetKeyStatue(InputIndex index,bool state) { }
+
+    public virtual void SetMovementForward(float forward) { }
+
+    public virtual void SetMovementStrafe(float strafe) { }
+
+    public virtual void SetMotionType(AnimationMotionType type) { }
 
     [Visin1_1.AMBCallback()]
     public virtual void EnableBasicMoveMent() {
         if (processor == null) return;
-        LE_BasicMovement_Event_Enable enable = new LE_BasicMovement_Event_Enable();
-        enable.Init();
-        processor.MailBox_LE_AnimationManager_CallBack(enable);
+        processor.AnimationManager_EnableBasicMoveMent(true);
     }
 
     [Visin1_1.AMBCallback()]
     public virtual void DisableBasicMovement() {
         if (processor == null) return;
-        LE_BasicMovement_Event_Disable basicDisable = new LE_BasicMovement_Event_Disable();
-        basicDisable.Init();
-        processor.MailBox_LE_AnimationManager_CallBack(basicDisable);
+        processor.AnimationManager_EnableBasicMoveMent(false);
     }
 
     [Visin1_1.AMBCallback()]
-    public virtual void Attack_Statue_True()
+    public virtual void Attack_Statue_On()
     {
-
+        if (processor == null) return;
+        processor.AnimationManager_SetAnimationStatue(AnimationAttackStatue.OnAttack);
     }
 
     [Visin1_1.AMBCallback()]
-    public virtual void Attack_Statue_False()
+    public virtual void Attack_Statue_Off()
     {
+        if (processor == null) return;
+        processor.AnimationManager_SetAnimationStatue(AnimationAttackStatue.Off);
+    }
 
+    public enum AnimationAttackStatue
+    {
+        OnAttack,
+        Off
+    }
+
+    public enum AnimationMotionType
+    {
+        normal,
+        melee,
+        holdGun
     }
 }

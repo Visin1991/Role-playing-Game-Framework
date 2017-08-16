@@ -16,8 +16,4 @@ public class EnemyAnimationPr : LEUnitAnimatorPr
         
     }
 
-    public override void MailBox_LE_AnimationEvent(LE_Animation_Event e)
-    {
-       
-    }
 }

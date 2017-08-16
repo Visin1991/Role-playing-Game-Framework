@@ -9,8 +9,6 @@ public class GunController :  ItemInputSystem {
     public Gun[] allGuns;
     Gun currentGun;
 
-    LE_Animation_Event_GetInput info;
-
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -50,19 +48,15 @@ public class GunController :  ItemInputSystem {
     public override void GetKey_A()
     {
         //LookAroundMouseDir();
-        info.inputIndex = InputIndex.A;
-        info.InputValue = true;
         OnTriggerHold();
-        animationManager.MailBox_LE_AnimationEvent(info);
+        animationManager.SetKeyStatue(InputIndex.A,true);
         
     }
 
     public override void GetKey_A_Up()
     {
-        info.inputIndex = InputIndex.A;
-        info.InputValue = false;
         OnTriggerRelease();
-        animationManager.MailBox_LE_AnimationEvent(info);
+        animationManager.SetKeyStatue(InputIndex.A,false);
     }
 
     public override void GetKey_B_Down()

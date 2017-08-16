@@ -23,9 +23,4 @@ public class WeaponPhysics : WeaponComponent {
     {
         gameObject.layer = layer;
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("OnCollisionEnter");
-    }
 }
