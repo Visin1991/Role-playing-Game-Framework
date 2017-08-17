@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunController :  ItemInputSystem {
+public class GunController :  InputActionManager {
 
     
     public Gun[] allGuns;
@@ -15,7 +15,7 @@ public class GunController :  ItemInputSystem {
         EquipGunIndex(0);
     }
 
-    public override void ShutDown()
+    public void ShutDown()
     {
         if (currentGun != null)
         {
@@ -39,13 +39,13 @@ public class GunController :  ItemInputSystem {
         currentGun.transform.SetParent(rightHandTF);
     }
 
-    public override void GetKey_A_Down()
+    public void GetKey_A_Down()
     {
         
     }
 
 
-    public override void GetKey_A()
+    public void GetKey_A()
     {
         //LookAroundMouseDir();
         OnTriggerHold();
@@ -53,13 +53,13 @@ public class GunController :  ItemInputSystem {
         
     }
 
-    public override void GetKey_A_Up()
+    public void GetKey_A_Up()
     {
         OnTriggerRelease();
         animationManager.SetKeyStatue(InputIndex.A,false);
     }
 
-    public override void GetKey_B_Down()
+    public void GetKey_B_Down()
     {
         ReLoad();
     }

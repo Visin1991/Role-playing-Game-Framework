@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyProcessor : LEUnitProcessor {
 
-    ItemInputSystem itemInput;
+    InputActionManager itemInput;
 
     private Vector2 inputVH;
     public  Vector2 InputVH { get { return inputVH; } }

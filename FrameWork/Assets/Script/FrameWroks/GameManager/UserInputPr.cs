@@ -23,15 +23,14 @@ public class UserInputPr : MonoBehaviour{
 
     public bool Shift;
 
-    
 
     public Vector2 InputVH { get { return inputVH; } }
 
     int statu = 0;
 
-    public void ResetProcessor(LEUnitProcessor processor)
+    private void Start()
     {
-        leUnitProcessor = processor;
+        leUnitProcessor = GetComponent<LEUnitProcessor>();
     }
 
     public void UpdateInput()

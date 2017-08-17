@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ItemHandleOnGUI : MonoBehaviour {
 
-    public GameObject itemImageObj;
+    GameObject itemImageObj;
     public Image itemImage;
 
     public Item item;
@@ -49,9 +49,17 @@ public class ItemHandleOnGUI : MonoBehaviour {
         isEmpty = true;
     }
 
+    /// <summary>
+    /// OnGUIDoubleClick will be assigned when we add the ItemGUI to the Inventory
+    /// </summary>
     public void DoubleClick()
     {
-        Debug.Log("Double Click on Item");
+        if (item.OnGUIDoubleClick != null) { item.OnGUIDoubleClick.Invoke(); }
+        //LEUnitProcessor processor = FindObjectOfType<LPlayer>().GetComponent<LEUnitProcessor>();
+        //IInputActable sword1 = processor.InstantiateSword1();
+        //swoed1.SetProporty.......
+        //
+        //processor.EquipWeapon(sword1);
     }
 
 }

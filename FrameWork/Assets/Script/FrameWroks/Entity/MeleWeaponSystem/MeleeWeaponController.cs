@@ -3,21 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeWeaponController : ItemInputSystem {
+public class MeleeWeaponController : MonoBehaviour {
 
+    protected Transform rightHandTF;
     public Sword1[] weapons;
     Sword1 currentWeapon;
 
-    protected override void OnEnable()
+    protected void OnEnable()
     {
-        base.OnEnable();
         EquiWeaponIndex(0);
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 
     void InitItems()
     {
@@ -43,7 +38,7 @@ public class MeleeWeaponController : ItemInputSystem {
         currentWeapon.SetUpLayer(transform.root.gameObject.layer);
     }
 
-    public override void ShutDown()
+    public void ShutDown()
     {
         if (currentWeapon != null)
         {
@@ -51,23 +46,23 @@ public class MeleeWeaponController : ItemInputSystem {
         }
     }
 
-    public override void GetKey_A_Down()
-    {
-        animationManager.SetKeyStatue(InputIndex.A,true);
-    }
-
-    public override void GetKey_A()
+    public void GetKey_A_Down()
     {
         
     }
 
-    public override void GetKey_A_Up()
+    public void GetKey_A()
     {
         
     }
 
-    public override void GetKey_B_Down()
+    public void GetKey_A_Up()
     {
-        animationManager.SetKeyStatue(InputIndex.B, true);
+        
+    }
+
+    public void GetKey_B_Down()
+    {
+        
     }
 }

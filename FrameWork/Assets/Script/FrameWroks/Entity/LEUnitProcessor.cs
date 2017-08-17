@@ -7,14 +7,14 @@ using UnityEngine;
 
 public abstract class LEUnitProcessor : MonoBehaviour {
 
-    protected delegate void CentralPanelUpdateDel();
-    protected CentralPanelUpdateDel tpspUpdateDel;
-
-    protected UserInputPr userInputManager;
+    public Sword1 sword1;
+    protected InputActionManager inputActionManager;
     protected LEUnitBasicMoveMent basicMovementManager;
     protected LEUnitAnimatorPr animationManager;
-    protected Visin1_1.CameraManager cameraManager;
 
+    protected bool enableBaiscMovement = true;
+    LEUnitAnimatorPr.AnimationAttackStatue animationAttackStatue = LEUnitAnimatorPr.AnimationAttackStatue.Off;
+    protected LEUnitAnimatorPr.AnimationAttackStatue AnimationAttackStatue { get { return animationAttackStatue; } }
 
     public virtual void SetToRangeWeaponModel() { }
 
@@ -22,22 +22,49 @@ public abstract class LEUnitProcessor : MonoBehaviour {
 
     public virtual void SetToDefaultModel() { }
 
+    public Sword1 InstantiateSword1() { return Instantiate(sword1, transform) as Sword1; }
+
+    public virtual void EquipWeapon(IInputActable iinputActable) { GetComponent<InputActionManager>().ResetClient(iinputActable); }
+
     public abstract void Pause(bool b);
 
     //======================================================================
     //Recive massage from AnimationManager.
     //======================================================================
-    public virtual void AnimationManager_EnableBasicMoveMent(bool isable) { }
-    public virtual void AnimationManager_SetAnimationStatue(LEUnitAnimatorPr.AnimationAttackStatue s) { }
+    public virtual void AnimationManager_EnableBasicMoveMent(bool isable) { enableBaiscMovement = isable; }
+    public virtual void AnimationManager_SetAnimationStatue(LEUnitAnimatorPr.AnimationAttackStatue s) { animationAttackStatue = s; }
     //======================================================================
 
-    public abstract void GetKey_A_Down();
+    //------------------------------------------------
+    //   Those normally called by User input or Ai ......
+    // Hold different weapon and use different animation statue.....  do different behavior
+    //------------------------------------------------
+    public virtual void GetKey_A_Down()
+    {
+        if (inputActionManager != null)
+            inputActionManager.GetKey_A_Down();
+    }
 
-    public abstract void GetKey_A();
+    public virtual void GetKey_A()
+    {
+        if (inputActionManager != null)
+            inputActionManager.GetKey_A();
+    }
 
-    public abstract void GetKey_A_Up();
+    public virtual void GetKey_A_Up()
+    {
+        if (inputActionManager != null)
+            inputActionManager.GetKey_A_Up();
+    }
 
-    public abstract void GetKey_B_Down();
+    public virtual void GetKey_B_Down()
+    {
+        if (inputActionManager != null)
+            inputActionManager.GetKey_B_Down();
+    }
 
-    public abstract void GetKey_B_Up();
+    public virtual void GetKey_B_Up()
+    {
+        
+    }
 }
