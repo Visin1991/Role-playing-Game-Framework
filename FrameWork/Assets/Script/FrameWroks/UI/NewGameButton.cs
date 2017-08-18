@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class NewGameButton : MonoBehaviour {
 
+    GameCentalPr.PanelType parentPanelType;
+    public GameCentalPr.PanelType target;
+
     Button startNewGameButton;
 
     private void Start()
@@ -18,7 +21,7 @@ public class NewGameButton : MonoBehaviour {
 
     public void OnClick()
     {
-        GameUIPr.Instance.StartNewGame();
+        GameCentalPr.Instance.StartNewGame();
     }
 }
 

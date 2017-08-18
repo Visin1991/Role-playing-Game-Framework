@@ -3,19 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunController :  InputActionManager {
+public class GunController :  ItemInputSystem {
 
-    
+    Transform GunHolder;
     public Gun[] allGuns;
     Gun currentGun;
 
-    protected override void OnEnable()
+    LEUnitCentralPanel cp;
+    LE_Animation_Event_GetInput info;
+
+    private void OnEnable()
     {
-        base.OnEnable();
-        EquipGunIndex(0);
+        InitItems();
     }
 
-    public void ShutDown()
+    private void Start(){InitItems();}
+
+    void InitItems()
+    {
+        GunHolder = GetComponentInChildren<RightHandHolder>().transform;
+        cp = GetComponent<LEUnitCentralPanel>();
+        info.Init();
+
+        EquipGun(allGuns[0]);
+    }
+
+    public override void ShutDown()
     {
         if (currentGun != null)
         {
@@ -35,31 +48,35 @@ public class GunController :  InputActionManager {
         {
             Destroy(currentGun.gameObject);
         }
-        currentGun = Instantiate(gun, rightHandTF.position, rightHandTF.rotation) as Gun;
-        currentGun.transform.SetParent(rightHandTF);
+
+        currentGun = Instantiate(gun, GunHolder.position, GunHolder.rotation) as Gun;
+        currentGun.transform.SetParent(GunHolder);
     }
 
-    public void GetKey_A_Down()
+    public override void GetKey_A_Down()
     {
         
     }
 
-
-    public void GetKey_A()
+    public override void GetKey_A()
     {
         //LookAroundMouseDir();
+        info.inputIndex = InputIndex.A;
+        info.InputValue = true;
         OnTriggerHold();
-        animationManager.SetKeyStatue(InputIndex.A,true);
+        cp.Rise_LE_Animation_Event(info);
         
     }
 
-    public void GetKey_A_Up()
+    public override void GetKey_A_Up()
     {
+        info.inputIndex = InputIndex.A;
+        info.InputValue = false;
         OnTriggerRelease();
-        animationManager.SetKeyStatue(InputIndex.A,false);
+        cp.Rise_LE_Animation_Event(info);
     }
 
-    public void GetKey_B_Down()
+    public override void GetKey_B_Down()
     {
         ReLoad();
     }
@@ -71,7 +88,6 @@ public class GunController :  InputActionManager {
             currentGun.OnTriggerHold();
         }
         else {
-            EquipGunIndex(0);
             Debug.LogError("Current Gun is Null");
         }
     }
@@ -97,8 +113,8 @@ public class GunController :  InputActionManager {
         if (Input.GetMouseButton(0))
         {
             Vector3 mousePos = Visin1_1.MouseAndCamera.GetMouseGroundIntersectionPoint();
-            //mousePos.y = cp.Adapter_LE_mainBody.position.y;
-            //cp.Adapter_LE_mainBody.LookAt(mousePos);
+            mousePos.y = cp.Adapter_LE_mainBody.position.y;
+            cp.Adapter_LE_mainBody.LookAt(mousePos);
         }
     }
 }

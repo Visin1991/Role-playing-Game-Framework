@@ -21,7 +21,8 @@ public class EnemyAttack : MonoBehaviour
         playerHealth = player.GetComponent <PlayerHealth> ();
         enemyHealth = GetComponent<EnemyHealth>();
         anim = GetComponent <Animator> ();
-        //anim.SetBool("Walking", true);
+        anim.SetBool("Walking", true);
+        
     }
 
     
@@ -39,8 +40,18 @@ public class EnemyAttack : MonoBehaviour
         if (other.gameObject == player)
         {
             playerInRange = false;
-            //anim.SetBool("Attacking", false);
+            anim.SetBool("Attacking", false);
         }
+    }
+
+    public void enableZombieCollider()
+    {
+        gameObject.GetComponent<SphereCollider>().enabled = true;
+    }
+
+    public void disableZombieCollider()
+    {
+        gameObject.GetComponent<SphereCollider>().enabled = false;
     }
 
 
@@ -57,7 +68,7 @@ public class EnemyAttack : MonoBehaviour
 
         if (playerHealth.currentHealth <= 0)
         {
-            //anim.SetBool("PlayerDead", false);
+            anim.SetBool("PlayerDead", false);
         }
         
 
@@ -74,8 +85,8 @@ public class EnemyAttack : MonoBehaviour
 
         if(playerHealth.currentHealth > 0)
         {
-            //anim.SetBool("Attacking", true);
-            //anim.SetBool("PlayerDead", false);
+            anim.SetBool("Attacking", true);
+            anim.SetBool("PlayerDead", false);
             playerHealth.TakeDamage (attackDamage);
         }
     }

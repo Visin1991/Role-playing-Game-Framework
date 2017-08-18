@@ -16,12 +16,14 @@ public class BulletDamage : MonoBehaviour {
         }
         if (col.gameObject.tag == "Enemy")
         {
+           
             EnemyHealth enemyHealth = col.gameObject.GetComponent<EnemyHealth>();
             enemyHealth.TakeDamage(damagePerShot);
             Destroy(gameObject);
         }
         if (col.gameObject.tag == "Wall")
         {
+            
             Destroy(gameObject);
             
         }

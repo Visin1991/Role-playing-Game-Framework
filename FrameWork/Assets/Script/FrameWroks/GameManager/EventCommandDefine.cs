@@ -16,7 +16,6 @@ public enum InputIndex
 
 public enum LEEventType
 {
-    
     GetDamage,
     Die,
     Sleep,
@@ -143,6 +142,88 @@ public struct Damage_Stun : Damage
 
 #endregion
 
+#region Animation Event Define
+
+public enum LE_Animation_EventType
+{
+    moveInfo,
+    getInput,
+    changeStatu,
+    Stun,
+    SlowDown,
+    Die,
+    ReloadBullet
+}
+
+public enum LE_AnimationStatuType
+{
+    normal,
+    melee,
+    holdGun
+}
+
+public interface LE_Animation_Event
+{
+    LE_Animation_EventType Type { get; set; }
+    void Init(); //Because Struct We can't use explicit parameterless constructors
+}
+
+public struct LE_Animation_Event_moveInfo : LE_Animation_Event
+{
+    LE_Animation_EventType type;
+    public LE_Animation_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Animation_EventType.moveInfo; }
+    public float forward;
+    public float strafe;
+}
+
+public struct LE_Animation_Event_GetInput : LE_Animation_Event
+{
+    LE_Animation_EventType type;
+    public LE_Animation_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Animation_EventType.getInput; }
+    public InputIndex inputIndex;
+    public bool InputValue;
+}
+
+public struct LE_Animation_Event_ChangeStatu : LE_Animation_Event
+{
+    LE_Animation_EventType type;
+    public LE_Animation_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Animation_EventType.changeStatu; }
+    public LE_AnimationStatuType statu;
+}
+
+public struct LE_Animation_Event_Stun : LE_Animation_Event
+{
+    LE_Animation_EventType type;
+    public LE_Animation_EventType Type { get { return type; } set {type = value; } }
+    public void Init() { type = LE_Animation_EventType.Stun; }
+
+    public float stunTime;
+    public int stunEffectIndex;
+}
+
+public struct LE_Animation_Event_SlowDown : LE_Animation_Event
+{
+    LE_Animation_EventType type;
+    public LE_Animation_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Animation_EventType.SlowDown; }
+
+    public float slowTime;
+    public int slowValue;
+}
+
+public struct LE_Animation_Event_ReloadBullet : LE_Animation_Event
+{
+    LE_Animation_EventType type;
+    public LE_Animation_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Animation_EventType.ReloadBullet; }
+
+}
+
+#endregion
+
 #region UI Event Define
 
 //LE UI Event
@@ -250,6 +331,38 @@ public struct SYS_UI_Event_UpdateHealthBar : SYS_UI_Event
 
 #endregion
 
+#region Camera_Event Define
+public enum LE_Camera_EventType
+{
+    UpdateValue,
+    ChangeCameraType
+}
+
+public interface LE_Camera_Event
+{
+    LE_Camera_EventType Type { get; set; }
+    void Init(); //Because Struct We can't use explicit parameterless constructors
+}
+
+public struct LE_Camera_Event_UpdateVlaue : LE_Camera_Event
+{
+    LE_Camera_EventType type;
+    public LE_Camera_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Camera_EventType.UpdateValue; }
+    public float delta_yaw;
+    public float delta_pitch;
+    public float delta_dstToTarget;
+}
+
+public struct LE_Camera_Event_ChangeCamera : LE_Camera_Event
+{
+    LE_Camera_EventType type;
+    public LE_Camera_EventType Type { get { return type; } set { type = value; } }
+    public void Init() { type = LE_Camera_EventType.ChangeCameraType; }
+    public int cameraType;
+}
+
+#endregion
 
 #region Movement Define
 

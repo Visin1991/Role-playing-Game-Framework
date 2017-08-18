@@ -38,10 +38,11 @@ public class EnemyMovement : MonoBehaviour
 
     void Update ()
     {
-        //anim.SetBool("Walking", true);
+        
+        anim.SetBool("Walking", true);
         if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
         {
-            //nav.SetDestination(player.position);
+            nav.SetDestination(player.position);
             /*if (col)
             {
                 nav.SetDestination(player.position);

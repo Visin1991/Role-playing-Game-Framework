@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MainManue : UIPanel {
 
-    public override GameUIPr.PanelType GetPanelType()
+    public override GameCentalPr.PanelType GetPanelType()
     {
-        return GameUIPr.PanelType.MainMenue;
+        return GameCentalPr.PanelType.MainMenue;
     } 
 }

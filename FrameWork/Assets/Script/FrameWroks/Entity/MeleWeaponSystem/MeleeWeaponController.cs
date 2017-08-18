@@ -3,42 +3,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeWeaponController : MonoBehaviour {
+public class MeleeWeaponController : ItemInputSystem {
 
-    protected Transform rightHandTF;
-    public Sword1[] weapons;
-    Sword1 currentWeapon;
+    LEUnitCentralPanel cp;
+    LE_Animation_Event_GetInput info;
 
-    protected void OnEnable()
+    Transform weaponHolder;
+
+    public GameObject[] weapons;
+    GameObject currentWeapon;
+
+    private void OnEnable()
     {
-        EquiWeaponIndex(0);
+        InitItems();
     }
+    // Update is called once per frame
+    void Update () {
+		
+	}
 
     void InitItems()
     {
-        rightHandTF = GetComponentInChildren<RightHandHolder>().transform;
-        if(weapons.Length >0)
-            EquipWeapon(weapons[0]);
+        cp = GetComponent<LEUnitCentralPanel>();
+        info.Init();
+
+        weaponHolder = GetComponentInChildren<RightHandHolder>().transform;
+        EquipWeapon(weapons[0]);
 
     }
 
     public void EquiWeaponIndex(int index)
     {
-        EquipWeapon(weapons[0]);
+
     }
 
-    void EquipWeapon(Sword1 weapon)
+    void EquipWeapon(GameObject weapon)
     {
         if (currentWeapon != null)
         {
             Destroy(currentWeapon.gameObject);
         }
-        currentWeapon = Instantiate(weapon, rightHandTF.position, rightHandTF.rotation) as Sword1;
-        currentWeapon.transform.SetParent(rightHandTF);
-        currentWeapon.SetUpLayer(transform.root.gameObject.layer);
+        currentWeapon = Instantiate(weapon, weaponHolder.position, weaponHolder.rotation) as GameObject;
+        currentWeapon.transform.SetParent(weaponHolder);
     }
 
-    public void ShutDown()
+    public void enableWeaponCollider()
+    {
+        currentWeapon.GetComponentInChildren<Collider>().enabled = true;
+    }
+
+    public void disableWeaponCollider()
+    {
+        currentWeapon.GetComponentInChildren<Collider>().enabled = false;
+    }
+    public override void ShutDown()
     {
         if (currentWeapon != null)
         {
@@ -46,23 +64,26 @@ public class MeleeWeaponController : MonoBehaviour {
         }
     }
 
-    public void GetKey_A_Down()
+    public override void GetKey_A_Down()
+    {
+        info.inputIndex = InputIndex.A;
+        info.InputValue = true;
+        cp.Rise_LE_Animation_Event(info);
+    }
+    public override void GetKey_A()
     {
         
     }
 
-    public void GetKey_A()
+    public override void GetKey_A_Up()
     {
         
     }
 
-    public void GetKey_A_Up()
+    public override void GetKey_B_Down()
     {
-        
-    }
-
-    public void GetKey_B_Down()
-    {
-        
+        info.inputIndex = InputIndex.B;
+        info.InputValue = true;
+        cp.Rise_LE_Animation_Event(info);
     }
 }

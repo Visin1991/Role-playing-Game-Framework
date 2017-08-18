@@ -19,6 +19,6 @@ public class SaveGameButton : MonoBehaviour {
 
     public void OnClick()
     {
-        GameUIPr.Instance.SaveGame(loadIndex);
+        GameCentalPr.Instance.SaveGame(loadIndex);
     }
 }

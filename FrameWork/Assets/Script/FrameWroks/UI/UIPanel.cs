@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class UIPanel : MonoBehaviour {
-   public abstract GameUIPr.PanelType GetPanelType();
+   public abstract GameCentalPr.PanelType GetPanelType();
 }

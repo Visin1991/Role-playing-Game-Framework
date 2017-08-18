@@ -163,16 +163,11 @@ namespace Visin1_1
         public float detal_pitch;
         public float detal_dstToTarget;
 
-        public void SetCameraDetal(Visin1_1.CameraManager.CameraDelta e)
+        public void SetCameraDetal(LE_Camera_Event_UpdateVlaue e)
         {
             detal_yaw = e.delta_yaw;
             detal_pitch = e.delta_pitch;
             detal_dstToTarget = e.delta_dstToTarget;
-        }
-
-        public float Yaw
-        {
-            get { return rotAverageY; }
         }
     }
 }
