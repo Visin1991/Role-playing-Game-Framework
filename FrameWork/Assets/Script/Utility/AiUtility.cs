@@ -451,7 +451,7 @@ namespace AiUtility{
             return targetsInRangeRadius;
         }
 
-        //Find the nearest Collider inside the raduis range; center is a given position
+        //Find the nearest Collider with LayerMask of targetMask inside the raduis range; center is a given position
         public static Collider FindNearestColliderOverlapSphere(Vector3 position, float range)
         {
 
@@ -511,15 +511,6 @@ namespace AiUtility{
                 }
             }
             return nearestCollider;
-        }
-    }
-
-
-    public static class PathFindingHelper
-    {
-        public static bool ArriveDestination_NotPathPending(UnityEngine.AI.NavMeshAgent angent)
-        {
-            return (angent.remainingDistance <= angent.stoppingDistance && !angent.pathPending);
         }
     }
 

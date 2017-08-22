@@ -35,14 +35,11 @@ public abstract class LEUnitBasicMoveMent : MonoBehaviour {
     Visin1_1.CameraManager cameramanager;
 
     // Use this for initialization
-    protected virtual void Start() {  
+    void Start () {  
 
         cameramanager = GetComponentInChildren<Visin1_1.CameraManager>();
-        if (cameramanager)
-        {
-            cameraT = cameramanager.transform;
-            cameraType = cameramanager.cameraType;
-        }
+        cameraT = cameramanager.transform;
+        cameraType = cameramanager.cameraType;
         maxSpeed = moveSpeed * speedScales;
     }
 
@@ -71,18 +68,6 @@ public abstract class LEUnitBasicMoveMent : MonoBehaviour {
     {
         float targetDegree = Mathf.Atan2(InputVH.x, InputVH.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
         transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetDegree, ref turnSmoothVelocity, turnReactionSpped);
-    }
-
-    protected void TunOnTargetPosition_XZ_SmoothDamp(Vector3 target)
-    {
-        float targetDegree = Visin1_1.WeiTransform.AngleFromForwardToTarget_XZ(target, transform);
-        transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetDegree, ref turnSmoothVelocity, turnReactionSpped);
-    }
-
-    protected void TunOnTargetPosition_XZ_Directly(Vector3 target)
-    {
-        target.y = transform.position.y;
-        transform.LookAt(target);
     }
 
     //When player press W move direction will be transform.forward

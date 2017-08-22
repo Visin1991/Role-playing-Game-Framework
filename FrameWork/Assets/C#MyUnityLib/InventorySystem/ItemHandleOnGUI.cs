@@ -50,13 +50,16 @@ public class ItemHandleOnGUI : MonoBehaviour {
     }
 
     /// <summary>
-    /// The ItemHandleOnGUI have a Canvas group.----and only its child itemIcn have a Racast Target.....
     /// OnGUIDoubleClick will be assigned when we add the ItemGUI to the Inventory
     /// </summary>
     public void DoubleClick()
     {
-        if (item == null) return;
         if (item.OnGUIDoubleClick != null) { item.OnGUIDoubleClick.Invoke(); }
+        //LEUnitProcessor processor = FindObjectOfType<LPlayer>().GetComponent<LEUnitProcessor>();
+        //IInputActable sword1 = processor.InstantiateSword1();
+        //swoed1.SetProporty.......
+        //
+        //processor.EquipWeapon(sword1);
     }
 
 }

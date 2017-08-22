@@ -11,7 +11,6 @@ public class LEUnitBasicMoveMentPr : LEUnitBasicMoveMent
 
     public override void UpdateBasicMoveMent()
     {
-
         if (drivenByInput)
         {
             
@@ -33,7 +32,6 @@ public class LEUnitBasicMoveMentPr : LEUnitBasicMoveMent
                 TransformLookAtCameraForward();
             }
         }
-
     } 
 
 

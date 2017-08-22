@@ -206,7 +206,7 @@ public class UIManagerEditor : EditorWindow {
                         GUILayout.EndHorizontal();
 
                         itemDatabaseList.itemList[itemDatabaseList.itemList.Count - 1].itemIcon = (Sprite)EditorGUILayout.ObjectField("Item Icon", itemDatabaseList.itemList[itemDatabaseList.itemList.Count - 1].itemIcon, typeof(Sprite), false, GUILayout.Width(position.width - 33));
-                        itemDatabaseList.itemList[itemDatabaseList.itemList.Count - 1].itemPrefab = (GameObject)EditorGUILayout.ObjectField("Item Prefab", itemDatabaseList.itemList[itemDatabaseList.itemList.Count - 1].itemPrefab, typeof(GameObject),false,GUILayout.Width(position.width - 33));
+                        itemDatabaseList.itemList[itemDatabaseList.itemList.Count - 1].itemModel = (GameObject)EditorGUILayout.ObjectField("Item Model", itemDatabaseList.itemList[itemDatabaseList.itemList.Count - 1].itemModel, typeof(GameObject),false,GUILayout.Width(position.width - 33));
                         itemDatabaseList.itemList[itemDatabaseList.itemList.Count - 1].itemType = (ItemType)EditorGUILayout.EnumPopup("Item Type", itemDatabaseList.itemList[itemDatabaseList.itemList.Count - 1].itemType, GUILayout.Width(position.width -33));
                         itemDatabaseList.itemList[itemDatabaseList.itemList.Count - 1].rarity = EditorGUILayout.IntSlider("Rarity", itemDatabaseList.itemList[itemDatabaseList.itemList.Count - 1].rarity,0,100);
 
@@ -314,7 +314,7 @@ public class UIManagerEditor : EditorWindow {
                                         GUILayout.EndHorizontal();
 
                                         itemDatabaseList.itemList[i].itemIcon = (Sprite)EditorGUILayout.ObjectField("Item Icon", itemDatabaseList.itemList[i].itemIcon, typeof(Sprite), false, GUILayout.Width(position.width - 45));
-                                        itemDatabaseList.itemList[i].itemPrefab = (GameObject)EditorGUILayout.ObjectField("Item Model", itemDatabaseList.itemList[i].itemPrefab, typeof(GameObject), false, GUILayout.Width(position.width - 45));
+                                        itemDatabaseList.itemList[i].itemModel = (GameObject)EditorGUILayout.ObjectField("Item Model", itemDatabaseList.itemList[i].itemModel, typeof(GameObject), false, GUILayout.Width(position.width - 45));
                                         itemDatabaseList.itemList[i].itemType = (ItemType)EditorGUILayout.EnumPopup("Item Type", itemDatabaseList.itemList[i].itemType, GUILayout.Width(position.width - 45));
                                         itemDatabaseList.itemList[i].rarity = EditorGUILayout.IntSlider("Rarity", itemDatabaseList.itemList[i].rarity, 0, 100);
 
