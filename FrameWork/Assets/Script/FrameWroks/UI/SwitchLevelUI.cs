@@ -8,7 +8,7 @@ public class SwitchLevelUI : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameCentalPr.Instance.OpenLevelPanel();
+            GameUIPr.Instance.OpenLevelPanel();
         }
     }
 }

@@ -11,8 +11,8 @@ public class ManaBar : MonoBehaviour
     private void Start()
     {
         manaImage = GetComponent<Image>();
-        GameCentalPr.Instance.Adapter_Manabar -= ValueChange;
-        GameCentalPr.Instance.Adapter_Manabar += ValueChange;
+        GameUIPr.Instance.Adapter_Manabar -= ValueChange;
+        GameUIPr.Instance.Adapter_Manabar += ValueChange;
     }
 
     public void ValueChange(float current, float max)

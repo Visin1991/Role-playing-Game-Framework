@@ -7,6 +7,7 @@ using UnityEngine;
 ///     Using Unity 5.5
 /// </summary>
 
+[ExecuteInEditMode]
 public class Water : MonoBehaviour {
 
     public enum FlageWaterRefType

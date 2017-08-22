@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= amount;
 
         // healthSlider.value = currentHealth;
-        GameCentalPr.Instance.Adapter_Healthbar(currentHealth, startingHealth);
+        GameUIPr.Instance.Adapter_Healthbar(currentHealth, startingHealth);
 
         //playerAudio.Play ();
 
@@ -75,8 +75,8 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Die");
         anim.SetBool ("Die",true);
 
-        playerAudio.clip = deathClip;
-        playerAudio.Play ();
+        //playerAudio.clip = deathClip;
+        //playerAudio.Play ();
 
         playerMovement.enabled = false;
        // playerShooting.enabled = false;

@@ -14,7 +14,7 @@ public class LEUnitUIPr : MonoBehaviour {
 
 	void Start () {
         cp = GetComponent<LEUnitCentralPanel>();
-        cp.Bind_LE_UI_Event_MailBox(MailBox_LE_UIEvent);
+        //cp.Bind_LE_UI_Event_MailBox(MailBox_LE_UIEvent);
 	}
 
 }

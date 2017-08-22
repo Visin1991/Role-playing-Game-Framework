@@ -12,7 +12,7 @@ public class LPlayer : MonoBehaviour {
 
     void LoadData()
     {
-       GameCentalPr.Instance.LoadLPlayerDataFromLastIndex();
+      // GameCentalPr.Instance.LoadLPlayerDataFromLastIndex();
     }
 
 }

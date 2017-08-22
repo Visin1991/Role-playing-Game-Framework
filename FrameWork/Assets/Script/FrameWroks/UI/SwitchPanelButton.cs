@@ -8,7 +8,7 @@ public class SwitchPanelButton : MonoBehaviour {
 
     //GameCentalPr.PanelType parentPanelType;
 
-    public GameCentalPr.PanelType target;
+    public GameUIPr.PanelType target;
     
     Button switchPanelButton;
 
@@ -27,7 +27,7 @@ public class SwitchPanelButton : MonoBehaviour {
 
     public void OnClick()
     {
-        GameCentalPr.Instance.SwitchActivePanel(target);
+        GameUIPr.Instance.SwitchActivePanel(target);
         transform.parent.gameObject.SetActive(false);
     }
 }

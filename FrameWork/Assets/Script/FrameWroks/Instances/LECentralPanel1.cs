@@ -14,18 +14,19 @@ public class LECentralPanel1 : LEUnitCentralPanel
         base.Start();
     }
 
+    [Obsolete]
     protected override void GetAndDisableAllProcessor()
     {/// get all Processor, then disable. Function will be Auto call through base.Start()
-        fpsProcessor = transform.GetOrAddComponent<TPSProcessor>();
-        fpsProcessor.enabled = false;
+       // fpsProcessor = transform.GetOrAddComponent<TPSProcessor>();
+       // fpsProcessor.enabled = false;
     }
-
+    [Obsolete]
     protected override void InitalProcessor()
     {///right now we only have one TPSProcessor。。。。。Function will be Auto call through base.Start()
-        currentProcessor = fpsProcessor;
-        fpsProcessor.enabled = true;    
+       // currentProcessor = fpsProcessor;
+       // fpsProcessor.enabled = true;    
     }
-
+    [Obsolete]
     protected override void ChangeProcessor()
     {
         //processor = fpsProcessor;
@@ -33,9 +34,9 @@ public class LECentralPanel1 : LEUnitCentralPanel
         //processor = flyProcessor;
         //...................
     }
-
+    [Obsolete]
     public override void MailBox_LE_CentralPanel(LEEvent e)
     {
-        currentProcessor.MailBox_LE_ProcessEvent(e);
+       // currentProcessor.MailBox_LE_ProcessEvent(e);
     }
 }

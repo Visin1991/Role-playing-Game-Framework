@@ -27,6 +27,7 @@ namespace Visin1_1
 
         private float yaw;  //Rotation around Y Axis
         private float pitch = 75;//Rotation around X Axis
+        public bool isFixedYaw = true;
 
         public bool XboxPad;
         
@@ -52,7 +53,7 @@ namespace Visin1_1
 
             pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
             dstToTarget = Mathf.Clamp(dstToTarget, rangeToTarget.x, rangeToTarget.y);
-
+            if (isFixedYaw) yaw = -90;
             currentRotation = Vector3.SmoothDamp(currentRotation, new Vector3(pitch, yaw,0), ref rotationSmoothVelocity, rotationSmoothTime);
             transform.eulerAngles = currentRotation;
             transform.position = target.position - transform.forward * dstToTarget;
@@ -70,7 +71,7 @@ namespace Visin1_1
         public float detal_pitch;
         public float detal_dstToTarget;
 
-        public void SetCameraDetal(LE_Camera_Event_UpdateVlaue e)
+        public void SetCameraDetal(Visin1_1.CameraManager.CameraDelta e)
         {
             detal_yaw = e.delta_yaw;
             detal_pitch = e.delta_pitch;
