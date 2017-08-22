@@ -7,7 +7,6 @@ using UnityEngine;
 
 public abstract class LEUnitProcessor : MonoBehaviour {
 
-    public Sword1 sword1;
     protected InputActionManager inputActionManager;
     protected LEUnitBasicMoveMent basicMovementManager;
     protected LEUnitAnimatorPr animationManager;
@@ -21,8 +20,6 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     public virtual void SetToMeleeWeaponModel() { }
 
     public virtual void SetToDefaultModel() { }
-
-    public Sword1 InstantiateSword1() { return Instantiate(sword1, transform) as Sword1; }
 
     public virtual void EquipWeapon(IInputActable iinputActable) { GetComponent<InputActionManager>().ResetClient(iinputActable); }
 

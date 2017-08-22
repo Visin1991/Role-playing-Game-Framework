@@ -60,6 +60,8 @@ public class GameCentalPr : Singleton<GameCentalPr> {
         }
 	}
 
+    public LEUnitProcessor PlayerInfomationProcessor { get { return FindObjectOfType<LPlayer>().transform.GetComponent<LEUnitProcessor>(); } }
+
     void Start()
     {
        // Debug.Log("GameCentalPr Start");

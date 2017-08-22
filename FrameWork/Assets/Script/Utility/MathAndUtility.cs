@@ -162,6 +162,15 @@ namespace Visin1_1
             Vector3 hitPos = hit.point;
             transform.LookAt(hitPos);
         }
+
+        public static float AngleFromForwardToTarget_XZ(Vector3 target,Transform transform)
+        {
+            Vector3 pos = transform.position;
+            target.y = transform.position.y;
+            Vector3 toTarget = target - pos;
+            return WeiVector3.AngleFromA_to_B_AntiClockwise(transform.forward, toTarget);
+            
+        }
     }
 
     public static class MouseAndCamera
