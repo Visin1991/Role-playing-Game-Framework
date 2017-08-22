@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SaveGamePanel : UIPanel {
-    public override GameUIPr.PanelType GetPanelType()
+    public override GameCentalPr.PanelType GetPanelType()
     {
-        return GameUIPr.PanelType.Setting;
+        return GameCentalPr.PanelType.Setting;
     }
 }

@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour
     AudioSource playerAudio;
     PlayerMovement playerMovement;
     //PlayerShooting playerShooting;
-    bool isDead;
+    bool isDead = false;
     bool damaged;
 
 
@@ -54,10 +54,12 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth -= amount;
 
-       // healthSlider.value = currentHealth;
+        // healthSlider.value = currentHealth;
+        GameCentalPr.Instance.Adapter_Healthbar(currentHealth, startingHealth);
 
-       // playerAudio.Play ();
+        //playerAudio.Play ();
 
+        //Debug.LogFormat("Curent Helath is : {0}", currentHealth);
         if(currentHealth <= 0 && !isDead)
         {
             Death ();
@@ -69,14 +71,14 @@ public class PlayerHealth : MonoBehaviour
     {
         isDead = true;
 
-       // playerShooting.DisableEffects ();
+        // playerShooting.DisableEffects ();
+        Debug.Log("Die");
+        anim.SetBool ("Die",true);
 
-        //anim.SetTrigger ("Die");
+        playerAudio.clip = deathClip;
+        playerAudio.Play ();
 
-       // playerAudio.clip = deathClip;
-       // playerAudio.Play ();
-
-       // playerMovement.enabled = false;
+        playerMovement.enabled = false;
        // playerShooting.enabled = false;
     }
 

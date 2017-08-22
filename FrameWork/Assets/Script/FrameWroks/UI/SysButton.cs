@@ -18,7 +18,7 @@ public class SysButton : MonoBehaviour {
 
     public void OnClick()
     {
-        GameUIPr.Instance.MainUIMenueEvent();
+        GameCentalPr.Instance.PauseResumeEvent();
     }
 
 

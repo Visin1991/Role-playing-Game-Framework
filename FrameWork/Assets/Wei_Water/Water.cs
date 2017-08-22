@@ -6,7 +6,7 @@ using UnityEngine;
 /// Wei,Zhu
 ///     Using Unity 5.5
 /// </summary>
-[ExecuteInEditMode]
+
 public class Water : MonoBehaviour {
 
     public enum FlageWaterRefType
@@ -163,7 +163,6 @@ public class Water : MonoBehaviour {
 
         WaterHelper.CloneCameraModes(cam, _reflectionCamera);
 
-        //Get the distance from the camera to the plane position plus offset
         float d = -Vector3.Dot(normal, pos) - reflectClipPlaneOffset;
         Vector4 reflectionPlane = new Vector4(normal.x, normal.y, normal.z, d);
 
