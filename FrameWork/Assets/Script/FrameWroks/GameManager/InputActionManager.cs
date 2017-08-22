@@ -12,7 +12,7 @@ public class InputActionManager : MonoBehaviour {
         animationManager = GetComponent<LEUnitAnimatorPr>();
     }
 
-    public void GetKey_A() { if (inputActionClient != null) inputActionClient.GetKey_A(); }
+    public void GetKey_A() {if (inputActionClient != null) inputActionClient.GetKey_A(); }
     public void GetKey_A_Down() { if (inputActionClient != null) inputActionClient.GetKey_A_Down(); }
     public void GetKey_A_Up() { if (inputActionClient != null) inputActionClient.GetKey_A_Up(); }
     public void GetKey_B_Down() { if (inputActionClient != null) inputActionClient.GetKey_B_Down(); }
@@ -30,4 +30,6 @@ public class InputActionManager : MonoBehaviour {
     }
 
     public Transform RightHandMid1 { get { return rightHandTF; } }
+
+    public LEUnitAnimatorPr AnimationManager { get { return animationManager; } }
 }

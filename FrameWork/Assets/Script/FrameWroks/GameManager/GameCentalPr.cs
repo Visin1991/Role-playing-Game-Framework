@@ -21,6 +21,8 @@ public class GameCentalPr : Singleton<GameCentalPr> {
     int lastLoadIndex = 0;
     bool loadSaveData;
 
+    public LEUnitProcessor PlayerInfomationProcessor { get { return FindObjectOfType<LPlayer>().transform.GetComponent<LEUnitProcessor>(); } }
+
     void Start()
     {
         DontDestroyOnLoad(this);
