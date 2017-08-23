@@ -6,20 +6,14 @@ using System.Linq;
 public class InventoryPanel : MonoBehaviour {
 
     ItemHandleOnGUI[] allHandles;
-
+    LPlayer player;
     
 
     // Use this for initialization
-    void Start () {
+    private void OnEnable()
+    {
         allHandles = GetComponentsInChildren<ItemHandleOnGUI>();
-        List<Item> items = new List<Item>();
-
-        for (int i = 0; i < 20; i++)
-        {
-            items.Add(GameDataManager.Instance.itemDatabase.getItemCopyByID(i % 2));
-        }
-
-        ReSetItems(items);
+        player = FindObjectOfType<LPlayer>();
     }
 
     private void Update()

@@ -10,8 +10,6 @@ namespace Visin1_1
 {
     public class CameraManager : MonoBehaviour
     {
-        private LEUnitCentralPanel cp;
-
         public CameraType cameraType = CameraType.FirstPerson;
 
         PlayerCamera currentCamera;
@@ -20,9 +18,6 @@ namespace Visin1_1
         void Start()
         {
 
-            cp = transform.root.GetComponent<LEUnitCentralPanel>();
-
-            cp.Bind_lE_CameraManager_Event_MailBox(MailBox_LE_CameraManager_Event);
 
             if (cameraType == CameraType.FirstPerson)
             {
@@ -36,7 +31,7 @@ namespace Visin1_1
         }
 
         // Update is called once per frame
-        void Update()
+        public void UpdateCameraManager()
         {
             currentCamera.UpdateCamera();
         }
@@ -46,13 +41,22 @@ namespace Visin1_1
             currentCamera.LateUpdateCamera();
         }
 
-        public void MailBox_LE_CameraManager_Event(LE_Camera_Event e)
+        public void SetCameraDelta(CameraDelta delta)
         {
-            if (e.Type == LE_Camera_EventType.UpdateValue)
-            {
-                currentCamera.SetCameraDetal((LE_Camera_Event_UpdateVlaue)e);
-            }
+            currentCamera.SetCameraDetal(delta);
         }
 
+        public float Yaw()
+        {
+            return currentCamera.Yaw;
+        }
+
+        public struct CameraDelta
+        {
+            public float delta_yaw;
+            public float delta_pitch;
+            public float delta_dstToTarget;
+
+        }
     }
 }

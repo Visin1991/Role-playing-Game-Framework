@@ -20,6 +20,19 @@ public class ItemDataBaseList : ScriptableObject {
         return null;
     }
 
+    public Item getNewInstanceByID(int id)
+    {
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            if (itemList[i].itemID == id)
+            {
+                Item item =  itemList[i].getCopy();
+                return new Item(item.itemName,item.itemID,item.itemDesc,item.itemIcon,item.itemPrefab,item.maxStack,item.itemType,item.itemAttributes);
+            }
+        }
+        return null;
+    }
+
     public Item getItemCopyByName(string name) {
         for (int i = 0; i < itemList.Count; i++) {
             if (itemList[i].itemName.ToLower().Equals(name.ToLower()))
@@ -68,7 +81,7 @@ public class Item {
     public int itemID;
     public string itemDesc;
     public Sprite itemIcon;
-    public GameObject itemModel;
+    public GameObject itemPrefab;
     public int itemValue = 1;
     public ItemType itemType;
     public float itemWeight;
@@ -88,7 +101,7 @@ public class Item {
         itemID = id;
         itemDesc = desc;
         itemIcon = icon;
-        itemModel = model;
+        itemPrefab = model;
         itemType = type;
         maxStack = _maxStack;
         itemAttributes = _itemAttributes;

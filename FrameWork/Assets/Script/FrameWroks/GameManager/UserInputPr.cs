@@ -4,7 +4,123 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class UserInputPr : MonoBehaviour {
-    
+    LEUnitProcessor leUnitProcessor;
+
+    public string fireButton;
+
+    public KeyCode Key_A;
+    public KeyCode Key_B;
+
+    public Vector2 inputVH;
+    public Vector2 currentVH;
+    public Vector2 currentVelocity;
+    public float smoothTime;
+
+    public float mouseScroll;
+    public float mouseVertical;
+    public float mouseHorizontal;
+
+    public bool Shift;
+
+
+    public Vector2 InputVH { get { return inputVH; } }
+
+    int statu = 0;
+
+    private void Start()
+    {
+        leUnitProcessor = GetComponent<LEUnitProcessor>();
+    }
+
+    public void UpdateInput()
+    {
+#if UNITY_IOS || UNITY_ANDROID
+		Vector2 input = TouchLib.GetSwipe2D();
+		InputVH.x = input.x;
+		InputVH.y = input.y;
+		CrossPlatformButtonInput();
+#else
+        inputVH.x = CrossPlatformInputManager.GetAxisRaw("Horizontal");
+        inputVH.y = CrossPlatformInputManager.GetAxisRaw("Vertical");
+
+        //Movement Information for Animation
+        currentVH = Vector2.SmoothDamp(currentVH, inputVH, ref currentVelocity, smoothTime, float.MaxValue, Time.deltaTime);
+        Shift = Input.GetKey(KeyCode.LeftShift);
+
+        mouseScroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (Input.GetMouseButton(1))
+        {
+            mouseVertical = -Input.GetAxis("Mouse Y");
+            mouseHorizontal = Input.GetAxis("Mouse X");
+        }
+
+        StandaredKeyInput();
+#endif
+        TestForSwitchPlayModel();
+    }
+
+    void StandaredKeyInput()
+    {
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            leUnitProcessor.GetKey_A_Down();
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            leUnitProcessor.GetKey_A();
+        }
+
+
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            leUnitProcessor.GetKey_A_Up();
+        }
+
+        if (Input.GetKeyDown(Key_B))
+        {
+            leUnitProcessor.GetKey_B_Down();
+        }
+    }
+
+    void CrossPlatformButtonInput()
+    {
+        if (CrossPlatformInputManager.GetButton(fireButton))
+        {
+            leUnitProcessor.GetKey_A();
+        }
+
+        if (CrossPlatformInputManager.GetButtonUp(fireButton))
+        {
+            leUnitProcessor.GetKey_A_Up();
+        }
+    }
+
+    //===============================================
+    //Test for Switch Play Model
+    void TestForSwitchPlayModel()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (statu == 1)
+            {
+                leUnitProcessor.SetToRangeWeaponModel();
+            }
+            else if (statu == 2)
+            {
+                leUnitProcessor.SetToMeleeWeaponModel();
+            }
+            else
+            {
+                leUnitProcessor.SetToDefaultModel();
+            }
+            statu += 1;
+            statu %= 3;
+        }
+    }
 }
 
 public static class TouchLib

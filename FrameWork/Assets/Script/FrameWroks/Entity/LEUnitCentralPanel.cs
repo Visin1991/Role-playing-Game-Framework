@@ -68,7 +68,7 @@ public abstract class LEUnitCentralPanel : MonoBehaviour{
 
     public Transform Adapter_LE_mainBody { get { return adapter_LE_mainBody; } set { adapter_LE_mainBody = value; } } //主躯干。 一般是物体模型所在的那个物体
 
-    public Vector2 Adapter_LE_InputVH { get { return currentProcessor.InputVH; }}
+    //public Vector2 Adapter_LE_InputVH { get { return currentProcessor.InputVH; }}
 
     public Vector3 Adapter_MoveVeclocity3D { get { return adapter_LE_MoveVeclocity3D; } set { adapter_LE_MoveVeclocity3D = value; } }//单位在三位空间坐标内移动向量。一般有移动控制器计算出来后赋值到 LEUnitCP。
 

@@ -7,21 +7,61 @@ using UnityEngine;
 
 public abstract class LEUnitProcessor : MonoBehaviour {
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent e);
+    protected InputActionManager inputActionManager;
+    protected LEUnitBasicMoveMent basicMovementManager;
+    protected LEUnitAnimatorPr animationManager;
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_GetDamage e);
+    protected bool enableBaiscMovement = true;
+    LEUnitAnimatorPr.AnimationAttackStatue animationAttackStatue = LEUnitAnimatorPr.AnimationAttackStatue.Off;
+    protected LEUnitAnimatorPr.AnimationAttackStatue AnimationAttackStatue { get { return animationAttackStatue; } }
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartDrive e);
+    public virtual void SetToRangeWeaponModel() { }
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartFlyModel e);
+    public virtual void SetToMeleeWeaponModel() { }
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartHoldGunModel e);
+    public virtual void SetToDefaultModel() { }
 
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartMeleeModel e);
-
-    public abstract void MailBox_LE_ProcessEvent(LEEvent_StartNonModel e);
+    public virtual void EquipWeapon(IInputActable iinputActable) { GetComponent<InputActionManager>().ResetClient(iinputActable); }
 
     public abstract void Pause(bool b);
 
-    public abstract Vector2 InputVH { get; }
+    //======================================================================
+    //Recive massage from AnimationManager.
+    //======================================================================
+    public virtual void AnimationManager_EnableBasicMoveMent(bool isable) { enableBaiscMovement = isable; }
+    public virtual void AnimationManager_SetAnimationStatue(LEUnitAnimatorPr.AnimationAttackStatue s) { animationAttackStatue = s; }
+    //======================================================================
+
+    //------------------------------------------------
+    //   Those normally called by User input or Ai ......
+    // Hold different weapon and use different animation statue.....  do different behavior
+    //------------------------------------------------
+    public virtual void GetKey_A_Down()
+    {
+        if (inputActionManager != null)
+            inputActionManager.GetKey_A_Down();
+    }
+
+    public virtual void GetKey_A()
+    {
+        if (inputActionManager != null)
+            inputActionManager.GetKey_A();
+    }
+
+    public virtual void GetKey_A_Up()
+    {
+        if (inputActionManager != null)
+            inputActionManager.GetKey_A_Up();
+    }
+
+    public virtual void GetKey_B_Down()
+    {
+        if (inputActionManager != null)
+            inputActionManager.GetKey_B_Down();
+    }
+
+    public virtual void GetKey_B_Up()
+    {
+        
+    }
 }

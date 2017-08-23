@@ -16,6 +16,7 @@ public class CentralProcessorA : LEUnitProcessor {
     private void Start() 
     {
         userInputManager = GetComponent<UserInputPr>();
+        inputActionManager = GetComponent<InputActionManager>();
         basicMovementManager = GetComponent<LEUnitBasicMoveMent>();
         animationManager = GetComponent<LEUnitAnimatorPr>();
         cameraManager = GetComponentInChildren<Visin1_1.CameraManager>();
@@ -41,7 +42,7 @@ public class CentralProcessorA : LEUnitProcessor {
 
         //2. Change the Animation Status
         if (animationManager != null)
-            animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.melee);
+            animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
     }
 
     public override void SetToRangeWeaponModel()
@@ -52,7 +53,7 @@ public class CentralProcessorA : LEUnitProcessor {
 
         //2. Change the Animation Status
         if (animationManager != null)
-            animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.holdGun);
+            animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.HoldGun_2);
     }
 
     public override void SetToDefaultModel()
@@ -61,7 +62,7 @@ public class CentralProcessorA : LEUnitProcessor {
 
         //2. Change the Animation Status
         if (animationManager != null)
-            animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.normal);
+            animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
     }
 
     public override void Pause(bool p)

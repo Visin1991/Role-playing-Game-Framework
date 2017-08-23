@@ -8,7 +8,7 @@ public class OnGameSaveObject : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameCentalPr.Instance.OpenSavelPanel();
+            GameUIPr.Instance.OpenSavePanel();
         }
     }
 
