@@ -239,6 +239,13 @@ public class GameUIPr : Singleton<GameUIPr> {
             loadingPanelObj.SetActive(false);
     }
 
+    public void NextLevel()
+    {
+        LevelPanelObj.SetActive(false);
+        loadingPanelObj.SetActive(true);
+        GameCentalPr.Instance.NextLevel();
+    }
+
     public enum PanelType
     {
         MainMenue,

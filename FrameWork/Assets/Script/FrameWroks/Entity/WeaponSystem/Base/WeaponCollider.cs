@@ -15,6 +15,5 @@ public class WeaponCollider : MonoBehaviour {
         IDamageable damageReciver = collision.transform.GetComponent<IDamageable>();
         if(damageReciver != null)
             damageReciver.GetDamage(20);
-
     }
 }

@@ -19,15 +19,18 @@ public class GameCentalPr : Singleton<GameCentalPr> {
     public System.Action<bool> Adapter_Pause;
 	public System.Action Adapter_GameOver;
 
+    int currentLevel = 0;
     int lastLoadIndex = 0;
     bool loadSaveData;
-    
 
-
+    GameObject playerObj;
     public LEUnitProcessor PlayerInfomationProcessor { get { return FindObjectOfType<LPlayer>().transform.GetComponent<LEUnitProcessor>(); } }
 
     void Start()
     {
+        PlayerInfomationProcessor.transform.parent = transform;
+        playerObj = PlayerInfomationProcessor.gameObject;
+        playerObj.SetActive(false);
         DontDestroyOnLoad(this);
     }
 
@@ -61,7 +64,8 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 
     public void StartNewGame()
     {
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+        currentLevel = 1;
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
     public void LoadSave(int index)
@@ -84,6 +88,11 @@ public class GameCentalPr : Singleton<GameCentalPr> {
         
     }
 
+    public void EnablePlayerObj()
+    {
+        playerObj.SetActive(true);
+    }
+
     public void SaveGame(int index)
     {
         gameData.saves[index - 1].sceneName = SceneManager.GetActiveScene().name;
@@ -101,6 +110,13 @@ public class GameCentalPr : Singleton<GameCentalPr> {
     public void LoadLevel(int index)
     {
         SceneManager.LoadScene(index, LoadSceneMode.Single);
+    }
+
+    public void NextLevel()
+    {
+        currentLevel++;
+        Debug.Log(currentLevel);
+        SceneManager.LoadScene(currentLevel, LoadSceneMode.Single);
     }
 
     /// <summary>
