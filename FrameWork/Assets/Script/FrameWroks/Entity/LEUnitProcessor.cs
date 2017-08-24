@@ -12,8 +12,21 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     protected LEUnitAnimatorPr animationManager;
 
     protected bool enableBaiscMovement = true;
-    LEUnitAnimatorPr.AnimationAttackStatue animationAttackStatue = LEUnitAnimatorPr.AnimationAttackStatue.Off;
-    protected LEUnitAnimatorPr.AnimationAttackStatue AnimationAttackStatue { get { return animationAttackStatue; } }
+    protected bool death = false;
+
+    [HideInInspector]
+    Transform target;
+    Vector3 targetPos;
+    
+
+    protected virtual void Start()
+    {
+        inputActionManager = GetComponent<InputActionManager>();
+        basicMovementManager = GetComponent<LEUnitBasicMoveMent>();
+        animationManager = GetComponent<LEUnitAnimatorPr>();
+
+
+    }
 
     public virtual void SetToRangeWeaponModel() { }
 
@@ -25,11 +38,42 @@ public abstract class LEUnitProcessor : MonoBehaviour {
 
     public abstract void Pause(bool b);
 
+    public virtual void SetDeath()
+    {
+        death = true;
+        animationManager.SetBool("Die", true);
+    }
+
+    public abstract void GetDamage();
+
     //======================================================================
     //Recive massage from AnimationManager.
     //======================================================================
     public virtual void AnimationManager_EnableBasicMoveMent(bool isable) { enableBaiscMovement = isable; }
-    public virtual void AnimationManager_SetAnimationStatue(LEUnitAnimatorPr.AnimationAttackStatue s) { animationAttackStatue = s; }
+    public virtual void AnimationManager_SetAnimationAttackStatue(LEUnitAnimatorPr.AnimationAttackStatue s) {
+        inputActionManager.SetIInputActableItemStatu(s);
+    }
+
+    public virtual void LookAtTarget()
+    {
+        //Need to re editor the animation system. Because..... the animation Enter state only call once
+        //Or we need to use Animation Event.
+        if (target == null) return;
+        targetPos.x = target.position.x;
+        targetPos.y = transform.position.y;
+        targetPos.z = target.position.z;
+        transform.LookAt(targetPos);
+
+        Debug.Log(targetPos);
+    }
+
+    public void SetTarget(ref Transform _target)
+    {
+        Debug.Log(_target.name);
+        target = _target;
+    }
+
+
     //======================================================================
 
     //------------------------------------------------
@@ -64,4 +108,6 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     {
         
     }
+
+
 }

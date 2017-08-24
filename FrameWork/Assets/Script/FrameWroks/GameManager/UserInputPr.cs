@@ -60,11 +60,21 @@ public class UserInputPr : MonoBehaviour {
         TestForSwitchPlayModel();
     }
 
+    RaycastHit hit = new RaycastHit();
+    Vector3 targetPos;
     void StandaredKeyInput()
     {
 
         if (Input.GetMouseButtonDown(0))
         {
+            Visin1_1.MouseAndCamera.GetScreenPointToRayColliderInfo(out hit,(1<<9));
+            if (hit.transform != null)
+            {
+                targetPos.x = hit.transform.position.x;
+                targetPos.y = transform.position.y;
+                targetPos.z = hit.transform.position.z;
+                transform.LookAt(targetPos);
+            }
             leUnitProcessor.GetKey_A_Down();
         }
 

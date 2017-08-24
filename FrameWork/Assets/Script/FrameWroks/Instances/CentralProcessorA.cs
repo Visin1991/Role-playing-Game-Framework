@@ -13,22 +13,22 @@ public class CentralProcessorA : LEUnitProcessor {
 
     bool pause;
     
-    private void Start() 
+    protected override void Start() 
     {
         userInputManager = GetComponent<UserInputPr>();
-        inputActionManager = GetComponent<InputActionManager>();
-        basicMovementManager = GetComponent<LEUnitBasicMoveMent>();
-        animationManager = GetComponent<LEUnitAnimatorPr>();
         cameraManager = GetComponentInChildren<Visin1_1.CameraManager>();
+        base.Start();
     }
 
     private void Update()
     {
         if (pause) return;
+        if (death) return;
         UpdateInput();
+        UpdateCamera();
         UpdateBasicMovement();
         UpdateAnimation();
-        UpdateCamera();
+        
     }
 
     //======================================================
@@ -36,21 +36,12 @@ public class CentralProcessorA : LEUnitProcessor {
     //======================================================
     public override void SetToMeleeWeaponModel()
     {
-        //1. Change The the item Input System
-        //InputActionManager meleeInputSys = transform.GetComponent<MeleeWeaponController>();
-        //ChangeItemInputSystem(meleeInputSys);
-
-        //2. Change the Animation Status
         if (animationManager != null)
             animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
     }
 
     public override void SetToRangeWeaponModel()
     {
-        //1. Change The the item Input System
-        //InputActionManager gunInputSys = transform.GetOrAddComponent<GunController>();
-        //ChangeItemInputSystem(gunInputSys);
-
         //2. Change the Animation Status
         if (animationManager != null)
             animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.HoldGun_2);
@@ -68,6 +59,11 @@ public class CentralProcessorA : LEUnitProcessor {
     public override void Pause(bool p)
     {
         pause = p;
+    }
+
+    public override void GetDamage()
+    {
+        animationManager.SetTriggerImmediately("Impact");
     }
     //======================================================
     //Sub-component Update
@@ -119,7 +115,6 @@ public class CentralProcessorA : LEUnitProcessor {
         cameraManager.UpdateCameraManager();
     }
     //======================================================
-
     public void ChangeItemInputSystem(InputActionManager _itemInput)
     {
         if (inputActionManager != null)
@@ -133,5 +128,6 @@ public class CentralProcessorA : LEUnitProcessor {
         if (inputActionManager != null)
             inputActionManager.enabled = true;
     }
+
 
 }

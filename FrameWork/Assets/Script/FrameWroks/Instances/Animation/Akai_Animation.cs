@@ -16,10 +16,5 @@ public class Akai_Animation : LEUnitAnimatorPr
        
     }
 
-    public override void SetMotionType(AnimationMotionType type)
-    {
-        animator.SetInteger("StatuType", (int)type);
-    }
-
 
 }

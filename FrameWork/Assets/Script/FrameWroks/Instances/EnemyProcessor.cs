@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,6 +40,11 @@ public class EnemyProcessor : LEUnitProcessor {
     }
 
     public override void Pause(bool p)
+    {
+        
+    }
+
+    public override void GetDamage()
     {
         
     }

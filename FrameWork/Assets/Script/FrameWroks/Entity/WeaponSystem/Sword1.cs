@@ -14,7 +14,7 @@ public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
 
     public void SetUpLayer(int layer)
     {
-        GetComponentInChildren<WeaponPhysics>().SetUpLayer(layer);
+        GetComponentInChildren<WeaponCollider>().SetUpLayer(layer);
     }
 
     public void Init(InputActionManager actionManager)
@@ -24,12 +24,12 @@ public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
         transform.rotation = inputActionManager.RightHandMid1.rotation;
         transform.SetParent(inputActionManager.RightHandMid1);
         inputActionManager.ChangeAnimationMotionType(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
-
+        DisableCollision();
     }
 
     public void GetKey_A()
     {
-       
+
     }
 
     public void GetKey_A_Down()
@@ -39,7 +39,7 @@ public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
 
     public void GetKey_A_Up()
     {
-        inputActionManager.AnimationManager.SetKeyStatue(InputIndex.A, false);
+        //inputActionManager.AnimationManager.SetKeyStatue(InputIndex.A, false);
     }
 
     public void GetKey_B_Down()
@@ -52,8 +52,28 @@ public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
 
     }
 
-    //This function will be called Even if the gameObject of sword1 already destroyed....
-    //I dont know why this happend
+    public void DisableCollision()
+    {
+        GetComponentInChildren<Collider>().enabled = false;
+    }
+
+    public void EnableCollision()
+    {
+        GetComponentInChildren<Collider>().enabled = true;
+    }
+
+    public void SetIInputActableItemStatu(LEUnitAnimatorPr.AnimationAttackStatue s)
+    {
+        if (s == LEUnitAnimatorPr.AnimationAttackStatue.OnAttack)
+        {
+            EnableCollision();
+        }
+        else
+        {
+            DisableCollision();
+        }
+    }
+
     public void ItemOnGUIDoubleClick()
     {
         gameObject.SetActive(true);
