@@ -6,21 +6,15 @@ public class WeaponCollider : MonoBehaviour {
 
     public void SetUpLayer(int layer)
     {
+        Debug.LogFormat("{0} SetUpLayer {1}",transform.root.name,layer);
         gameObject.layer = layer;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        LEUnitProcessor processor = collision.transform.GetComponent<LEUnitProcessor>();
-        if(processor!=null)
-            processor.GetDamage();
-        /*EnemyHealth ehealth = collision.transform.GetComponent<EnemyHealth>();
-        if (ehealth != null)
-        {
-            ehealth.TakeDamage(50);
-        }*/
-
+        IDamageable damageReciver = collision.transform.GetComponent<IDamageable>();
+        if(damageReciver != null)
+            damageReciver.GetDamage(20);
 
     }
 }

@@ -4,15 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class CentralProcessorA : LEUnitProcessor {
+public class CentralProcessorA : LEUnitProcessor,IDamageable {
 
     protected UserInputPr userInputManager;
     protected Visin1_1.CameraManager cameraManager;
 
     Visin1_1.CameraManager.CameraDelta cameraDelta;
 
+    public LEData ledata;
+
     bool pause;
-    
+    protected bool die = false;
+
     protected override void Start() 
     {
         userInputManager = GetComponent<UserInputPr>();
@@ -23,7 +26,7 @@ public class CentralProcessorA : LEUnitProcessor {
     private void Update()
     {
         if (pause) return;
-        if (death) return;
+        if (die) return;
         UpdateInput();
         UpdateCamera();
         UpdateBasicMovement();
@@ -59,11 +62,6 @@ public class CentralProcessorA : LEUnitProcessor {
     public override void Pause(bool p)
     {
         pause = p;
-    }
-
-    public override void GetDamage()
-    {
-        animationManager.SetTriggerImmediately("Impact");
     }
     //======================================================
     //Sub-component Update
@@ -127,6 +125,27 @@ public class CentralProcessorA : LEUnitProcessor {
         //Non Item
         if (inputActionManager != null)
             inputActionManager.enabled = true;
+    }
+
+    //========================================================
+    //IDamageable procosser
+    //========================================================
+    public void GetDamage(float num)
+    {
+        ledata.currentHealth -= num;
+        GameUIPr.Instance.Adapter_Healthbar(ledata.currentHealth,ledata.maxHealth);
+
+        if (ledata.currentHealth <= 0.0f)
+        {
+            Die();
+        }
+        animationManager.SetTriggerImmediately("Impact");
+    }
+
+    void Die()
+    {
+        animationManager.SetBool("Die", true);
+        die = true;
     }
 
 

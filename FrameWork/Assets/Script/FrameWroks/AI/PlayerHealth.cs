@@ -74,7 +74,6 @@ public class PlayerHealth : MonoBehaviour
         // playerShooting.DisableEffects ();
         //Debug.Log("Die");
         //anim.SetBool ("Die",true);
-        GetComponent<LEUnitProcessor>().SetDeath();
 
         //playerAudio.clip = deathClip;
         //playerAudio.Play ();

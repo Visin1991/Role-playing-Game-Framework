@@ -37,8 +37,15 @@ public class AiStateMachine : MonoBehaviour {
     Vector3 targetPos;
     float distanceToEnemyTarget = 100;
 
+    IInputActable wapon1;
+    // Use this for initialization
+
+
     // Use this for initialization
     void Start () {
+
+        wapon1 = GetComponentInChildren<IInputActable>();
+        GetComponent<CentralProcessorB>().EquipWeapon(wapon1);
 
         processor = GetComponent<LEUnitProcessor>();
         animationPro = GetComponent<LEUnitAnimatorPr>();

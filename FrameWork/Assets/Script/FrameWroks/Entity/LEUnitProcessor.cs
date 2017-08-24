@@ -12,7 +12,7 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     protected LEUnitAnimatorPr animationManager;
 
     protected bool enableBaiscMovement = true;
-    protected bool death = false;
+    
 
     [HideInInspector]
     Transform target;
@@ -38,14 +38,6 @@ public abstract class LEUnitProcessor : MonoBehaviour {
 
     public abstract void Pause(bool b);
 
-    public virtual void SetDeath()
-    {
-        death = true;
-        animationManager.SetBool("Die", true);
-    }
-
-    public abstract void GetDamage();
-
     //======================================================================
     //Recive massage from AnimationManager.
     //======================================================================
@@ -63,8 +55,6 @@ public abstract class LEUnitProcessor : MonoBehaviour {
         targetPos.y = transform.position.y;
         targetPos.z = target.position.z;
         transform.LookAt(targetPos);
-
-        Debug.Log(targetPos);
     }
 
     public void SetTarget(ref Transform _target)

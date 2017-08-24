@@ -44,11 +44,6 @@ public class EnemyProcessor : LEUnitProcessor {
         
     }
 
-    public override void GetDamage()
-    {
-        
-    }
-
     //===============================================
     // Mail Box------Message from Sub-Component
     //===============================================
