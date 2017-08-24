@@ -89,7 +89,8 @@ public class Item {
     public int indexItemInList = 999;
     public int rarity;
 
-    public System.Action OnGUIDoubleClick;
+    public System.Action<ItemHandleOnGUI> OnGUIDoubleClick;
+
 
     [SerializeField]
     public List<ItemAttribute> itemAttributes = new List<ItemAttribute>();

@@ -148,5 +148,17 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
         die = true;
     }
 
-
+    public override bool AddHealth(float addHealth)
+    {
+        if (ledata.currentHealth < ledata.maxHealth)
+        {
+            ledata.currentHealth += addHealth;
+            GameUIPr.Instance.Adapter_Healthbar(ledata.currentHealth, ledata.maxHealth);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

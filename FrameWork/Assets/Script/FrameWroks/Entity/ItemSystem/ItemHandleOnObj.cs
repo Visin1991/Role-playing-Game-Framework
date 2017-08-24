@@ -37,15 +37,17 @@ public class ItemHandleOnObj : MonoBehaviour{
     {
         if (!clickManager.DoubleClick()) { return; }
 
-        if(!isInit)
+        if (!isInit)
+        {
             FetchItemInfo();
 
-        //Find Player and Players inventory
-        LPlayer lplayer = FindObjectOfType<LPlayer>();
-        LEInventory inventory = lplayer.transform.GetComponentInChildren<LEInventory>();
-        inventory.AddItem(item,transform.parent);
+            //Find Player and Players inventory
+            LPlayer lplayer = FindObjectOfType<LPlayer>();
+            LEInventory inventory = lplayer.transform.GetComponentInChildren<LEInventory>();
+            inventory.AddItem(item, transform.parent);
 
-        transform.parent.gameObject.SetActive(false);
+            transform.parent.gameObject.SetActive(false);
+        }
     }
 
     /// <summary>

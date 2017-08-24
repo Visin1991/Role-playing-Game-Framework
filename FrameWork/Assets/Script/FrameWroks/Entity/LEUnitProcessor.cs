@@ -63,7 +63,7 @@ public abstract class LEUnitProcessor : MonoBehaviour {
         target = _target;
     }
 
-
+    public virtual bool AddHealth(float addHealth) { return false; }
     //======================================================================
 
     //------------------------------------------------
