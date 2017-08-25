@@ -37,20 +37,20 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
     //======================================================
     //Override Function
     //======================================================
-    public override void SetToMeleeWeaponModel()
+    public void SetToMeleeWeaponModel()
     {
         if (animationManager != null)
             animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
     }
 
-    public override void SetToRangeWeaponModel()
+    public void SetToRangeWeaponModel()
     {
         //2. Change the Animation Status
         if (animationManager != null)
             animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.HoldGun_2);
     }
 
-    public override void SetToDefaultModel()
+    public void SetToDefaultModel()
     {
         ChangeItemInputSystem(null);
 

@@ -23,14 +23,22 @@ public class GameCentalPr : Singleton<GameCentalPr> {
     int lastLoadIndex = 0;
     bool loadSaveData;
 
-    GameObject playerObj;
-    public LEUnitProcessor PlayerInfomationProcessor { get { return FindObjectOfType<LPlayer>().transform.GetComponent<LEUnitProcessor>(); } }
+    GameObject LplayerObj;
+    LEUnitProcessor leUnitProcessor;
+    LEUnitAnimatorPr leUnitAnimationManager;
+    LEUnitBasicMoveMent leUnitBasicMovementManager;
+    InputActionManager inputActionManager;
+    
+    public LEUnitProcessor PlayerProcessor {get { if (leUnitProcessor == null) { InitalLPlayer(); } return leUnitProcessor; }}
+    public LEUnitAnimatorPr PlayerAnimationManager { get { if (leUnitAnimationManager == null) { InitalLPlayer(); } return leUnitAnimationManager; } }
+    public LEUnitBasicMoveMent PlayerBasicMovementManager { get { if (leUnitBasicMovementManager == null) { InitalLPlayer(); } return leUnitBasicMovementManager; } }
+    public InputActionManager PlayerInputActionManager { get { if (leUnitBasicMovementManager == null) { InitalLPlayer(); } return inputActionManager; } }
 
     void Start()
     {
-        PlayerInfomationProcessor.transform.parent = transform;
-        playerObj = PlayerInfomationProcessor.gameObject;
-        playerObj.SetActive(false);
+        PlayerProcessor.transform.parent = transform;
+        LplayerObj = PlayerProcessor.gameObject;
+        LplayerObj.SetActive(false);
         DontDestroyOnLoad(this);
     }
 
@@ -41,6 +49,15 @@ public class GameCentalPr : Singleton<GameCentalPr> {
             GameUIPr.Instance.MainUIMenueEvent();
         }
         
+    }
+
+    void InitalLPlayer()
+    {
+        LplayerObj = FindObjectOfType<LPlayer>().gameObject;
+        leUnitProcessor = LplayerObj.GetComponent<LEUnitProcessor>();
+        leUnitAnimationManager = LplayerObj.GetComponent<LEUnitAnimatorPr>();
+        leUnitBasicMovementManager = LplayerObj.GetComponent<LEUnitBasicMoveMent>();
+        inputActionManager = LplayerObj.GetComponent<InputActionManager>();
     }
 
     void OnApplicationPause(bool pause)
@@ -90,7 +107,7 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 
     public void EnablePlayerObj()
     {
-        playerObj.SetActive(true);
+        LplayerObj.SetActive(true);
     }
 
     public void SaveGame(int index)
@@ -121,12 +138,12 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 
     public Transform GetPlayerTransform()
     {
-        if (playerObj == null)
+        if (LplayerObj == null)
         {
-            playerObj = PlayerInfomationProcessor.gameObject;
+            LplayerObj = PlayerProcessor.gameObject;
         }
-        if (playerObj != null)
-            return playerObj.transform;
+        if (LplayerObj != null)
+            return LplayerObj.transform;
         else
             return null;
     }

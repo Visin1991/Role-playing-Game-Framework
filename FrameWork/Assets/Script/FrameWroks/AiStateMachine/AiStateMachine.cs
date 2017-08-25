@@ -42,7 +42,7 @@ public class AiStateMachine : MonoBehaviour {
     void Start () {
 
         wapon1 = GetComponentInChildren<IInputActable>();
-        GetComponent<CentralProcessorB>().EquipWeapon(wapon1);
+        GetComponent<InputActionManager>().ResetClient(wapon1);
 
 
         processor = GetComponent<LEUnitProcessor>();
@@ -50,10 +50,6 @@ public class AiStateMachine : MonoBehaviour {
         animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
 
         angent = GetComponent<NavMeshAgent>();
-
-        Transform targetTf = GameCentalPr.Instance.GetPlayerTransform();
-        if(targetTf!= null)
-        processor.SetTarget(targetTf);
 
         partrolState = new AiPatrolState(this);
         searchState = new AISearchState(this);
@@ -81,7 +77,7 @@ public class AiStateMachine : MonoBehaviour {
     public bool IfFindEnemy()
     {
         bool findTarget =  distanceToEnemyTarget < 50;
-        if (findTarget) { targetPos = GameCentalPr.Instance.GetPlayerTransform().position; }
+        if (findTarget) { }
         return findTarget;
     }
 
@@ -214,7 +210,7 @@ public class AiStateMachine : MonoBehaviour {
 
     public void UpdateDistanceToTarget()
     {
-        distanceToEnemyTarget = (GameCentalPr.Instance.GetPlayerTransform().position - transform.position).sqrMagnitude;
+        //distanceToEnemyTarget = (GameCentalPr.Instance.GetPlayerTransform().position - transform.position).sqrMagnitude;
         //Debug.LogFormat("Target To Distance is {0}", distanceToEnemyTarget);
     }
 

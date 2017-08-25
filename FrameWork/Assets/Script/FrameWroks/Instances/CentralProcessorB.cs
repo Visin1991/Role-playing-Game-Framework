@@ -6,11 +6,6 @@ using UnityEngine;
 public class CentralProcessorB : LEUnitProcessor, IDamageable {
 
     public LEData data;
-    
-    private void OnEnable()
-    {
-        
-    }
 
     protected override void Start()
     {
@@ -37,4 +32,5 @@ public class CentralProcessorB : LEUnitProcessor, IDamageable {
         AiStateMachine stateMachine = GetComponent<AiStateMachine>();
         stateMachine.enabled = false;
     }
+    
 }

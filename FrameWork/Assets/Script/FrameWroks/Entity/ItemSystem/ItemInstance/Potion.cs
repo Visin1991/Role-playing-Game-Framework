@@ -8,7 +8,7 @@ public class Potion : MonoBehaviour, ItemOnGUIDoubleClickable {
 
     public void ItemOnGUIDoubleClick(ItemHandleOnGUI obj)
     {
-        if (GameCentalPr.Instance.PlayerInfomationProcessor.AddHealth(addHealth))
+        if (GameCentalPr.Instance.PlayerProcessor.AddHealth(addHealth))
         {
             obj.Clean();
         }
