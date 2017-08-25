@@ -34,10 +34,12 @@ public class CursorManager : MonoBehaviour {
     public void setMouse() {
         Cursor.SetCursor(mouse,hotSpot, cursorMode);
     }
+
     public void setHand()
     {
         Cursor.SetCursor(hand, hotSpot, cursorMode);
     }
+
     public void setAttack()
     {
         Cursor.SetCursor(attack, hotSpot, cursorMode);

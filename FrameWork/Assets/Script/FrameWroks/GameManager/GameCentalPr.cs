@@ -119,6 +119,17 @@ public class GameCentalPr : Singleton<GameCentalPr> {
         SceneManager.LoadScene(currentLevel, LoadSceneMode.Single);
     }
 
+    public Transform GetPlayerTransform()
+    {
+        if (playerObj == null)
+        {
+            playerObj = PlayerInfomationProcessor.gameObject;
+        }
+        if (playerObj != null)
+            return playerObj.transform;
+        else
+            return null;
+    }
     /// <summary>
     /// This function will be called when the SceneInitializer Script Start function get auto called by Unity.
     /// </summary>

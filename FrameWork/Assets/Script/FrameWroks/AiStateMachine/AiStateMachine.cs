@@ -9,9 +9,6 @@ public class AiStateMachine : MonoBehaviour {
 
     public NavMeshAgent angent;
 
-    [HideInInspector]
-    public Transform LPlayerT;
-
     List<AiState> aistates = new List<AiState>();
 
     [HideInInspector]
@@ -47,13 +44,16 @@ public class AiStateMachine : MonoBehaviour {
         wapon1 = GetComponentInChildren<IInputActable>();
         GetComponent<CentralProcessorB>().EquipWeapon(wapon1);
 
+
         processor = GetComponent<LEUnitProcessor>();
         animationPro = GetComponent<LEUnitAnimatorPr>();
+        animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
 
         angent = GetComponent<NavMeshAgent>();
-        LPlayerT = FindObjectOfType<LPlayer>().transform;
 
-        processor.SetTarget(ref LPlayerT);
+        Transform targetTf = GameCentalPr.Instance.GetPlayerTransform();
+        if(targetTf!= null)
+        processor.SetTarget(targetTf);
 
         partrolState = new AiPatrolState(this);
         searchState = new AISearchState(this);
@@ -81,7 +81,7 @@ public class AiStateMachine : MonoBehaviour {
     public bool IfFindEnemy()
     {
         bool findTarget =  distanceToEnemyTarget < 50;
-        if (findTarget) { targetPos = LPlayerT.position; }
+        if (findTarget) { targetPos = GameCentalPr.Instance.GetPlayerTransform().position; }
         return findTarget;
     }
 
@@ -214,13 +214,13 @@ public class AiStateMachine : MonoBehaviour {
 
     public void UpdateDistanceToTarget()
     {
-        distanceToEnemyTarget = (LPlayerT.position - transform.position).sqrMagnitude;
+        distanceToEnemyTarget = (GameCentalPr.Instance.GetPlayerTransform().position - transform.position).sqrMagnitude;
         //Debug.LogFormat("Target To Distance is {0}", distanceToEnemyTarget);
     }
 
     public void UpdateTargetPos()
     {
-        targetPos = LPlayerT.position;
+        targetPos = GameCentalPr.Instance.GetPlayerTransform().position;
     }
 
     public void ResetCurrentState(AiState state)

@@ -57,7 +57,7 @@ public class UserInputPr : MonoBehaviour {
 
         StandaredKeyInput();
 #endif
-        TestForSwitchPlayModel();
+        //TestForSwitchPlayModel();
     }
 
     RaycastHit hit = new RaycastHit();
@@ -74,8 +74,9 @@ public class UserInputPr : MonoBehaviour {
                 targetPos.y = transform.position.y;
                 targetPos.z = hit.transform.position.z;
                 transform.LookAt(targetPos);
+                leUnitProcessor.GetKey_A_Down();
             }
-            leUnitProcessor.GetKey_A_Down();
+            
         }
 
         if (Input.GetMouseButton(0))
@@ -93,6 +94,11 @@ public class UserInputPr : MonoBehaviour {
         if (Input.GetKeyDown(Key_B))
         {
             leUnitProcessor.GetKey_B_Down();
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            GameUIPr.Instance.InventoryPanelEvent();
         }
     }
 

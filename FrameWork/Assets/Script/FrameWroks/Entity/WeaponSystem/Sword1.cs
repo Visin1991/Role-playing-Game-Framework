@@ -79,5 +79,7 @@ public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
     {
         gameObject.SetActive(true);
         GameCentalPr.Instance.PlayerInfomationProcessor.EquipWeapon(this);
+        obj.Clean();
+        CursorManager.GetInstance().setMouse();
     }
 }

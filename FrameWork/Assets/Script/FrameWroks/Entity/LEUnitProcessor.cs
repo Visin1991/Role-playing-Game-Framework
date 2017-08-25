@@ -57,7 +57,7 @@ public abstract class LEUnitProcessor : MonoBehaviour {
         transform.LookAt(targetPos);
     }
 
-    public void SetTarget(ref Transform _target)
+    public void SetTarget(Transform _target)
     {
         Debug.Log(_target.name);
         target = _target;
