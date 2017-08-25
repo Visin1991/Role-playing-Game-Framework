@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 
+//  This Script is touch to A LE Entity.  
+//  For different Weapon or in different game Play model. Input may raise different 
+//Action.
+//  For example: If the inputActionClient is a Gun, Then GetKey_A(), the LEEntity
+//Will shot the gun, and use the shot animation....When the inputActionClient is a 
+//sword, the LEEntity will play sword animation
+//
 public class InputActionManager : MonoBehaviour {
 
     protected Transform rightHandTF;
-    protected LEUnitAnimatorPr animationManager;
+    public LEUnitAnimatorPr animationManager;
     IInputActable inputActionClient;
 
     protected virtual void OnEnable()
@@ -18,10 +25,13 @@ public class InputActionManager : MonoBehaviour {
     public void GetKey_B_Down() { if (inputActionClient != null) inputActionClient.GetKey_B_Down(); }
     public void ShutDown() { if (inputActionClient != null) inputActionClient.ShutDown();}
 
+    //Reset InputAction Client and Init the Client.
     public void ResetClient(IInputActable client)
     {
         inputActionClient = client;
         inputActionClient.Init(this);
+        inputActionClient.SetUpLayer(gameObject.layer);
+
     }
 
     public void ChangeAnimationMotionType(LEUnitAnimatorPr.AnimationMotionType type)
@@ -32,4 +42,9 @@ public class InputActionManager : MonoBehaviour {
     public Transform RightHandMid1 { get { return rightHandTF; } }
 
     public LEUnitAnimatorPr AnimationManager { get { return animationManager; } }
+
+    public void SetIInputActableItemStatu(LEUnitAnimatorPr.AnimationAttackStatue s)
+    {
+        inputActionClient.SetIInputActableItemStatu(s);
+    }
 }

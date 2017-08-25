@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ItemOnGUIDoubleClickable
 {
-    void ItemOnGUIDoubleClick();
+    void ItemOnGUIDoubleClick(ItemHandleOnGUI obj);
 }

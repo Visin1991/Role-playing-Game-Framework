@@ -14,7 +14,9 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
 
     System.Random rand = new System.Random();
     // Use this for initialization
-    protected virtual void Start () {
+
+    private void OnEnable()
+    {
         processor = GetComponent<LEUnitProcessor>();
         animator = GetComponent<Animator>();
         if (animator == null)
@@ -23,6 +25,10 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
         }
         if (animator == null)
             Debug.LogError("There is no Animator in this Object, or its children");
+    }
+
+    protected virtual void Start () {
+        
     }
 
     public abstract void UpdateAnimation();
@@ -38,29 +44,47 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
         animator.SetFloat("Forward", newCurrent);
     }
 
-    public virtual void SetMovementStrafe(float strafe) { animator.SetFloat("Strafe", strafe); }
+    public void SetMovementStrafe(float strafe) { animator.SetFloat("Strafe", strafe); }
 
-    public virtual void SetMotionType(AnimationMotionType type) {if(enableMotionInput) animator.SetInteger("MotionType", (int)type); }
+    public void SetMotionType(AnimationMotionType type) {if(enableMotionInput) animator.SetInteger("MotionType", (int)type); }
 
-    public virtual void SetMotionTypeImmediately(AnimationMotionType type)
+    public void SetMotionTypeImmediately(AnimationMotionType type)
     {
         animator.SetInteger("MotionType", (int)type);
     }
 
-    public virtual void SetMotionIndex(int motionIndex) {if(enableMotionInput)animator.SetInteger("MotionIndex", motionIndex); }
+    public void SetMotionIndex(int motionIndex) {if(enableMotionInput)animator.SetInteger("MotionIndex", motionIndex); }
 
-    public virtual void SetMotionIndexImmediately(int motionIndex) { animator.SetInteger("MotionIndex", motionIndex); }
+    public void SetMotionIndexImmediately(int motionIndex) { animator.SetInteger("MotionIndex", motionIndex); }
 
     public void SetMotionIndex_Random_From_To(int from, int to)
     {
         nextInputTime += Time.deltaTime;
-        if (nextInputTime > 1.0f)
+        if (nextInputTime > 3.0f)
         {
             int index = rand.Next(from, to);
             animator.SetInteger("MotionIndex", index);
             nextInputTime = 0.0f;
         }
     }
+
+    public void SetBool(string name, bool value)
+    {
+        if (enableMotionInput)
+            animator.SetBool(name, value);
+    }
+
+    public void SetBoolImmediately(string name, bool value)
+    {
+        animator.SetBool(name, value);
+    }
+
+    public void SetTrigger(string name) {
+        if (enableMotionInput)
+            animator.SetTrigger(name);
+    }
+
+    public void SetTriggerImmediately(string name) { animator.SetTrigger(name); }
 
     public Animator GetAnimator()
     {
@@ -83,14 +107,14 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
     public virtual void Attack_Statue_On()
     {
         if (processor == null) return;
-        processor.AnimationManager_SetAnimationStatue(AnimationAttackStatue.OnAttack);
+        processor.AnimationManager_SetAnimationAttackStatue(AnimationAttackStatue.OnAttack);
     }
 
     [Visin1_1.AMBCallback()]
     public virtual void Attack_Statue_Off()
     {
         if (processor == null) return;
-        processor.AnimationManager_SetAnimationStatue(AnimationAttackStatue.Off);
+        processor.AnimationManager_SetAnimationAttackStatue(AnimationAttackStatue.Off);
     }
 
     [Visin1_1.AMBCallback()]
@@ -103,6 +127,13 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
     public virtual void OnableMotionInput()
     {
         enableMotionInput = false;
+    }
+
+    [Visin1_1.AMBCallback()]
+    public virtual void LookAtTarget()
+    {
+        if (processor == null) return;
+        processor.LookAtTarget();
     }
 
     public enum AnimationAttackStatue

@@ -4,31 +4,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class CentralProcessorA : LEUnitProcessor {
+public class CentralProcessorA : LEUnitProcessor,IDamageable {
 
     protected UserInputPr userInputManager;
     protected Visin1_1.CameraManager cameraManager;
 
     Visin1_1.CameraManager.CameraDelta cameraDelta;
 
+    public LEData ledata;
+
     bool pause;
-    
-    private void Start() 
+    protected bool die = false;
+
+    protected override void Start() 
     {
         userInputManager = GetComponent<UserInputPr>();
-        inputActionManager = GetComponent<InputActionManager>();
-        basicMovementManager = GetComponent<LEUnitBasicMoveMent>();
-        animationManager = GetComponent<LEUnitAnimatorPr>();
         cameraManager = GetComponentInChildren<Visin1_1.CameraManager>();
+        base.Start();
     }
 
     private void Update()
     {
         if (pause) return;
+        if (die) return;
         UpdateInput();
+        UpdateCamera();
         UpdateBasicMovement();
         UpdateAnimation();
-        UpdateCamera();
+        
     }
 
     //======================================================
@@ -36,21 +39,12 @@ public class CentralProcessorA : LEUnitProcessor {
     //======================================================
     public override void SetToMeleeWeaponModel()
     {
-        //1. Change The the item Input System
-        //InputActionManager meleeInputSys = transform.GetComponent<MeleeWeaponController>();
-        //ChangeItemInputSystem(meleeInputSys);
-
-        //2. Change the Animation Status
         if (animationManager != null)
             animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
     }
 
     public override void SetToRangeWeaponModel()
     {
-        //1. Change The the item Input System
-        //InputActionManager gunInputSys = transform.GetOrAddComponent<GunController>();
-        //ChangeItemInputSystem(gunInputSys);
-
         //2. Change the Animation Status
         if (animationManager != null)
             animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.HoldGun_2);
@@ -119,7 +113,6 @@ public class CentralProcessorA : LEUnitProcessor {
         cameraManager.UpdateCameraManager();
     }
     //======================================================
-
     public void ChangeItemInputSystem(InputActionManager _itemInput)
     {
         if (inputActionManager != null)
@@ -134,4 +127,38 @@ public class CentralProcessorA : LEUnitProcessor {
             inputActionManager.enabled = true;
     }
 
+    //========================================================
+    //IDamageable procosser
+    //========================================================
+    public void GetDamage(float num)
+    {
+        ledata.currentHealth -= num;
+        GameUIPr.Instance.Adapter_Healthbar(ledata.currentHealth,ledata.maxHealth);
+
+        if (ledata.currentHealth <= 0.0f)
+        {
+            Die();
+        }
+        animationManager.SetTriggerImmediately("Impact");
+    }
+
+    void Die()
+    {
+        animationManager.SetBool("Die", true);
+        die = true;
+    }
+
+    public override bool AddHealth(float addHealth)
+    {
+        if (ledata.currentHealth < ledata.maxHealth)
+        {
+            ledata.currentHealth += addHealth;
+            GameUIPr.Instance.Adapter_Healthbar(ledata.currentHealth, ledata.maxHealth);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

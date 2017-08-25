@@ -20,6 +20,7 @@ public class AiPatrolState : AiState {
     {
         stateMachine.SetAnimationTypeIndex_to_0();
         stateMachine.angent.SetDestination(stateMachine.transform.position);
+        stateMachine.animationPro.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
     }
 
     public override void OnStateUpdate()

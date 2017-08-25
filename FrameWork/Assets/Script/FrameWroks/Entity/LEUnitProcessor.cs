@@ -12,8 +12,21 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     protected LEUnitAnimatorPr animationManager;
 
     protected bool enableBaiscMovement = true;
-    LEUnitAnimatorPr.AnimationAttackStatue animationAttackStatue = LEUnitAnimatorPr.AnimationAttackStatue.Off;
-    protected LEUnitAnimatorPr.AnimationAttackStatue AnimationAttackStatue { get { return animationAttackStatue; } }
+    
+
+    [HideInInspector]
+    Transform target;
+    Vector3 targetPos;
+    
+
+    protected virtual void Start()
+    {
+        inputActionManager = GetComponent<InputActionManager>();
+        basicMovementManager = GetComponent<LEUnitBasicMoveMent>();
+        animationManager = GetComponent<LEUnitAnimatorPr>();
+
+
+    }
 
     public virtual void SetToRangeWeaponModel() { }
 
@@ -29,7 +42,28 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     //Recive massage from AnimationManager.
     //======================================================================
     public virtual void AnimationManager_EnableBasicMoveMent(bool isable) { enableBaiscMovement = isable; }
-    public virtual void AnimationManager_SetAnimationStatue(LEUnitAnimatorPr.AnimationAttackStatue s) { animationAttackStatue = s; }
+    public virtual void AnimationManager_SetAnimationAttackStatue(LEUnitAnimatorPr.AnimationAttackStatue s) {
+        inputActionManager.SetIInputActableItemStatu(s);
+    }
+
+    public virtual void LookAtTarget()
+    {
+        //Need to re editor the animation system. Because..... the animation Enter state only call once
+        //Or we need to use Animation Event.
+        if (target == null) return;
+        targetPos.x = target.position.x;
+        targetPos.y = transform.position.y;
+        targetPos.z = target.position.z;
+        transform.LookAt(targetPos);
+    }
+
+    public void SetTarget(Transform _target)
+    {
+        Debug.Log(_target.name);
+        target = _target;
+    }
+
+    public virtual bool AddHealth(float addHealth) { return false; }
     //======================================================================
 
     //------------------------------------------------
@@ -64,4 +98,6 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     {
         
     }
+
+
 }

@@ -72,13 +72,13 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
 
         // playerShooting.DisableEffects ();
-        Debug.Log("Die");
-        anim.SetBool ("Die",true);
+        //Debug.Log("Die");
+        //anim.SetBool ("Die",true);
 
         //playerAudio.clip = deathClip;
         //playerAudio.Play ();
 
-        playerMovement.enabled = false;
+        //playerMovement.enabled = false;
        // playerShooting.enabled = false;
     }
 

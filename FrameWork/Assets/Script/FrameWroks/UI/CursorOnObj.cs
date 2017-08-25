@@ -14,6 +14,7 @@ public class CursorOnObj : MonoBehaviour {
         if (type == MouseActionType.Eney)
             CursorManager.GetInstance().setAttack();
     }
+
     void OnMouseExit()
     {
         CursorManager.GetInstance().setMouse();

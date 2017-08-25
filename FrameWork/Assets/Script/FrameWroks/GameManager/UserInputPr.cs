@@ -57,15 +57,26 @@ public class UserInputPr : MonoBehaviour {
 
         StandaredKeyInput();
 #endif
-        TestForSwitchPlayModel();
+        //TestForSwitchPlayModel();
     }
 
+    RaycastHit hit = new RaycastHit();
+    Vector3 targetPos;
     void StandaredKeyInput()
     {
 
         if (Input.GetMouseButtonDown(0))
         {
-            leUnitProcessor.GetKey_A_Down();
+            Visin1_1.MouseAndCamera.GetScreenPointToRayColliderInfo(out hit,(1<<9));
+            if (hit.transform != null)
+            {
+                targetPos.x = hit.transform.position.x;
+                targetPos.y = transform.position.y;
+                targetPos.z = hit.transform.position.z;
+                transform.LookAt(targetPos);
+                leUnitProcessor.GetKey_A_Down();
+            }
+            
         }
 
         if (Input.GetMouseButton(0))
@@ -83,6 +94,11 @@ public class UserInputPr : MonoBehaviour {
         if (Input.GetKeyDown(Key_B))
         {
             leUnitProcessor.GetKey_B_Down();
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            GameUIPr.Instance.InventoryPanelEvent();
         }
     }
 

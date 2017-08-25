@@ -9,9 +9,6 @@ public class AiStateMachine : MonoBehaviour {
 
     public NavMeshAgent angent;
 
-    [HideInInspector]
-    public Transform LPlayerT;
-
     List<AiState> aistates = new List<AiState>();
 
     [HideInInspector]
@@ -37,16 +34,26 @@ public class AiStateMachine : MonoBehaviour {
     Vector3 targetPos;
     float distanceToEnemyTarget = 100;
 
+    IInputActable wapon1;
+    // Use this for initialization
+
+
     // Use this for initialization
     void Start () {
 
+        wapon1 = GetComponentInChildren<IInputActable>();
+        GetComponent<CentralProcessorB>().EquipWeapon(wapon1);
+
+
         processor = GetComponent<LEUnitProcessor>();
         animationPro = GetComponent<LEUnitAnimatorPr>();
+        animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
 
         angent = GetComponent<NavMeshAgent>();
-        LPlayerT = FindObjectOfType<LPlayer>().transform;
 
-
+        Transform targetTf = GameCentalPr.Instance.GetPlayerTransform();
+        if(targetTf!= null)
+        processor.SetTarget(targetTf);
 
         partrolState = new AiPatrolState(this);
         searchState = new AISearchState(this);
@@ -74,7 +81,7 @@ public class AiStateMachine : MonoBehaviour {
     public bool IfFindEnemy()
     {
         bool findTarget =  distanceToEnemyTarget < 50;
-        if (findTarget) { targetPos = LPlayerT.position; }
+        if (findTarget) { targetPos = GameCentalPr.Instance.GetPlayerTransform().position; }
         return findTarget;
     }
 
@@ -92,6 +99,7 @@ public class AiStateMachine : MonoBehaviour {
     {
         onAlert = true;
     }
+
     //===============================================
     // Patrol
     public void CheckResetPartrol()
@@ -134,11 +142,13 @@ public class AiStateMachine : MonoBehaviour {
     {
         if (AiUtility.PathFindingHelper.ArriveDestination_NotPathPending(angent))
         {
+            angent.enabled = false;
             //When We Arrived the destination, We Start To Search
             animationPro.SetMovementForward(0);
             animationPro.SetMotionIndex(2);
             CheckLeftTheAlertTime();
         }
+        angent.enabled = true;
     }
 
     public void ResetNavAgentTargetPos()
@@ -164,18 +174,36 @@ public class AiStateMachine : MonoBehaviour {
         return distanceToEnemyTarget > 10;
     }
 
+    float nextAttackTime = 2.0f;
+    bool shouldAttack = true;
     public void OnFight()
     {
         if (AiUtility.PathFindingHelper.ArriveDestination_NotPathPending(angent))
         {
             animationPro.SetMovementForwardSmoothDamp(0);
-            animationPro.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
-            animationPro.SetMotionIndex_Random_From_To(0, 4);
+
+            nextAttackTime -= Time.deltaTime;
+            if (nextAttackTime < 0.0f)
+            {
+                 nextAttackTime = Random.Range(1.5f, 2.5f);
+                 shouldAttack = nextAttackTime > 2.0f;
+            }
+            if (shouldAttack)
+            {
+                animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
+                animationPro.SetMotionIndex_Random_From_To(0, 4);
+            }
+            else
+            {
+                animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
+                animationPro.SetMotionIndex_Random_From_To(0, 3);
+            }
+
+
 
         }
         else
         {
-
             animationPro.SetMovementForwardSmoothDamp(1);
         }
     }
@@ -186,13 +214,13 @@ public class AiStateMachine : MonoBehaviour {
 
     public void UpdateDistanceToTarget()
     {
-        distanceToEnemyTarget = (LPlayerT.position - transform.position).sqrMagnitude;
+        distanceToEnemyTarget = (GameCentalPr.Instance.GetPlayerTransform().position - transform.position).sqrMagnitude;
         //Debug.LogFormat("Target To Distance is {0}", distanceToEnemyTarget);
     }
 
     public void UpdateTargetPos()
     {
-        targetPos = LPlayerT.position;
+        targetPos = GameCentalPr.Instance.GetPlayerTransform().position;
     }
 
     public void ResetCurrentState(AiState state)

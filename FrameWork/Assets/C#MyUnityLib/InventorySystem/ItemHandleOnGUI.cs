@@ -56,7 +56,7 @@ public class ItemHandleOnGUI : MonoBehaviour {
     public void DoubleClick()
     {
         if (item == null) return;
-        if (item.OnGUIDoubleClick != null) { item.OnGUIDoubleClick.Invoke(); }
+        if (item.OnGUIDoubleClick != null) { item.OnGUIDoubleClick.Invoke(this); }
     }
 
 }

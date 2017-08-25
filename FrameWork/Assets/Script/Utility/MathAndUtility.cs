@@ -201,6 +201,16 @@ namespace Visin1_1
             Physics.Raycast(ray, out info, 1000.0f);
             return info;
         }
+
+        /// <param name="info"></param>
+        /// <param name="layerMask"> the Selected Layer we want to hit, For example if the Enemy layer in the setting is 10, then we should set the layerMask to 1 << 10 </param>
+        /// <returns></returns>
+        public static RaycastHit GetScreenPointToRayColliderInfo(out RaycastHit info,int layerMask)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Physics.Raycast(ray, out info, 1000.0f,layerMask);
+            return info;
+        }
     }
 
     public static class GaussianDist

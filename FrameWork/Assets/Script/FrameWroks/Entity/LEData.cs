@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
-public class LEData : ScriptableObject {
-
-    public GameObject PrefabInstance;
+[System.Serializable]
+public class LEData{
 
     public Vector3 pos;
     public float maxHealth;

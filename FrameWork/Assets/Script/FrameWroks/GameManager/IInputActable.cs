@@ -9,4 +9,8 @@ public interface IInputActable {
     void GetKey_A_Up();
     void GetKey_B_Down();
     void ShutDown();
+    void SetIInputActableItemStatu(LEUnitAnimatorPr.AnimationAttackStatue s);
+    void SetUpLayer(int layer);
+    void DisableCollision();
+    void EnableCollision();
 }

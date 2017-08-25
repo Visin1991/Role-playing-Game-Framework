@@ -19,8 +19,7 @@ public class AiFightState : AiState {
     }
 
     public override void OnStateEnter()
-    {
-        Debug.Log("On Fight Enter");
+    { 
 
     }
 
