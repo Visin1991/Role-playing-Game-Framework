@@ -17,11 +17,10 @@ using UnityEngine;
 /// Own decision and behaviour, Instead of do everything by its own...... 
 ///                                     ----------Wei,Zhu Auguest 25/ 2017
 /// </summary>
-public class AiInfomationReciver : MonoBehaviour {
+public interface AiInfomationReciver{
 
-    public void FindTarget(Transform tf)
-    {
+    //This function will be called by the LPlayer
+    void StartAiBehavior();
 
-    }
-
+    void StopAiBehavior();
 }

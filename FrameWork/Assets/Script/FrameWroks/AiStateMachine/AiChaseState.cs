@@ -12,8 +12,8 @@ public class AiChaseState : AiState {
 
     public override void Init()
     {
-        AiOutPut To_Search = new AiOutPut(stateMachine.LostChaseTarget, null, stateMachine.SearchState);
-        AiOutPut To_Fight = new AiOutPut(stateMachine.TargetInRange, null, stateMachine.FightState);
+        AiOutPut To_Search = new AiOutPut(LostChaseTarget, null, stateMachine.SearchState);
+        AiOutPut To_Fight = new AiOutPut(TargetInFightRange, null, stateMachine.FightState);
         outputs.Add(To_Search);
         outputs.Add(To_Fight);
     }
@@ -21,22 +21,67 @@ public class AiChaseState : AiState {
     public override void OnStateEnter()
     {
         stateMachine.animationPro.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
-        stateMachine.ResetNavAgentTargetPos();
+        ResetNavAgentTargetPos();
     }
 
     public override void OnStateUpdate()
     {
-        stateMachine.UpdateDistanceToTarget();
-        stateMachine.UpdateTargetPos();
-        stateMachine.ResetNavAgentTargetPos();
-        stateMachine.SetAnimationforwarToDesiredVel();
+        UpdateDistanceToTarget();
+        UpdateTargetPos();
+        ResetNavAgentTargetPos();
+        SetAnimationforwarToDesiredVel();
     }
 
     public override void OnStateExit()
     {
-        
+        Debug.Log("AiChaseState OnStateExit");
     }
 
+    bool LostChaseTarget()
+    {
+        if (stateMachine.distanceToEnemyTarget > 30)
+        {
+            stateMachine.targetTF = null;
+            return true;
+        }
+        return false;
+    }
+
+    bool TargetInFightRange()
+    {
+        return stateMachine.distanceToEnemyTarget <= 5;
+    }
+
+    void ResetNavAgentTargetPos()
+    {
+        stateMachine.angent.SetDestination(stateMachine.targetPos);
+    }
+
+    void UpdateDistanceToTarget()
+    {
+        if (stateMachine.targetTF == null) { stateMachine.distanceToEnemyTarget = float.MaxValue; }
+        else
+        {
+            stateMachine.distanceToEnemyTarget = (stateMachine.transform.position - stateMachine.targetTF.position).magnitude;
+        }
+    }
+
+    void UpdateTargetPos()
+    {
+        if (stateMachine.targetTF != null)
+        {
+            stateMachine.targetPos = stateMachine.targetTF.position;
+        }
+        else
+        {
+            Debug.LogError("There is no Target.....");
+        }
+    }
+
+    void SetAnimationforwarToDesiredVel()
+    {
+        stateMachine.animationPro.SetMovementForwardSmoothDamp(1);
+    }
 
 
 }

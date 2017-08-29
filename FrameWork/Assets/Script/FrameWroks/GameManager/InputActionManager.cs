@@ -12,6 +12,7 @@ public class InputActionManager : MonoBehaviour {
     protected Transform rightHandTF;
     public LEUnitAnimatorPr animationManager;
     IInputActable inputActionClient;
+    public int actionItemPhycislayer = 0;
 
     protected virtual void OnEnable()
     {
@@ -30,8 +31,8 @@ public class InputActionManager : MonoBehaviour {
     {
         inputActionClient = client;
         inputActionClient.Init(this);
-        inputActionClient.SetUpLayer(gameObject.layer);
-
+        inputActionClient.SetUpLayer(gameObject.layer + 1);
+        
     }
 
     public void ChangeAnimationMotionType(LEUnitAnimatorPr.AnimationMotionType type)

@@ -6,6 +6,8 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class CentralProcessorA : LEUnitProcessor,IDamageable {
 
+    public bool test = true;
+
     protected UserInputPr userInputManager;
     protected Visin1_1.CameraManager cameraManager;
 
@@ -37,28 +39,6 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
     //======================================================
     //Override Function
     //======================================================
-    public void SetToMeleeWeaponModel()
-    {
-        if (animationManager != null)
-            animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
-    }
-
-    public void SetToRangeWeaponModel()
-    {
-        //2. Change the Animation Status
-        if (animationManager != null)
-            animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.HoldGun_2);
-    }
-
-    public void SetToDefaultModel()
-    {
-        ChangeItemInputSystem(null);
-
-        //2. Change the Animation Status
-        if (animationManager != null)
-            animationManager.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
-    }
-
     public override void Pause(bool p)
     {
         pause = p;
@@ -132,8 +112,11 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
     //========================================================
     public void GetDamage(float num)
     {
+
         ledata.currentHealth -= num;
-        GameUIPr.Instance.Adapter_Healthbar(ledata.currentHealth,ledata.maxHealth);
+
+        if(!test)
+            GameUIPr.Instance.UpdateHealthBar(ledata.currentHealth,ledata.maxHealth);
 
         if (ledata.currentHealth <= 0.0f)
         {

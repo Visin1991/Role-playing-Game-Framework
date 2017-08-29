@@ -46,8 +46,8 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     //Sometimes When we want to process information about something, we need
     //a target
     //=========================================================================
-    Transform target;
-    Vector3 targetPos;
+    protected Transform target;
+    protected Vector3 targetPos;
 
     public virtual void LookAtTarget()
     {
@@ -58,11 +58,6 @@ public abstract class LEUnitProcessor : MonoBehaviour {
         targetPos.y = transform.position.y;
         targetPos.z = target.position.z;
         transform.LookAt(targetPos);
-    }
-
-    public virtual void SetTarget(Transform _target)
-    {
-        target = _target;
     }
 
     public virtual void LostTarget()

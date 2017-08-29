@@ -187,7 +187,8 @@ namespace NodeEditorFramework
 		/// </summary>
 		public void ApplyConnection (NodeOutput output)
 		{
-			if (output == null) 
+            Debug.Log("ApplyConnection");
+            if (output == null) 
 				return;
 			
 			if (connection != null) 
@@ -195,6 +196,7 @@ namespace NodeEditorFramework
 				NodeEditorCallbacks.IssueOnRemoveConnection (this);
 				connection.connections.Remove (this);
 			}
+
 			connection = output;
 			output.connections.Add (this);
 			output.body.OnAddOutputConnection (output);
