@@ -9,7 +9,7 @@ public class SceneInitializer : MonoBehaviour {
         GameUIPr.Instance.CloseLoadingPanel();
         //GameCentalPr.Instance.LoadSave();
         GameCentalPr.Instance.EnablePlayerObj();
-        GameCentalPr.Instance.PlayerInfomationProcessor.transform.parent = null;
-        GameCentalPr.Instance.PlayerInfomationProcessor.transform.position = transform.position;
+        GameCentalPr.Instance.PlayerProcessor.transform.parent = null;
+        GameCentalPr.Instance.PlayerProcessor.transform.position = transform.position;
 	}
 }

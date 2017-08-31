@@ -12,29 +12,18 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     protected LEUnitAnimatorPr animationManager;
 
     protected bool enableBaiscMovement = true;
-    
 
-    [HideInInspector]
-    Transform target;
-    Vector3 targetPos;
-    
-
-    protected virtual void Start()
+    private void OnEnable()
     {
         inputActionManager = GetComponent<InputActionManager>();
         basicMovementManager = GetComponent<LEUnitBasicMoveMent>();
         animationManager = GetComponent<LEUnitAnimatorPr>();
-
-
     }
 
-    public virtual void SetToRangeWeaponModel() { }
-
-    public virtual void SetToMeleeWeaponModel() { }
-
-    public virtual void SetToDefaultModel() { }
-
-    public virtual void EquipWeapon(IInputActable iinputActable) { GetComponent<InputActionManager>().ResetClient(iinputActable); }
+    protected virtual void Start()
+    {
+        
+    }
 
     public abstract void Pause(bool b);
 
@@ -42,9 +31,23 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     //Recive massage from AnimationManager.
     //======================================================================
     public virtual void AnimationManager_EnableBasicMoveMent(bool isable) { enableBaiscMovement = isable; }
+
+    //We shold Have a statue Enume---and the animation can call back and set current animation state.
+    //for example--- On walking, On Runing, On Attack, On Sky what ever.....
+    //And also have a combied animation state......use bit-wise oporation....
     public virtual void AnimationManager_SetAnimationAttackStatue(LEUnitAnimatorPr.AnimationAttackStatue s) {
+        if (inputActionManager == null) return;
         inputActionManager.SetIInputActableItemStatu(s);
     }
+
+    public virtual bool AddHealth(float addHealth) { return false; }
+
+    //=========================================================================
+    //Sometimes When we want to process information about something, we need
+    //a target
+    //=========================================================================
+    protected Transform target;
+    protected Vector3 targetPos;
 
     public virtual void LookAtTarget()
     {
@@ -57,47 +60,9 @@ public abstract class LEUnitProcessor : MonoBehaviour {
         transform.LookAt(targetPos);
     }
 
-    public void SetTarget(Transform _target)
+    public virtual void LostTarget()
     {
-        Debug.Log(_target.name);
-        target = _target;
+        target = null;
     }
-
-    public virtual bool AddHealth(float addHealth) { return false; }
-    //======================================================================
-
-    //------------------------------------------------
-    //   Those normally called by User input or Ai ......
-    // Hold different weapon and use different animation statue.....  do different behavior
-    //------------------------------------------------
-    public virtual void GetKey_A_Down()
-    {
-        if (inputActionManager != null)
-            inputActionManager.GetKey_A_Down();
-    }
-
-    public virtual void GetKey_A()
-    {
-        if (inputActionManager != null)
-            inputActionManager.GetKey_A();
-    }
-
-    public virtual void GetKey_A_Up()
-    {
-        if (inputActionManager != null)
-            inputActionManager.GetKey_A_Up();
-    }
-
-    public virtual void GetKey_B_Down()
-    {
-        if (inputActionManager != null)
-            inputActionManager.GetKey_B_Down();
-    }
-
-    public virtual void GetKey_B_Up()
-    {
-        
-    }
-
 
 }

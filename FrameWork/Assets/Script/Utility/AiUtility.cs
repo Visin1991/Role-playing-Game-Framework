@@ -451,6 +451,24 @@ namespace AiUtility{
             return targetsInRangeRadius;
         }
 
+        public static void FindCollidersWithTypeOf<T>(ref List<T> targets,Vector3 pos, float range, LayerMask targetMask)
+        {
+            Collider[] targetsMaskInRangeRadius = Physics.OverlapSphere(pos, range, targetMask);
+
+            if (targetsMaskInRangeRadius.Length <= 0) return;
+
+            targets.Clear();
+
+            foreach (Collider c in targetsMaskInRangeRadius)
+            {
+                T t = c.GetComponent<T>();
+                if (t != null)
+                {
+                    targets.Add(t);
+                }
+            }
+        }
+
         //Find the nearest Collider inside the raduis range; center is a given position
         public static Collider FindNearestColliderOverlapSphere(Vector3 position, float range)
         {

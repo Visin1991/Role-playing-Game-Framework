@@ -29,48 +29,10 @@ public class EnemyProcessor : LEUnitProcessor {
     // Mail Box------Event Comb
     //===============================================
 
-    public override void SetToRangeWeaponModel()
-    {
-        
-    }
-
-    public override void SetToDefaultModel()
-    {
-       
-    }
 
     public override void Pause(bool p)
     {
         
     }
 
-    //===============================================
-    // Mail Box------Message from Sub-Component
-    //===============================================
-
-    public override void GetKey_A_Down()
-    {
-        itemInput.GetKey_A_Down();
-    }
-
-    public override void GetKey_A()
-    {
-        itemInput.GetKey_A();
-    }
-
-    public override void GetKey_A_Up()
-    {
-        itemInput.GetKey_A_Up();
-    }
-
-    public override void GetKey_B_Down()
-    {
-        itemInput.GetKey_B_Down();
-    }
-
-    public override void GetKey_B_Up()
-    {
-        
-    }
-    
 }

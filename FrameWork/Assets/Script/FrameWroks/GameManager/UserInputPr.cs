@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
+[RequireComponent(typeof(InputActionManager))]
 public class UserInputPr : MonoBehaviour {
-    LEUnitProcessor leUnitProcessor;
+    InputActionManager inputActionManager;
 
     public string fireButton;
 
@@ -29,7 +30,11 @@ public class UserInputPr : MonoBehaviour {
 
     private void Start()
     {
-        leUnitProcessor = GetComponent<LEUnitProcessor>();
+        inputActionManager = GetComponent<InputActionManager>();
+        if (inputActionManager == null)
+        {
+            Debug.LogError("inputActionManager is Null");
+        }
     }
 
     public void UpdateInput()
@@ -74,26 +79,24 @@ public class UserInputPr : MonoBehaviour {
                 targetPos.y = transform.position.y;
                 targetPos.z = hit.transform.position.z;
                 transform.LookAt(targetPos);
-                leUnitProcessor.GetKey_A_Down();
+                inputActionManager.GetKey_A_Down();
             }
             
         }
 
         if (Input.GetMouseButton(0))
         {
-            leUnitProcessor.GetKey_A();
+            inputActionManager.GetKey_A();
         }
-
-
 
         if (Input.GetMouseButtonUp(0))
         {
-            leUnitProcessor.GetKey_A_Up();
+            inputActionManager.GetKey_A_Up();
         }
 
         if (Input.GetKeyDown(Key_B))
         {
-            leUnitProcessor.GetKey_B_Down();
+            inputActionManager.GetKey_B_Down();
         }
 
         if (Input.GetKeyDown(KeyCode.I))
@@ -106,35 +109,12 @@ public class UserInputPr : MonoBehaviour {
     {
         if (CrossPlatformInputManager.GetButton(fireButton))
         {
-            leUnitProcessor.GetKey_A();
+            inputActionManager.GetKey_A();
         }
 
         if (CrossPlatformInputManager.GetButtonUp(fireButton))
         {
-            leUnitProcessor.GetKey_A_Up();
-        }
-    }
-
-    //===============================================
-    //Test for Switch Play Model
-    void TestForSwitchPlayModel()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (statu == 1)
-            {
-                leUnitProcessor.SetToRangeWeaponModel();
-            }
-            else if (statu == 2)
-            {
-                leUnitProcessor.SetToMeleeWeaponModel();
-            }
-            else
-            {
-                leUnitProcessor.SetToDefaultModel();
-            }
-            statu += 1;
-            statu %= 3;
+            inputActionManager.GetKey_A_Up();
         }
     }
 }

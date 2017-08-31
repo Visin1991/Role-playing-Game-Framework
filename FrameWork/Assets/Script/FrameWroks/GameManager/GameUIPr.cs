@@ -88,7 +88,17 @@ public class GameUIPr : Singleton<GameUIPr> {
         loadingPanelObj = GetComponentInChildren<StartbackGround>().gameObject;
     }
 
-	public void MailBox_SYS_UI_Event(SYS_UI_Event sysUIEvent)
+    public void UpdateHealthBar(float current,float max)
+    {
+        if (Adapter_Healthbar != null) { Adapter_Healthbar(current,max); }
+    }
+
+    public void UpdateManaBar(float current, float max)
+    {
+        if (Adapter_Manabar != null) { Adapter_Manabar(current, max); }
+    }
+
+    public void MailBox_SYS_UI_Event(SYS_UI_Event sysUIEvent)
 	{
 		
 	}
