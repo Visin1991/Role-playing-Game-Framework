@@ -88,10 +88,8 @@ public class EnemyAttack : MonoBehaviour
     void Attack ()
     {
         timer = 0f;
-        IDamageable damageReciver = collision.transform.GetComponent<IDamageable>();
-        if (damageReciver != null)
-            damageReciver.GetDamage(20);
-
+        
+        
 
 
         if (playerHealth.currentHealth > 0)
