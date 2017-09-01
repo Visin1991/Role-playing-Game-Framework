@@ -35,7 +35,7 @@ public class StateEnterType : IConnectionTypeDeclaration
 {
     public string Identifier { get { return "StateEnter"; } }
     public System.Type Type { get { return typeof(void); } }
-    public Color Color { get { return Color.red; } }
+    public Color Color { get { return Color.green; } }
     public string InKnobTex { get { return "Textures/In_Knob.png"; } }
     public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
 }
@@ -44,7 +44,7 @@ public class StateOutType : IConnectionTypeDeclaration
 {
     public string Identifier { get { return "StateOut"; } }
     public System.Type Type { get { return typeof(void); } }
-    public Color Color { get { return Color.red; } }
+    public Color Color { get { return Color.white; } }
     public string InKnobTex { get { return "Textures/In_Knob.png"; } }
     public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
 }

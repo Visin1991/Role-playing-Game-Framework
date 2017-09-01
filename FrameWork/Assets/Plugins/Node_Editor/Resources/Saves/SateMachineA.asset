@@ -1,0 +1,325 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b04640bed43c7945a6fd38ceb308691, type: 3}
+  m_Name: SateMachineA
+  m_EditorClassIdentifier: 
+  editorStates:
+  - {fileID: 114323930515483436}
+  saveName: SateMachineA
+  savePath: Assets/Plugins/Node_Editor/Resources/Saves/SateMachineA.asset
+  livesInScene: 0
+  nodes:
+  - {fileID: 114981308373511658}
+  - {fileID: 114873452621794090}
+  - {fileID: 114627350530770368}
+  groups: []
+  Name: StateMachine
+--- !u!114 &114055317680128800
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
+  m_Name: Exit Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114981308373511658}
+  side: 2
+  sidePosition: 30
+  sideOffset: 0
+  connections: []
+  typeID: StateOut
+  calculationBlockade: 0
+--- !u!114 &114098582436701862
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
+  m_Name: Exit Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114873452621794090}
+  side: 2
+  sidePosition: 30
+  sideOffset: 0
+  connections: []
+  typeID: StateOut
+  calculationBlockade: 0
+--- !u!114 &114128396306058156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
+  m_Name: Exit Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114981308373511658}
+  side: 2
+  sidePosition: 235.1
+  sideOffset: 0
+  connections:
+  - {fileID: 114806590120071806}
+  typeID: StateOut
+  calculationBlockade: 0
+--- !u!114 &114143862757748522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
+  m_Name: Enter Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114981308373511658}
+  side: 4
+  sidePosition: 30
+  sideOffset: 0
+  connection: {fileID: 114325245860462948}
+  typeID: StateEnter
+--- !u!114 &114271214724947732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
+  m_Name: Exit Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114873452621794090}
+  side: 2
+  sidePosition: 282.1
+  sideOffset: 0
+  connections: []
+  typeID: StateOut
+  calculationBlockade: 0
+--- !u!114 &114323930515483436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ab6487237ff124ea4c2aa5de9ce3fb, type: 3}
+  m_Name: MainEditorState
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 11400000}
+  parentEditor: {fileID: 0}
+  drawing: 1
+  selectedNode: {fileID: 0}
+  panOffset: {x: -321.65, y: 310.70004}
+  zoom: 1.2
+--- !u!114 &114325245860462948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
+  m_Name: Exit Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114627350530770368}
+  side: 2
+  sidePosition: 30
+  sideOffset: 0
+  connections:
+  - {fileID: 114143862757748522}
+  typeID: StateOut
+  calculationBlockade: 0
+--- !u!114 &114434428350100578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
+  m_Name: Exit Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114873452621794090}
+  side: 2
+  sidePosition: 258.1
+  sideOffset: 0
+  connections: []
+  typeID: StateOut
+  calculationBlockade: 0
+--- !u!114 &114583580095526962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
+  m_Name: Exit Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114627350530770368}
+  side: 2
+  sidePosition: 115.1
+  sideOffset: 0
+  connections:
+  - {fileID: 114810825265849124}
+  typeID: StateOut
+  calculationBlockade: 0
+--- !u!114 &114627350530770368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298491c633fe9ce478935691b73a47a7, type: 3}
+  m_Name: Base State Node
+  m_EditorClassIdentifier: 
+  rect:
+    serializedVersion: 2
+    x: -272.59998
+    y: -639.2
+    width: 400
+    height: 132
+  nodeKnobs:
+  - {fileID: 114806590120071806}
+  - {fileID: 114325245860462948}
+  - {fileID: 114583580095526962}
+  Inputs:
+  - {fileID: 114806590120071806}
+  Outputs:
+  - {fileID: 114325245860462948}
+  - {fileID: 114583580095526962}
+  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  stateName: FightState
+  _allTransition:
+  - condition: LostTarget
+    additionalCall: null
+    NodeOutputIndex: 1
+  allEnters: []
+--- !u!114 &114806590120071806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
+  m_Name: Enter Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114627350530770368}
+  side: 4
+  sidePosition: 30
+  sideOffset: 0
+  connection: {fileID: 114128396306058156}
+  typeID: StateEnter
+--- !u!114 &114810825265849124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
+  m_Name: Enter Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114873452621794090}
+  side: 4
+  sidePosition: 30
+  sideOffset: 0
+  connection: {fileID: 114583580095526962}
+  typeID: StateEnter
+--- !u!114 &114873452621794090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298491c633fe9ce478935691b73a47a7, type: 3}
+  m_Name: Base State Node
+  m_EditorClassIdentifier: 
+  rect:
+    serializedVersion: 2
+    x: -198.45
+    y: -261.9
+    width: 400
+    height: 300
+  nodeKnobs:
+  - {fileID: 114810825265849124}
+  - {fileID: 114098582436701862}
+  - {fileID: 114434428350100578}
+  - {fileID: 114271214724947732}
+  Inputs:
+  - {fileID: 114810825265849124}
+  Outputs:
+  - {fileID: 114098582436701862}
+  - {fileID: 114434428350100578}
+  - {fileID: 114271214724947732}
+  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  stateName: SearchState
+  _allTransition:
+  - condition: LostTarget
+    additionalCall: null
+    NodeOutputIndex: 1
+  - condition: FindEnemy
+    additionalCall: null
+    NodeOutputIndex: 2
+  allEnters: []
+--- !u!114 &114981308373511658
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298491c633fe9ce478935691b73a47a7, type: 3}
+  m_Name: Base State Node
+  m_EditorClassIdentifier: 
+  rect:
+    serializedVersion: 2
+    x: 407.8
+    y: -433.19995
+    width: 400
+    height: 252
+  nodeKnobs:
+  - {fileID: 114143862757748522}
+  - {fileID: 114055317680128800}
+  - {fileID: 114128396306058156}
+  Inputs:
+  - {fileID: 114143862757748522}
+  Outputs:
+  - {fileID: 114055317680128800}
+  - {fileID: 114128396306058156}
+  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  stateName: PatrolState
+  _allTransition:
+  - condition: FindEnemy
+    additionalCall: null
+    NodeOutputIndex: 1
+  allEnters: []

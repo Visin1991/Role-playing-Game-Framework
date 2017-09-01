@@ -24,9 +24,9 @@ namespace NodeEditorFramework
 		public List<Node> nodes = new List<Node> ();
 		public List<NodeGroup> groups = new List<NodeGroup> ();
 
-		#region Constructors
+        #region Constructors
 
-		public static T CreateCanvas<T> () where T : NodeCanvas
+        public static T CreateCanvas<T> () where T : NodeCanvas
 		{
 			if (typeof(T) == typeof(NodeCanvas))
 				throw new Exception ("Cannot create canvas of type 'NodeCanvas' as that is only the base class. Please specify a valid subclass!");

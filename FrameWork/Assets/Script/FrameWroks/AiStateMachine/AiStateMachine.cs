@@ -48,6 +48,9 @@ public class AiStateMachine : MonoBehaviour {
 
 
     // Use this for initialization
+
+    public StateMachineCanvas stateMachineCanvas;
+
     void Start () {
 
         wapon1 = GetComponentInChildren<IInputActable>();
@@ -78,7 +81,7 @@ public class AiStateMachine : MonoBehaviour {
 	public void UpdateAiStateMachine() {
         currentState.OnStateUpdate();
         currentState.OnTransitionCheck();
-        Debug.Log(currentState.ToString());
+        //Debug.Log(currentState.ToString());
     }
 
     public void ResetCurrentState(AiState state)
@@ -86,4 +89,55 @@ public class AiStateMachine : MonoBehaviour {
         currentState = state;
     }
 
+    [SMCondition]
+    public bool ShouldGoBack()
+    {
+        return false;
+    }
+
+    [SMCondition]
+    public bool IfFindEnemy()
+    {
+        return false;
+    }
+    [SMCondition]
+    public bool IfLostTarget()
+    {
+        return false;
+    }
+    [SMCondition]
+    public bool ShouldRunaway()
+    {
+        return false;
+    }
+
+    [SMCondition]
+    public bool ThisisWei()
+    {
+        return false;
+    }
+
+    [SMCondition]
+    public bool WhatUp()
+    {
+        return false;
+    }
+
+
+
+
+
+    [ContextMenu("InitialEditor")]
+    public void InitConditionFuncs()
+    {
+        if (stateMachineCanvas != null) {
+            stateMachineCanvas.conditionFuncs.Clear();
+            stateMachineCanvas.conditionFuncs.Add("Null");
+            List<string> functionNames = StateMachineEditorHelper.GetAllMethodNameWithSMSCondition_In_T<AiStateMachine>();
+            foreach (string s in functionNames)
+            {
+                stateMachineCanvas.conditionFuncs.Add(s);
+            }
+        }
+    }
 }

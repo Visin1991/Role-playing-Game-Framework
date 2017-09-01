@@ -11,6 +11,5 @@ public class StateMachineCanvas : NodeCanvas {
 
     private Dictionary<int, BaseStateNode> _lsStates = new Dictionary<int, BaseStateNode>();
 
-
-
+    public List<string> conditionFuncs = new List<string>();
 }

@@ -187,7 +187,7 @@ namespace NodeEditorFramework
 		/// </summary>
 		public void ApplyConnection (NodeOutput output)
 		{
-            Debug.Log("ApplyConnection");
+            //Debug.Log("ApplyConnection");
             if (output == null) 
 				return;
 			

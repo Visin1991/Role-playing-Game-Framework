@@ -9,37 +9,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b04640bed43c7945a6fd38ceb308691, type: 3}
-  m_Name: New StateMachine
+  m_Name: LastSession
   m_EditorClassIdentifier: 
   editorStates:
-  - {fileID: 114703640673919184}
+  - {fileID: 114248095343758972}
   saveName: New StateMachine
   savePath: 
   livesInScene: 0
   nodes:
-  - {fileID: 114228636028340110}
-  - {fileID: 114731247325596680}
-  - {fileID: 114195860390729572}
+  - {fileID: 114018393025944152}
+  - {fileID: 114775102343644842}
+  - {fileID: 114261053661759686}
+  - {fileID: 114298255342995956}
   groups: []
   Name: StateMachine
---- !u!114 &114068880071984626
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
-  m_Name: Enter Node
-  m_EditorClassIdentifier: 
-  body: {fileID: 114228636028340110}
-  side: 4
-  sidePosition: 30
-  sideOffset: 0
-  connection: {fileID: 114650995869454726}
-  typeID: StateEnter
---- !u!114 &114195860390729572
+  conditionFuncs:
+  - Null
+  - ShouldGoBack
+  - IfFindEnemy
+  - IfLostTarget
+  - ShouldRunaway
+  - ThisisWei
+  - WhatUp
+--- !u!114 &114018393025944152
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -52,38 +44,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rect:
     serializedVersion: 2
-    x: -427
-    y: -139
+    x: 192.90001
+    y: -437.39996
     width: 400
-    height: 86
+    height: 276
   nodeKnobs:
-  - {fileID: 114522865067990634}
-  - {fileID: 114650995869454726}
+  - {fileID: 114543056343380378}
+  - {fileID: 114485926886907716}
+  - {fileID: 114677613268513584}
   Inputs:
-  - {fileID: 114522865067990634}
+  - {fileID: 114543056343380378}
+  - {fileID: 114677613268513584}
   Outputs:
-  - {fileID: 114650995869454726}
+  - {fileID: 114485926886907716}
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}
   stateName: defualt State
-  _allTransition: []
---- !u!114 &114199182913523146
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
-  m_Name: Enter Node
-  m_EditorClassIdentifier: 
-  body: {fileID: 114731247325596680}
-  side: 4
-  sidePosition: 30
-  sideOffset: 0
-  connection: {fileID: 0}
-  typeID: StateEnter
---- !u!114 &114224562920830908
+  _allTransition:
+  - condition: ShouldGoBack
+    additionalCall: null
+    NodeOutputIndex: 0
+    conditionFuncIndex: 1
+  allEnters:
+  - NodeInputIndex: 1
+--- !u!114 &114114457457022496
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -94,77 +77,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
   m_Name: Exit Node
   m_EditorClassIdentifier: 
-  body: {fileID: 114731247325596680}
+  body: {fileID: 114775102343644842}
   side: 2
-  sidePosition: 30
-  sideOffset: 0
-  connections: []
-  typeID: StateOut
-  calculationBlockade: 0
---- !u!114 &114228636028340110
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 298491c633fe9ce478935691b73a47a7, type: 3}
-  m_Name: Base State Node
-  m_EditorClassIdentifier: 
-  rect:
-    serializedVersion: 2
-    x: 134
-    y: -58
-    width: 400
-    height: 86
-  nodeKnobs:
-  - {fileID: 114068880071984626}
-  - {fileID: 114702786983343012}
-  Inputs:
-  - {fileID: 114068880071984626}
-  Outputs:
-  - {fileID: 114702786983343012}
-  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
-  stateName: defualt State
-  _allTransition: []
---- !u!114 &114522865067990634
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
-  m_Name: Enter Node
-  m_EditorClassIdentifier: 
-  body: {fileID: 114195860390729572}
-  side: 4
-  sidePosition: 30
-  sideOffset: 0
-  connection: {fileID: 0}
-  typeID: StateEnter
---- !u!114 &114650995869454726
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
-  m_Name: Exit Node
-  m_EditorClassIdentifier: 
-  body: {fileID: 114195860390729572}
-  side: 2
-  sidePosition: 30
+  sidePosition: 282
   sideOffset: 0
   connections:
-  - {fileID: 114068880071984626}
+  - {fileID: 114633413934275086}
   typeID: StateOut
   calculationBlockade: 0
---- !u!114 &114702786983343012
+--- !u!114 &114221621748715982
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -175,14 +96,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
   m_Name: Exit Node
   m_EditorClassIdentifier: 
-  body: {fileID: 114228636028340110}
+  body: {fileID: 114261053661759686}
   side: 2
-  sidePosition: 30
+  sidePosition: 258
   sideOffset: 0
-  connections: []
+  connections:
+  - {fileID: 114745985778953352}
   typeID: StateOut
   calculationBlockade: 0
---- !u!114 &114703640673919184
+--- !u!114 &114248095343758972
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -196,10 +118,10 @@ MonoBehaviour:
   canvas: {fileID: 0}
   parentEditor: {fileID: 0}
   drawing: 1
-  selectedNode: {fileID: 114195860390729572}
-  panOffset: {x: -128.8, y: 12.599999}
+  selectedNode: {fileID: 114298255342995956}
+  panOffset: {x: -559.80023, y: -173.80002}
   zoom: 1.4
---- !u!114 &114731247325596680
+--- !u!114 &114261053661759686
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -212,17 +134,294 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rect:
     serializedVersion: 2
-    x: -406
-    y: 47.6
+    x: 91.899994
+    y: -9.199997
     width: 400
-    height: 86
+    height: 276
   nodeKnobs:
-  - {fileID: 114199182913523146}
-  - {fileID: 114224562920830908}
+  - {fileID: 114633413934275086}
+  - {fileID: 114221621748715982}
   Inputs:
-  - {fileID: 114199182913523146}
+  - {fileID: 114633413934275086}
   Outputs:
-  - {fileID: 114224562920830908}
+  - {fileID: 114221621748715982}
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}
   stateName: defualt State
-  _allTransition: []
+  _allTransition:
+  - condition: IfFindEnemy
+    additionalCall: null
+    NodeOutputIndex: 0
+    conditionFuncIndex: 2
+  allEnters: []
+--- !u!114 &114298255342995956
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298491c633fe9ce478935691b73a47a7, type: 3}
+  m_Name: Base State Node
+  m_EditorClassIdentifier: 
+  rect:
+    serializedVersion: 2
+    x: 552.7
+    y: 219.80002
+    width: 400
+    height: 276
+  nodeKnobs:
+  - {fileID: 114745985778953352}
+  - {fileID: 114544085970840858}
+  - {fileID: 114970751298340034}
+  - {fileID: 114710725369566776}
+  - {fileID: 114703146812218312}
+  Inputs:
+  - {fileID: 114745985778953352}
+  - {fileID: 114544085970840858}
+  - {fileID: 114970751298340034}
+  - {fileID: 114703146812218312}
+  Outputs:
+  - {fileID: 114710725369566776}
+  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  stateName: defualt State
+  _allTransition:
+  - condition: IfLostTarget
+    additionalCall: null
+    NodeOutputIndex: 0
+    conditionFuncIndex: 3
+  allEnters:
+  - NodeInputIndex: 1
+  - NodeInputIndex: 2
+  - NodeInputIndex: 3
+--- !u!114 &114485926886907716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
+  m_Name: Exit Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114018393025944152}
+  side: 2
+  sidePosition: 258
+  sideOffset: 0
+  connections:
+  - {fileID: 114970751298340034}
+  typeID: StateOut
+  calculationBlockade: 0
+--- !u!114 &114543056343380378
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
+  m_Name: Enter Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114018393025944152}
+  side: 4
+  sidePosition: 30
+  sideOffset: 0
+  connection: {fileID: 114989320702357766}
+  typeID: StateEnter
+--- !u!114 &114544085970840858
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
+  m_Name: Enter Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114298255342995956}
+  side: 4
+  sidePosition: 60
+  sideOffset: 0
+  connection: {fileID: 0}
+  typeID: StateEnter
+--- !u!114 &114633413934275086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
+  m_Name: Enter Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114261053661759686}
+  side: 4
+  sidePosition: 30
+  sideOffset: 0
+  connection: {fileID: 114114457457022496}
+  typeID: StateEnter
+--- !u!114 &114677613268513584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
+  m_Name: Enter Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114018393025944152}
+  side: 4
+  sidePosition: 60
+  sideOffset: 0
+  connection: {fileID: 114710725369566776}
+  typeID: StateEnter
+--- !u!114 &114703146812218312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
+  m_Name: Enter Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114298255342995956}
+  side: 4
+  sidePosition: 108
+  sideOffset: 0
+  connection: {fileID: 0}
+  typeID: StateEnter
+--- !u!114 &114710725369566776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
+  m_Name: Exit Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114298255342995956}
+  side: 2
+  sidePosition: 258
+  sideOffset: 0
+  connections:
+  - {fileID: 114677613268513584}
+  typeID: StateOut
+  calculationBlockade: 0
+--- !u!114 &114745985778953352
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
+  m_Name: Enter Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114298255342995956}
+  side: 4
+  sidePosition: 30
+  sideOffset: 0
+  connection: {fileID: 114221621748715982}
+  typeID: StateEnter
+--- !u!114 &114767040018366832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
+  m_Name: Enter Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114775102343644842}
+  side: 4
+  sidePosition: 30
+  sideOffset: 0
+  connection: {fileID: 0}
+  typeID: StateEnter
+--- !u!114 &114775102343644842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298491c633fe9ce478935691b73a47a7, type: 3}
+  m_Name: Base State Node
+  m_EditorClassIdentifier: 
+  rect:
+    serializedVersion: 2
+    x: -481.7
+    y: -276.2
+    width: 400
+    height: 300
+  nodeKnobs:
+  - {fileID: 114767040018366832}
+  - {fileID: 114989320702357766}
+  - {fileID: 114114457457022496}
+  Inputs:
+  - {fileID: 114767040018366832}
+  Outputs:
+  - {fileID: 114989320702357766}
+  - {fileID: 114114457457022496}
+  backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  stateName: defualt State
+  _allTransition:
+  - condition: IfLostTarget
+    additionalCall: null
+    NodeOutputIndex: 0
+    conditionFuncIndex: 3
+  - condition: ShouldRunaway
+    additionalCall: null
+    NodeOutputIndex: 1
+    conditionFuncIndex: 4
+  allEnters: []
+--- !u!114 &114970751298340034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caff27366054dd44a30ddb5be369acc, type: 3}
+  m_Name: Enter Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114298255342995956}
+  side: 4
+  sidePosition: 84
+  sideOffset: 0
+  connection: {fileID: 114485926886907716}
+  typeID: StateEnter
+--- !u!114 &114989320702357766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e7026d0da7df848ab67d517ac12d74, type: 3}
+  m_Name: Exit Node
+  m_EditorClassIdentifier: 
+  body: {fileID: 114775102343644842}
+  side: 2
+  sidePosition: 257
+  sideOffset: 0
+  connections:
+  - {fileID: 114543056343380378}
+  typeID: StateOut
+  calculationBlockade: 0

@@ -19,8 +19,11 @@ namespace NodeEditorFramework
 		public List<NodeInput> connections = new List<NodeInput> ();
 		[FormerlySerializedAs("type")]
 		public string typeID;
+        [UnityEngine.SerializeField]
 		private TypeData _typeData;
+
 		internal TypeData typeData { get { CheckType (); return _typeData; } }
+
 		[System.NonSerialized]
 		private object value = null;
 

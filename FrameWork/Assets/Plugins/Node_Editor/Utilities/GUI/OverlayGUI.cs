@@ -23,6 +23,7 @@ namespace NodeEditorFramework.Utilities
 		/// </summary>
 		public static void StartOverlayGUI (string editorUser) 
 		{
+            //Debug.Log(editorUser);
 			currentEditorUser = editorUser;
 			if (HasPopupControl () && Event.current.type != EventType.Layout && Event.current.type != EventType.Repaint)
 				openedPopup.Draw ();

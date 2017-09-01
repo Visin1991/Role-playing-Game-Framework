@@ -89,12 +89,13 @@ namespace NodeEditorFramework
 		}
 	}
 
+    [System.Serializable]
 	public class TypeData 
 	{
 		private IConnectionTypeDeclaration declaration;
 		public string Identifier { get; private set; }
 		public Type Type { get; private set; }
-		public Color Color { get; private set; }
+		public Color Color { get; set; }
 		public Texture2D InKnobTex { get; private set; }
 		public Texture2D OutKnobTex { get; private set; }
 		

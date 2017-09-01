@@ -32,6 +32,9 @@ namespace NodeEditorFramework
 		private Color lastBGColor = Color.white;
 		private GUIStyle nodeBGStyle;
 
+        public NodeCanvas GetCanvas() { if (NodeEditor.curNodeCanvas!=null) return NodeEditor.curNodeCanvas; else return null; }
+
+
 		#region General
 
 		/// <summary>
@@ -102,7 +105,6 @@ namespace NodeEditorFramework
 			Node node = NodeTypes.getDefaultNode (nodeID);
 			if (node == null)
 				throw new UnityException ("Cannot create Node as ID '" + nodeID + "' is not registered!");
-
 			node = node.Create (position);
 
 			if(node == null)
