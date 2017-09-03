@@ -15,7 +15,9 @@ public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
     public void SetUpLayer(int layer)
     {
         gameObject.layer = layer;
-        GetComponentInChildren<WeaponCollider>().SetUpLayer(layer);
+        WeaponCollider weaponCollider = GetComponentInChildren<WeaponCollider>(); ;
+        weaponCollider.SetUpLayer(layer);
+        weaponCollider.Active = true;
     }
 
     public void Init(InputActionManager actionManager)

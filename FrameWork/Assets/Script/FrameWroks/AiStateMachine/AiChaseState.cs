@@ -34,12 +34,12 @@ public class AiChaseState : AiState {
 
     public override void OnStateExit()
     {
-        Debug.Log("AiChaseState OnStateExit");
+        //Debug.Log("AiChaseState OnStateExit");
     }
 
     bool LostChaseTarget()
     {
-        if (stateMachine.distanceToEnemyTarget > 30)
+        if (stateMachine.distanceToEnemyTarget > 20)
         {
             stateMachine.targetTF = null;
             return true;

@@ -72,7 +72,7 @@ public class UserInputPr : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
-            Visin1_1.MouseAndCamera.GetScreenPointToRayColliderInfo(out hit,(1<<9));
+            Visin1_1.MouseAndCamera.GetScreenPointToRayColliderInfo(out hit,(1<<10));
             if (hit.transform != null)
             {
                 targetPos.x = hit.transform.position.x;

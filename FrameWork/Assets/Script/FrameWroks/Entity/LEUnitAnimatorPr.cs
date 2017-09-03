@@ -6,7 +6,8 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
 
     LEUnitProcessor processor;
 
-    protected Animator animator;
+    [HideInInspector]
+    public Animator animator;
 
     float currentVelocity;
     bool enableMotionInput = true;

@@ -511,6 +511,29 @@ namespace AiUtility{
             return nearestCollider;
         }
 
+        public static Collider FindNearestAliveLEColliderOverlapSphere<T>(Vector3 position, float range, LayerMask targetMask,Func<T,bool> callback) where T : MonoBehaviour
+        {
+
+            Collider[] targetsInRangeRadius = Physics.OverlapSphere(position, range, targetMask); //gameobject with targetMask will be selected
+
+            Collider nearestCollider = null;
+            float nearestDis = float.MaxValue;
+
+            foreach (Collider collider in targetsInRangeRadius)
+            {
+
+                T t = collider.GetComponent<T>();
+                if (!callback(t)) continue;
+                float dist = (collider.transform.position - position).magnitude;
+                if (dist < nearestDis)
+                {
+                    nearestDis = dist;
+                    nearestCollider = collider;
+                }
+            }
+            return nearestCollider;
+        }
+
         //Find the nearest Collider with LayerMask of targetMask inside the raduis range; center is a given position
         public static Collider FindNearestColliderOverlapSphere(Vector2 position, float range, LayerMask targetMask)
         {

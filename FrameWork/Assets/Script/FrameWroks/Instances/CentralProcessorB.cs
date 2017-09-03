@@ -38,6 +38,9 @@ public class CentralProcessorB : LEUnitProcessor, IDamageable, AiInfomationReciv
     public void StopAiBehavior()
     {
         upStateMachine = false;
+        animationManager.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
+        animationManager.SetMovementForward(0.0f);
+        aistateMachine.StopAiBehaviour();
     }
 
     public void GetDamage(float num)
@@ -54,6 +57,10 @@ public class CentralProcessorB : LEUnitProcessor, IDamageable, AiInfomationReciv
         animationManager.SetBool("Die", true);
         AiStateMachine stateMachine = GetComponent<AiStateMachine>();
         stateMachine.enabled = false;
+
+        StopAiBehavior();
     }
+
+
     
 }

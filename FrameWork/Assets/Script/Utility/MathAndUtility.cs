@@ -202,6 +202,11 @@ namespace Visin1_1
             return info;
         }
 
+        public static void FromCameraPosToTarget(Transform cameraTF, Vector3 targetPos,out RaycastHit info)
+        {
+            Physics.Raycast(cameraTF.position, cameraTF.forward,out info);
+        }
+
         /// <param name="info"></param>
         /// <param name="layerMask"> the Selected Layer we want to hit, For example if the Enemy layer in the setting is 10, then we should set the layerMask to 1 << 10 </param>
         /// <returns></returns>

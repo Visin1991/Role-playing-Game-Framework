@@ -30,7 +30,7 @@ namespace Visin1_1
         public bool isFixedYaw = true;
 
         public bool XboxPad;
-        
+        RaycastHit hitInfo = new RaycastHit();
 
         public void InitialCamera()
         {
@@ -46,6 +46,13 @@ namespace Visin1_1
 
         public void LateUpdateCamera()
         {
+            Visin1_1.MouseAndCamera.FromCameraPosToTarget(transform, target.position,out hitInfo);
+            Debug.DrawLine(transform.position, target.position, Color.green);
+            
+            if (hitInfo.collider.gameObject.layer !=  8)
+            { 
+                detal_pitch += 10;
+            }
             //Add detal Camera Value each frame
             yaw += detal_yaw * cameraMoveSensitivity;
             pitch += detal_pitch * cameraMoveSensitivity;
