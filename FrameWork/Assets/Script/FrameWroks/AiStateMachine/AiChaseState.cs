@@ -40,7 +40,7 @@ public class AiChaseState : AiState {
 
     bool LostChaseTarget()
     {
-        if (stateMachine.distanceToEnemyTarget > 20)
+        if (stateMachine.distanceToEnemyTarget > stateMachine.findEnemyRange)
         {
             stateMachine.targetTF = null;
             return true;

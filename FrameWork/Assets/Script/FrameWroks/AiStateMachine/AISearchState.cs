@@ -97,7 +97,7 @@ public class AISearchState : AiState {
         if (nextCheckTime <= 0.0f)
         {
             nextCheckTime = findEnemyCheckFrequency;
-            Collider c = AiUtility.AiFind.FindNearestColliderOverlapSphere(stateMachine.transform.position, 10, 1 << 8);
+            Collider c = AiUtility.AiFind.FindNearestColliderOverlapSphere(stateMachine.transform.position, stateMachine.findEnemyRange, 1 << 8);
             if (c == null) return false;
             else
             {

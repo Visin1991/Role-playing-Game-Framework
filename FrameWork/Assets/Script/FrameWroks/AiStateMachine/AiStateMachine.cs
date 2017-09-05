@@ -21,6 +21,8 @@ public class AiStateMachine : MonoBehaviour {
     LEUnitProcessor processor;
     public LEUnitAnimatorPr animationPro;
 
+    public float findEnemyRange = 10.0f;
+
     AiPatrolState partrolState;
     public AiPatrolState PartrolState { get { return partrolState; } }
     AISearchState searchState;
@@ -98,6 +100,6 @@ public class AiStateMachine : MonoBehaviour {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, 5);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position,20);
+        Gizmos.DrawWireSphere(transform.position,10);
     }
 }

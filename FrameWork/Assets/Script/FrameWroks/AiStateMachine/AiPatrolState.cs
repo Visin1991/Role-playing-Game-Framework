@@ -46,10 +46,11 @@ public class AiPatrolState : AiState {
         if (nextCheckTime <= 0.0f)
         {
             nextCheckTime = findEnemyCheckFrequency;
-            Collider c = AiUtility.AiFind.FindNearestAliveLEColliderOverlapSphere<LEUnitProcessor>(stateMachine.transform.position, 20, 1 << 8, isLEAlive);
+            Collider c = AiUtility.AiFind.FindNearestAliveLEColliderOverlapSphere<LEUnitProcessor>(stateMachine.transform.position, stateMachine.findEnemyRange, 1 << 8, isLEAlive);
             if (c == null) return false;
             else
             {
+                Debug.Log(c.name);
                 stateMachine.targetTF = c.transform;
                 return true;
             }
