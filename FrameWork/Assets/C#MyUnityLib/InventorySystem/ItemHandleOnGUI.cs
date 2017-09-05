@@ -36,8 +36,15 @@ public class ItemHandleOnGUI : MonoBehaviour {
             isEmpty = false;
             if(itemImageObj!=null)
                 itemImageObj.SetActive(true);
-            if(itemImage!= null)
+            if (itemImage != null)
+            {
                 itemImage.sprite = item.itemIcon;
+            }
+            else
+            {
+                itemImage = GetComponentInChildren<Image>();
+                itemImage.sprite = item.itemIcon;
+            }
         }
     }
 

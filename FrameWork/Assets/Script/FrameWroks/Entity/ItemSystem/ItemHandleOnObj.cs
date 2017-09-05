@@ -6,8 +6,7 @@ public class ItemHandleOnObj : MonoBehaviour{
 
     public int itemId_InDataBase;
 
-    [SerializeField]
-    private Item item;
+    public Item item;
 
     [SerializeField]
     public bool isInit = false;
@@ -17,6 +16,7 @@ public class ItemHandleOnObj : MonoBehaviour{
     public void Start()
     {
         clickManager = new WeiClickManager();
+        FetchItemInfo();
     }
 
     public Item GetItem()
@@ -40,6 +40,7 @@ public class ItemHandleOnObj : MonoBehaviour{
         if (!isInit)
         {
             FetchItemInfo();
+        }
 
             //Find Player and Players inventory
             LPlayer lplayer = FindObjectOfType<LPlayer>();
@@ -47,7 +48,8 @@ public class ItemHandleOnObj : MonoBehaviour{
             inventory.AddItem(item, transform.parent);
 
             transform.parent.gameObject.SetActive(false);
-        }
+            CursorManager.GetInstance().setMouse();
+
     }
 
     /// <summary>

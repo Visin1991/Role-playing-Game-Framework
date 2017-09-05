@@ -76,14 +76,23 @@ public class EnemyAttack : MonoBehaviour
 
         
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        IDamageable damageReciver = collision.transform.GetComponent<IDamageable>();
+        if (damageReciver != null)
+            damageReciver.GetDamage(20);
+
+    }
 
 
     void Attack ()
     {
         timer = 0f;
+        
+        
 
 
-        if(playerHealth.currentHealth > 0)
+        if (playerHealth.currentHealth > 0)
         {
             anim.SetBool("Attacking", true);
             anim.SetBool("PlayerDead", false);

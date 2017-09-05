@@ -23,6 +23,7 @@ public class AISearchState : AiState {
 
     public override void OnStateEnter()
     {
+        stateMachine.angent.SetDestination(stateMachine.lostTargetPos);
         SetAlertToTrue();
         ResetNavAgentTargetPos();
     }
@@ -90,13 +91,13 @@ public class AISearchState : AiState {
     bool IfFindEnemy()
     {
 #if DEBUG
-        Debug.Log("IfFindEnemy");
+        //Debug.Log("IfFindEnemy");
 #endif
         nextCheckTime -= Time.deltaTime;
         if (nextCheckTime <= 0.0f)
         {
             nextCheckTime = findEnemyCheckFrequency;
-            Collider c = AiUtility.AiFind.FindNearestColliderOverlapSphere(stateMachine.transform.position, 50, 1 << 8);
+            Collider c = AiUtility.AiFind.FindNearestColliderOverlapSphere(stateMachine.transform.position, stateMachine.findEnemyRange, 1 << 8);
             if (c == null) return false;
             else
             {
@@ -110,7 +111,7 @@ public class AISearchState : AiState {
     bool IfNotAlert()
     {
 #if DEBUG
-        Debug.Log("IfNotAlert");
+       //    Debug.Log("IfNotAlert");
 #endif
         return !onAlert;
     }

@@ -4,7 +4,7 @@
 //  For different Weapon or in different game Play model. Input may raise different 
 //Action.
 //  For example: If the inputActionClient is a Gun, Then GetKey_A(), the LEEntity
-//Will shot the gun, and use the shot animation....When the inputActionClient is a 
+//Will shoot the gun, and use the shot animation....When the inputActionClient is a 
 //sword, the LEEntity will play sword animation
 //
 public class InputActionManager : MonoBehaviour {
@@ -29,6 +29,8 @@ public class InputActionManager : MonoBehaviour {
     //Reset InputAction Client and Init the Client.
     public void ResetClient(IInputActable client)
     {
+        if(inputActionClient!=null)
+            inputActionClient.ShutDown();
         inputActionClient = client;
         inputActionClient.Init(this);
         inputActionClient.SetUpLayer(gameObject.layer + 1);
@@ -46,6 +48,7 @@ public class InputActionManager : MonoBehaviour {
 
     public void SetIInputActableItemStatu(LEUnitAnimatorPr.AnimationAttackStatue s)
     {
-        inputActionClient.SetIInputActableItemStatu(s);
+        if(inputActionClient!=null)
+            inputActionClient.SetIInputActableItemStatu(s);
     }
 }

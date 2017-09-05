@@ -20,7 +20,8 @@ public class AiChaseState : AiState {
 
     public override void OnStateEnter()
     {
-        stateMachine.animationPro.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
+        stateMachine.animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
+        stateMachine.animationPro.SetMotionIndexImmediately(0);
         ResetNavAgentTargetPos();
     }
 
@@ -34,12 +35,12 @@ public class AiChaseState : AiState {
 
     public override void OnStateExit()
     {
-        Debug.Log("AiChaseState OnStateExit");
+        //Debug.Log("AiChaseState OnStateExit");
     }
 
     bool LostChaseTarget()
     {
-        if (stateMachine.distanceToEnemyTarget > 30)
+        if (stateMachine.distanceToEnemyTarget > stateMachine.findEnemyRange)
         {
             stateMachine.targetTF = null;
             return true;

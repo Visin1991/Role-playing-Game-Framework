@@ -795,6 +795,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1613234469239096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4018591878329914}
+  - component: {fileID: 135506619389438866}
+  - component: {fileID: 114158818875396206}
+  m_Layer: 9
+  m_Name: PhysicsTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1637227704233548
 GameObject:
   m_ObjectHideFlags: 1
@@ -1121,6 +1138,19 @@ Transform:
   - {fileID: 4727703925061706}
   m_Father: {fileID: 4224992925704860}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4018591878329914
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1613234469239096}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4968872726309178}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4025282202270516
 Transform:
@@ -1987,6 +2017,7 @@ Transform:
   - {fileID: 4224992925704860}
   - {fileID: 4539903189142780}
   - {fileID: 4340820395798548}
+  - {fileID: 4018591878329914}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -84.489006, z: 0}
@@ -2126,6 +2157,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
+--- !u!114 &114158818875396206
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1613234469239096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31762f24c8de8e548a24c3533f05c25e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114222383219517520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2139,8 +2181,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ledata:
     pos: {x: 0, y: 0, z: 0}
-    maxHealth: 500
-    currentHealth: 500
+    maxHealth: 200
+    currentHealth: 200
     maxMana: 0
     currentMana: 0
 --- !u!114 &114242584219021242
@@ -2192,7 +2234,7 @@ MonoBehaviour:
   controlKey: 304
   pitchMinMax: {x: 0, y: 85}
   rotationSmoothTime: 0.5
-  target: {fileID: 4968872726309178}
+  target: {fileID: 4468644468453192}
   rangeToTarget: {x: 2, y: 10}
   cameraMoveSensitivity: 5
   isFixedYaw: 1
@@ -2285,6 +2327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationManager: {fileID: 0}
+  actionItemPhycislayer: 0
 --- !u!114 &114995669229174742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2296,6 +2339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52d7e27ad8c6a648a074b450dc7d2f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!124 &124528840117227428
 Behaviour:
   m_ObjectHideFlags: 1
@@ -2303,6 +2347,18 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1068975009948564}
   m_Enabled: 1
+--- !u!135 &135506619389438866
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1613234469239096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 50
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136924422596106844
 CapsuleCollider:
   m_ObjectHideFlags: 1

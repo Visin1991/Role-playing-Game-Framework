@@ -56,7 +56,7 @@ MonoBehaviour:
     itemDesc: '+50 Physical Damage
 
       +Attack Speed 90%'
-    itemIcon: {fileID: 21300000, guid: 002c43ffb601473498bfa067fd8e5d94, type: 3}
+    itemIcon: {fileID: 21300000, guid: 77a2f52e24a6cbd41b678d9875f219d0, type: 3}
     itemPrefab: {fileID: 181888, guid: a7586ae43efcaf344b0fe71498687a1d, type: 2}
     itemValue: 1
     itemType: 1
@@ -68,7 +68,19 @@ MonoBehaviour:
   - itemName: PotionA
     itemID: 3
     itemDesc: +20 Health
-    itemIcon: {fileID: 21300000, guid: 100176059b714754fbb843e58dbcb664, type: 3}
+    itemIcon: {fileID: 21300000, guid: 66d1c16477f38954fa4b70e03ca26276, type: 3}
+    itemPrefab: {fileID: 0}
+    itemValue: 1
+    itemType: 0
+    itemWeight: 0
+    maxStack: 1
+    indexItemInList: 999
+    rarity: 0
+    itemAttributes: []
+  - itemName: Stuff1
+    itemID: 4
+    itemDesc: Magic Damage + 5
+    itemIcon: {fileID: 21300000, guid: a9c77c02829229f4cb7119ca8edeecb3, type: 3}
     itemPrefab: {fileID: 0}
     itemValue: 1
     itemType: 0

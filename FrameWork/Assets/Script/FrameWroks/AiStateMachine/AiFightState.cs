@@ -12,20 +12,24 @@ public class AiFightState : AiState {
 
     public override void Init()
     {
+        AiOutPut To_Partol = new AiOutPut(UpdateLEAlive, null, stateMachine.PartrolState);
         AiOutPut To_Search = new AiOutPut(LostChaseTarget, null, stateMachine.SearchState);
         AiOutPut To_Chase = new AiOutPut(TargetOutOfFightRange, null, stateMachine.ChaseState);
+        outputs.Add(To_Partol);
         outputs.Add(To_Search);
         outputs.Add(To_Chase);
     }
 
     public override void OnStateEnter()
-    { 
-
+    {
+        
     }
 
     public override void OnStateUpdate()
     {
+        UpdateForwardTargetAngle();
         UpdateDistanceToTarget();
+        
         OnFight();
     }
 
@@ -34,10 +38,14 @@ public class AiFightState : AiState {
         
     }
 
+    /// <summary>
+    /// When we lost target. we set the lost target Position as the Destination
+    /// </summary>
     bool LostChaseTarget()
     {
-        if (stateMachine.distanceToEnemyTarget > 50)
+        if (stateMachine.distanceToEnemyTarget > stateMachine.findEnemyRange)
         {
+            stateMachine.lostTargetPos = stateMachine.targetTF.position;
             stateMachine.targetTF = null;
             return true;
         }
@@ -46,7 +54,14 @@ public class AiFightState : AiState {
 
     bool TargetOutOfFightRange()
     {
-        return stateMachine.distanceToEnemyTarget > 5;
+        return stateMachine.distanceToEnemyTarget > 3;
+    }
+
+    void UpdateForwardTargetAngle()
+    {
+        stateMachine.animationPro.animator.enabled = false;
+        stateMachine.transform.LookAt(stateMachine.targetTF);
+        stateMachine.animationPro.animator.enabled = true;
     }
 
     void UpdateDistanceToTarget()
@@ -58,28 +73,40 @@ public class AiFightState : AiState {
         }
     }
 
-    float nextAttackTime = 2.0f;
+    bool UpdateLEAlive()
+    {
+      return !stateMachine.targetTF.GetComponent<LEUnitProcessor>().Alive;
+    }
+
+    float nextAttackTime = 3.5f;
     bool shouldAttack = true;
 
     void OnFight()
     {
         if (AiUtility.PathFindingHelper.ArriveDestination_NotPathPending(stateMachine.angent))
         {
-            stateMachine.animationPro.SetMovementForwardSmoothDamp(0);
+            stateMachine.animationPro.SetMovementForwardSmoothDamp(0); //Now we stopped move
 
-            nextAttackTime -= Time.deltaTime;
+            //Update the next Attack time
+            //---------------------------------
+            nextAttackTime -= Time.deltaTime; 
             if (nextAttackTime < 0.0f)
             {
-                nextAttackTime = UnityEngine.Random.Range(1.5f, 2.5f);
-                shouldAttack = nextAttackTime > 2.0f;
+                nextAttackTime = UnityEngine.Random.Range(3.5f, 4.5f);
+                shouldAttack = !shouldAttack;
             }
+
+            //Attack Motion
+            //---------------------------------
             if (shouldAttack)
             {
+                //Attack motion
                 stateMachine.animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
                 stateMachine.animationPro.SetMotionIndex_Random_From_To(0, 4);
             }
             else
             {
+                //Random Idle
                 stateMachine.animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
                 stateMachine.animationPro.SetMotionIndex_Random_From_To(0, 3);
             }

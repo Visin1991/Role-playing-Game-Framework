@@ -11,11 +11,17 @@ using UnityEngine;
 public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
 
     public InputActionManager inputActionManager;
+    ItemHandleOnObj handle;
+
+    RaycastHit hit = new RaycastHit();
+    Vector3 targetPos;
 
     public void SetUpLayer(int layer)
     {
         gameObject.layer = layer;
-        GetComponentInChildren<WeaponCollider>().SetUpLayer(layer);
+        WeaponCollider weaponCollider = GetComponentInChildren<WeaponCollider>(); ;
+        weaponCollider.SetUpLayer(layer);
+        weaponCollider.Active = true;
     }
 
     public void Init(InputActionManager actionManager)
@@ -26,6 +32,7 @@ public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
         transform.SetParent(inputActionManager.RightHandMid1);
         inputActionManager.ChangeAnimationMotionType(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
         DisableCollision();
+        handle = GetComponentInChildren<ItemHandleOnObj>();
     }
 
     public void GetKey_A()
@@ -35,7 +42,15 @@ public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
 
     public void GetKey_A_Down()
     {
-        inputActionManager.AnimationManager.SetKeyStatue(InputIndex.A, true);
+        Visin1_1.MouseAndCamera.GetScreenPointToRayColliderInfo(out hit, (1 << 10));
+        if (hit.transform != null)
+        {
+            targetPos.x = hit.transform.position.x;
+            targetPos.y = transform.root.position.y;
+            targetPos.z = hit.transform.position.z;
+            transform.root.LookAt(targetPos);
+            inputActionManager.AnimationManager.SetKeyStatue(InputIndex.A, true);
+        } 
     }
 
     public void GetKey_A_Up()
@@ -50,7 +65,9 @@ public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
 
     public void ShutDown()
     {
-
+        LEInventory inventory = transform.root.GetComponentInChildren<LEInventory>();
+        inventory.AddItem(handle.item, transform);
+        transform.gameObject.SetActive(false);
     }
 
     public void DisableCollision()

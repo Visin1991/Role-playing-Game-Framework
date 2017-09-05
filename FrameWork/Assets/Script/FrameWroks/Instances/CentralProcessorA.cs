@@ -6,7 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class CentralProcessorA : LEUnitProcessor,IDamageable {
 
-    public bool test = true;
+    //bool test = true;
 
     protected UserInputPr userInputManager;
     protected Visin1_1.CameraManager cameraManager;
@@ -18,10 +18,13 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
     bool pause;
     protected bool die = false;
 
+    ExternalMassageSender exMassageSender;
+
     protected override void Start() 
     {
         userInputManager = GetComponent<UserInputPr>();
         cameraManager = GetComponentInChildren<Visin1_1.CameraManager>();
+        exMassageSender = GetComponent<ExternalMassageSender>();
         base.Start();
     }
 
@@ -115,8 +118,8 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
 
         ledata.currentHealth -= num;
 
-        if(!test)
-            GameUIPr.Instance.UpdateHealthBar(ledata.currentHealth,ledata.maxHealth);
+        //if(!test)
+        GameUIPr.Instance.UpdateHealthBar(ledata.currentHealth,ledata.maxHealth);
 
         if (ledata.currentHealth <= 0.0f)
         {
@@ -129,6 +132,8 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
     {
         animationManager.SetBool("Die", true);
         die = true;
+        alive = false;
+        //exMassageSender
     }
 
     public override bool AddHealth(float addHealth)

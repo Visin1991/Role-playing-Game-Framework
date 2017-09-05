@@ -21,6 +21,8 @@ public class AiStateMachine : MonoBehaviour {
     LEUnitProcessor processor;
     public LEUnitAnimatorPr animationPro;
 
+    public float findEnemyRange = 10.0f;
+
     AiPatrolState partrolState;
     public AiPatrolState PartrolState { get { return partrolState; } }
     AISearchState searchState;
@@ -39,6 +41,8 @@ public class AiStateMachine : MonoBehaviour {
     public Transform targetTF;
     [HideInInspector]
     public Vector3 targetPos;
+    [HideInInspector]
+    public Vector3 lostTargetPos;
 
     [HideInInspector]
     public float distanceToEnemyTarget = 100;
@@ -74,11 +78,16 @@ public class AiStateMachine : MonoBehaviour {
         currentState.OnStateEnter();
     }
 
-	// Update is called once per frame
+	//This function will be called by the CentralProsessorB.  
 	public void UpdateAiStateMachine() {
         currentState.OnStateUpdate();
         currentState.OnTransitionCheck();
-        Debug.Log(currentState.ToString());
+        //Debug.Log(currentState.ToString());
+    }
+
+    public void StopAiBehaviour()
+    {
+        angent.isStopped = true;
     }
 
     public void ResetCurrentState(AiState state)
@@ -86,4 +95,11 @@ public class AiStateMachine : MonoBehaviour {
         currentState = state;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 5);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position,10);
+    }
 }

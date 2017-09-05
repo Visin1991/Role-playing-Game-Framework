@@ -30,7 +30,9 @@ namespace Visin1_1
         public bool isFixedYaw = true;
 
         public bool XboxPad;
-        
+        RaycastHit hitInfo = new RaycastHit();
+        float blockTime = 0.0f;
+        public float adjustTime = 1.5f;
 
         public void InitialCamera()
         {
@@ -46,6 +48,20 @@ namespace Visin1_1
 
         public void LateUpdateCamera()
         {
+            Visin1_1.MouseAndCamera.FromCameraPosToTarget(transform, target.position,out hitInfo);
+            Debug.DrawLine(transform.position, target.position, Color.green);
+
+            if (hitInfo.collider.gameObject.layer != 8)
+            {
+                blockTime += Time.deltaTime;
+            }else {
+                blockTime = 0.0f;
+            }
+
+            if (blockTime > adjustTime) {
+                pitch += 60 * Time.deltaTime;
+            }
+
             //Add detal Camera Value each frame
             yaw += detal_yaw * cameraMoveSensitivity;
             pitch += detal_pitch * cameraMoveSensitivity;

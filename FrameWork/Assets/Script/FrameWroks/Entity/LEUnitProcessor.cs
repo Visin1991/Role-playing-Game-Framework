@@ -13,6 +13,10 @@ public abstract class LEUnitProcessor : MonoBehaviour {
 
     protected bool enableBaiscMovement = true;
 
+    protected bool alive = true;
+    public bool Alive { get { return alive; } }
+    public bool IsAlive() { return alive; }
+
     private void OnEnable()
     {
         inputActionManager = GetComponent<InputActionManager>();
