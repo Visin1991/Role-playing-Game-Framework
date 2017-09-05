@@ -91,7 +91,7 @@ public class AISearchState : AiState {
     bool IfFindEnemy()
     {
 #if DEBUG
-        Debug.Log("IfFindEnemy");
+        //Debug.Log("IfFindEnemy");
 #endif
         nextCheckTime -= Time.deltaTime;
         if (nextCheckTime <= 0.0f)
@@ -111,7 +111,7 @@ public class AISearchState : AiState {
     bool IfNotAlert()
     {
 #if DEBUG
-        Debug.Log("IfNotAlert");
+       //    Debug.Log("IfNotAlert");
 #endif
         return !onAlert;
     }

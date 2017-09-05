@@ -48,6 +48,7 @@ public class InputActionManager : MonoBehaviour {
 
     public void SetIInputActableItemStatu(LEUnitAnimatorPr.AnimationAttackStatue s)
     {
-        inputActionClient.SetIInputActableItemStatu(s);
+        if(inputActionClient!=null)
+            inputActionClient.SetIInputActableItemStatu(s);
     }
 }

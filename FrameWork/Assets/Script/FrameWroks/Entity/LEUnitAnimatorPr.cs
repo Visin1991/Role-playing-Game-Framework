@@ -93,6 +93,12 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
     }
 
     [Visin1_1.AMBCallback()]
+    public virtual void PlaySound_82()
+    {
+        AudioManager.instance.PlaySound2DRandom("SwordAttack");
+    }
+
+    [Visin1_1.AMBCallback()]
     public virtual void EnableBasicMoveMent() {
         if (processor == null) return;
         processor.AnimationManager_EnableBasicMoveMent(true);

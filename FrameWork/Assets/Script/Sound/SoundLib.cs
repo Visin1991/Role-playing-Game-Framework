@@ -15,15 +15,26 @@ public class SoundLib : MonoBehaviour {
 		}
 	}
 
-	public AudioClip GetClipFromName(string name)
+	public AudioClip GetClipFromName_Random(string name)
 	{
 		if(groupDictionary.ContainsKey(name))
 		{
-			AudioClip[] sounds= groupDictionary[name];
+            AudioClip[] sounds= groupDictionary[name];
 			return sounds[Random.Range(0,sounds.Length)];
 		}
 		return null;
 	}
+
+    public AudioClip GetClipFromName(string name,int index)
+    {
+        if (groupDictionary.ContainsKey(name))
+        {
+            AudioClip[] sounds = groupDictionary[name];
+            if(sounds.Length<index)
+                return sounds[index];
+        }
+        return null;
+    }
 
 
 	[System.Serializable]

@@ -105,17 +105,27 @@ public class AudioManager : MonoBehaviour {
 			AudioSource.PlayClipAtPoint(clip,pos,sfxVolumePercent * masterVolumePercent);
 	}
 
-	public void PlaySound(string soundName,Vector3 pos)
+	public void PlaySoundRandom(string soundName,Vector3 pos)
 	{
-		PlaySound(library.GetClipFromName(soundName),pos);
+		PlaySound(library.GetClipFromName_Random(soundName),pos);
 	}
 
-	public void PlaySound2D(string soundName)
-	{
-		sfx2DSource.PlayOneShot(library.GetClipFromName(soundName),sfxVolumePercent * masterVolumePercent);
+    public void PlaySound(string soundName,int index, Vector3 pos)
+    {
+        PlaySound(library.GetClipFromName(soundName,index), pos);
+    }
+
+    public void PlaySound2DRandom(string soundName)
+	{      
+		sfx2DSource.PlayOneShot(library.GetClipFromName_Random(soundName),sfxVolumePercent * masterVolumePercent);
 	}
 
-	IEnumerator AnimateMusicCrossfade(float duration)
+    public void PlaySound2D(string soundName,int index)
+    {
+        sfx2DSource.PlayOneShot(library.GetClipFromName(soundName,index), sfxVolumePercent * masterVolumePercent);
+    }
+
+    IEnumerator AnimateMusicCrossfade(float duration)
 	{
 		float percent = 0;
 		while(percent < 1)
