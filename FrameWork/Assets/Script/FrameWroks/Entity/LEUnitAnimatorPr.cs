@@ -147,6 +147,7 @@ public abstract class LEUnitAnimatorPr : MonoBehaviour {
     {
         IWR_0,
         MELEE_1,
-        HoldGun_2
+        HoldGun_2,
+        STUFF_3
     }
 }

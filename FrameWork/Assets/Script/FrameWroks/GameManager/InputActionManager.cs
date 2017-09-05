@@ -29,6 +29,8 @@ public class InputActionManager : MonoBehaviour {
     //Reset InputAction Client and Init the Client.
     public void ResetClient(IInputActable client)
     {
+        if(inputActionClient!=null)
+            inputActionClient.ShutDown();
         inputActionClient = client;
         inputActionClient.Init(this);
         inputActionClient.SetUpLayer(gameObject.layer + 1);

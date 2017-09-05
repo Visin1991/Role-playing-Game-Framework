@@ -75,9 +75,7 @@ public class AiFightState : AiState {
 
     bool UpdateLEAlive()
     {
-        bool alive = stateMachine.targetTF.GetComponent<LEUnitProcessor>().Alive;
-        Debug.Log(alive);
-        return !alive;
+      return !stateMachine.targetTF.GetComponent<LEUnitProcessor>().Alive;
     }
 
     float nextAttackTime = 3.5f;
@@ -95,7 +93,7 @@ public class AiFightState : AiState {
             if (nextAttackTime < 0.0f)
             {
                 nextAttackTime = UnityEngine.Random.Range(3.5f, 4.5f);
-                shouldAttack = nextAttackTime > 2.0f;
+                shouldAttack = !shouldAttack;
             }
 
             //Attack Motion

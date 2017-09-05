@@ -6,8 +6,7 @@ public class ItemHandleOnObj : MonoBehaviour{
 
     public int itemId_InDataBase;
 
-    [SerializeField]
-    private Item item;
+    public Item item;
 
     [SerializeField]
     public bool isInit = false;

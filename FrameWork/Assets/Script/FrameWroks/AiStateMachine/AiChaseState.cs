@@ -20,7 +20,8 @@ public class AiChaseState : AiState {
 
     public override void OnStateEnter()
     {
-        stateMachine.animationPro.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
+        stateMachine.animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
+        stateMachine.animationPro.SetMotionIndex(0);
         ResetNavAgentTargetPos();
     }
 
