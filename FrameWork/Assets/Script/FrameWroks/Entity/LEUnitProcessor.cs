@@ -45,6 +45,8 @@ public abstract class LEUnitProcessor : MonoBehaviour {
     }
 
     public virtual bool AddHealth(float addHealth) { return false; }
+    public virtual bool AddMana(float addMana) { return false; }
+    
 
     //=========================================================================
     //Sometimes When we want to process information about something, we need

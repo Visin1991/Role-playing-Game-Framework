@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/BuildLevelWeek9/Start.unity
     guid: 5cb2cb2b51a48de4b9baa466576ff947
   - enabled: 1
+    path: Assets/Scenes/ModifiedLevels/Week10_Level1.unity
+    guid: 408978a92f77797449a9676ad9388eee
+  - enabled: 0
     path: Assets/Scenes/BuildLevelWeek9/Week9_Level1.unity
     guid: b6d54eab69acb2d43aa0e20798af8645
   - enabled: 1
