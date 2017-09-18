@@ -14,6 +14,7 @@ public class WeaponCollider : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Hit");
         if (!active) return;
         IDamageable damageReciver = collision.transform.GetComponent<IDamageable>();
         if (damageReciver != null)

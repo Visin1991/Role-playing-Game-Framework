@@ -8,6 +8,9 @@ public class CentralProcessorB : LEUnitProcessor, IDamageable, AiInfomationReciv
     public LEData data;
     bool upStateMachine;
     AiStateMachine aistateMachine;
+    public GameObject SoulGem;
+    public Transform Holder;
+    
 
     protected override void Start()
     {
@@ -59,6 +62,8 @@ public class CentralProcessorB : LEUnitProcessor, IDamageable, AiInfomationReciv
         stateMachine.enabled = false;
 
         StopAiBehavior();
+
+        Instantiate(SoulGem, Holder.transform.position, Quaternion.identity);
     }
 
 
