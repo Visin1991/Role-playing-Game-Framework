@@ -51515,6 +51515,24 @@ Prefab:
       propertyPath: patrolPoints.Array.data[3]
       value: 
       objectReference: {fileID: 305378236}
+    - target: {fileID: 114040367021990422, guid: bf7280ea8cab53e42bc40ec1732c4827,
+        type: 2}
+      propertyPath: manaPrafbs
+      value: 
+      objectReference: {fileID: 1721091639859826, guid: 86dc97aaf141dfb4fa1f804c3cd5a18a,
+        type: 2}
+    - target: {fileID: 114040367021990422, guid: bf7280ea8cab53e42bc40ec1732c4827,
+        type: 2}
+      propertyPath: SoulGem
+      value: 
+      objectReference: {fileID: 1249257536634132, guid: 636621b72c9fd7d438fbab0c7af24fa8,
+        type: 2}
+    - target: {fileID: 114040367021990422, guid: bf7280ea8cab53e42bc40ec1732c4827,
+        type: 2}
+      propertyPath: potionPrafbs
+      value: 
+      objectReference: {fileID: 1931401742535334, guid: eda131b9b887f804c81e70471359d886,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf7280ea8cab53e42bc40ec1732c4827, type: 2}
   m_IsPrefabParent: 0

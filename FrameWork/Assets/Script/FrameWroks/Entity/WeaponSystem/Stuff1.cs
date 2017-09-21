@@ -83,6 +83,8 @@ public class Stuff1 : Weapon,IInputActable, ItemOnGUIDoubleClickable {
         Visin1_1.MouseAndCamera.GetScreenPointToRayColliderInfo(out hit, (1 << 10));
         if (hit.transform != null)
         {
+            CentralProcessorA cpa = transform.root.GetComponent<CentralProcessorA>();
+            if (cpa.GetCurrentMama() <= 10) return;
             targetPos.x = hit.transform.position.x;
             targetPos.y = transform.root.position.y;
             targetPos.z = hit.transform.position.z;
@@ -92,6 +94,7 @@ public class Stuff1 : Weapon,IInputActable, ItemOnGUIDoubleClickable {
             fireBall_.SetUp(9);
             fireBall_.target = hit.transform;
             inputActionManager.AnimationManager.SetKeyStatue(InputIndex.A, true);
+            cpa.ConsumeMana(10);
         }
     }
 

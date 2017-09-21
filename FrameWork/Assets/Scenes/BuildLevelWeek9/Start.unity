@@ -28705,6 +28705,16 @@ Prefab:
       propertyPath: ledata.currentHealth
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 114222383219517520, guid: a417df22d21a8c648bfc3e5576c3b494,
+        type: 2}
+      propertyPath: ledata.maxMana
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222383219517520, guid: a417df22d21a8c648bfc3e5576c3b494,
+        type: 2}
+      propertyPath: ledata.currentMana
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a417df22d21a8c648bfc3e5576c3b494, type: 2}
   m_IsPrefabParent: 0

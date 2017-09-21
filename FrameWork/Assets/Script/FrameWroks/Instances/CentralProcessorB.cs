@@ -8,9 +8,11 @@ public class CentralProcessorB : LEUnitProcessor, IDamageable, AiInfomationReciv
     public LEData data;
     bool upStateMachine;
     AiStateMachine aistateMachine;
-    public GameObject SoulGem;
-    public Transform Holder;
-    
+
+    public GameObject potionPrafbs;
+    public GameObject manaPrafbs;
+
+    bool die = false;
 
     protected override void Start()
     {
@@ -57,13 +59,16 @@ public class CentralProcessorB : LEUnitProcessor, IDamageable, AiInfomationReciv
 
     void Die()
     {
+        if (die == true) return;
         animationManager.SetBool("Die", true);
         AiStateMachine stateMachine = GetComponent<AiStateMachine>();
         stateMachine.enabled = false;
 
         StopAiBehavior();
 
-        Instantiate(SoulGem, Holder.transform.position, Quaternion.identity);
+        Instantiate(potionPrafbs, transform.position + new Vector3(0,1,0), Quaternion.identity);
+        Instantiate(manaPrafbs, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+        die = true;
     }
 
 

@@ -128,6 +128,18 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
         animationManager.SetTriggerImmediately("Impact");
     }
 
+    public void ConsumeMana(float num)
+    {
+        ledata.currentMana -= num;
+        if (ledata.currentMana < 0) ledata.currentMana = 0;
+        GameUIPr.Instance.UpdateManaBar(ledata.currentMana, ledata.maxMana);
+    }
+
+    public float GetCurrentMama()
+    {
+        return ledata.currentMana;
+    }
+
     void Die()
     {
         animationManager.SetBool("Die", true);
@@ -142,6 +154,20 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
         {
             ledata.currentHealth += addHealth;
             GameUIPr.Instance.Adapter_Healthbar(ledata.currentHealth, ledata.maxHealth);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public override bool AddMana(float addMana)
+    {
+        if (ledata.currentMana < ledata.maxMana)
+        {
+            ledata.currentMana += addMana;
+            GameUIPr.Instance.Adapter_Manabar(ledata.currentMana, ledata.maxMana);
             return true;
         }
         else

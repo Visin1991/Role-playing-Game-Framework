@@ -2202,6 +2202,9 @@ MonoBehaviour:
     currentHealth: 100
     maxMana: 0
     currentMana: 0
+  potionPrafbs: {fileID: 1931401742535334, guid: eda131b9b887f804c81e70471359d886,
+    type: 2}
+  manaPrafbs: {fileID: 1721091639859826, guid: 86dc97aaf141dfb4fa1f804c3cd5a18a, type: 2}
 --- !u!114 &114088861339220420
 MonoBehaviour:
   m_ObjectHideFlags: 1
