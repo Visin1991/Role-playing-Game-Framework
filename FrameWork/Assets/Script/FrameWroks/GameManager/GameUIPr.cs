@@ -17,6 +17,7 @@ public class GameUIPr : Singleton<GameUIPr> {
     GameObject loadingPanelObj;
     GameObject LevelPanelObj;
     GameObject inventoryPanelObj;
+    GameObject itemInfoObj;
 
     SYS_UI_Event_UpdateHealthBar healthBarInfo;
     List<GameObject> subMainPanelObjs = new List<GameObject>();
@@ -83,6 +84,11 @@ public class GameUIPr : Singleton<GameUIPr> {
             {
                 inventoryPanelObj.SetActive(false);
             }
+        }
+
+        if (itemInfoObj == null)
+        {
+            itemInfoObj = GetComponentInChildren<ItemInfo>().gameObject;
         }
 
         loadingPanelObj = GetComponentInChildren<StartbackGround>().gameObject;
@@ -177,6 +183,9 @@ public class GameUIPr : Singleton<GameUIPr> {
             if (inventoryPanelObj.activeSelf)
             {
                 inventoryPanelObj.transform.localPosition = Vector3.zero;
+            }
+            else {
+                itemInfoObj.GetComponent<ItemInfo>().DeactiveItemInfo();
             }
         }
     }
