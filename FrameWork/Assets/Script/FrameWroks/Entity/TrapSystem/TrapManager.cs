@@ -5,6 +5,13 @@ using UnityEngine;
 public class TrapManager : MonoBehaviour {
 
     Animator anim;
+    bool active = false;
+    public bool Active { set { active = value; } }
+
+    public void SetUpLayer(int layer)
+    {
+        gameObject.layer = layer;
+    }
 
     private void Awake()
     {
@@ -12,26 +19,14 @@ public class TrapManager : MonoBehaviour {
     }
 
     
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider collision)
     {
-
-        if (other.gameObject.tag == "Player")
-        {
-            IDamageable damageReciver = other.transform.GetComponent<IDamageable>();
-            anim.SetBool("Hit", true);
-            anim.SetBool("Idle", false);
+        if (!active) return;
+            IDamageable damageReciver = collision.transform.GetComponent<IDamageable>();
+            
             if (damageReciver != null)
-                damageReciver.GetDamage(20);
-            StartCoroutine("Rearm");
-        }
+                damageReciver.GetDamage(100);
             
     }
-    IEnumerator Rearm()
-    {
-        yield return new WaitForSeconds(2f);
-        anim.SetBool("Hit", false);
-        anim.SetBool("Idle", true);
-        
-
-    }
+   
 }
