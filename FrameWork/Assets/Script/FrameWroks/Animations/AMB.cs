@@ -12,14 +12,14 @@ namespace Visin1_1
         static List<MethodInfo> allCallbackableMethodInfos = new List<MethodInfo>();
         static List<MethodInfo> allWPCallbackbleMethodInfos = new List<MethodInfo>();
 
-        private LEUnitAnimatorPr controller;
+        private LEUnitAnimatorManager controller;
        
-        private delegate void EnterDel(LEUnitAnimatorPr controller);
+        private delegate void EnterDel(LEUnitAnimatorManager controller);
         private EnterDel enterDels;
         [SerializeField]
         public List<int> enterCallbackIndices = new List<int>();
 
-        private delegate void ExitDel(LEUnitAnimatorPr controller);
+        private delegate void ExitDel(LEUnitAnimatorManager controller);
         private ExitDel exitDels;
         [SerializeField]
         public List<int> exitCallbackIndices = new List<int>();
@@ -69,7 +69,7 @@ namespace Visin1_1
             }
             else
             {
-                controller = animator.GetComponent<LEUnitAnimatorPr>();
+                controller = animator.GetComponent<LEUnitAnimatorManager>();
                 if (!controller)
                 {
                     Debug.LogError("No AnimationController attach to this animator's parent GameObject");
@@ -100,7 +100,7 @@ namespace Visin1_1
             }
             else
             {
-                controller = animator.transform.parent.GetComponent<LEUnitAnimatorPr>();
+                controller = animator.transform.parent.GetComponent<LEUnitAnimatorManager>();
                 if (!controller)
                 {
                     Debug.LogError("No AnimationController attach to this animator's parent GameObject");
@@ -117,7 +117,7 @@ namespace Visin1_1
         static List<MethodInfo> GetAllMethods()
         {
             List<MethodInfo> allCallbackableInfos = new List<MethodInfo>();
-            MethodInfo[] ms = typeof(LEUnitAnimatorPr).GetMethods(BindingFlags.Instance | BindingFlags.Public);
+            MethodInfo[] ms = typeof(LEUnitAnimatorManager).GetMethods(BindingFlags.Instance | BindingFlags.Public);
             foreach (MethodInfo m in ms)
             {
                 AMBCallback attr = System.Attribute.GetCustomAttribute(m, typeof(AMBCallback)) as AMBCallback;

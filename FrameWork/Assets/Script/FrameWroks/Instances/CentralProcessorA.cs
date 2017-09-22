@@ -4,13 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class CentralProcessorA : LEUnitProcessor,IDamageable {
+public class CentralProcessorA : LEUnitProcessorBase,IDamageable {
 
     //bool test = true;
 
-    protected UserInputPr userInputManager;
+    protected UserInputPr userInput;
     protected Visin1_1.CameraManager cameraManager;
-
     Visin1_1.CameraManager.CameraDelta cameraDelta;
 
     public LEData ledata;
@@ -18,13 +17,10 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
     bool pause;
     protected bool die = false;
 
-    ExternalMassageSender exMassageSender;
-
     protected override void Start() 
     {
-        userInputManager = GetComponent<UserInputPr>();
+        userInput = GetComponent<UserInputPr>();
         cameraManager = GetComponentInChildren<Visin1_1.CameraManager>();
-        exMassageSender = GetComponent<ExternalMassageSender>();
         base.Start();
     }
 
@@ -51,30 +47,30 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
     //======================================================
     void UpdateInput()
     {
-        userInputManager.UpdateInput(); //We Check the User Input
+        userInput.UpdateInput(); //We Check the User Input
     }
 
     void UpdateBasicMovement()
     {
         if (!enableBaiscMovement) return;
-        if (userInputManager.Shift)
+        if (userInput.Shift)
         {
             basicMovementManager.SetStrafe(true);
         }
-        basicMovementManager.SetInputVH(userInputManager.currentVH);
+        basicMovementManager.SetInputVH(userInput.currentVH);
         basicMovementManager.UpdateBasicMoveMent();
     }
 
     void UpdateAnimation()
     {
-        if (userInputManager.Shift)
+        if (userInput.Shift)
         {
-            animationManager.SetMovementForward(userInputManager.currentVH.y);
-            animationManager.SetMovementStrafe(userInputManager.currentVH.x);
+            animationManager.SetMovementForward(userInput.currentVH.y);
+            animationManager.SetMovementStrafe(userInput.currentVH.x);
         }
         else
         {
-            animationManager.SetMovementForward(userInputManager.currentVH.magnitude);
+            animationManager.SetMovementForward(userInput.currentVH.magnitude);
             animationManager.SetMovementStrafe(0);
         }
     }
@@ -82,32 +78,18 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
     void UpdateCamera()
     {
         //Input for Camera
-        if (userInputManager.mouseScroll != 0 || userInputManager.mouseHorizontal != 0 || userInputManager.mouseVertical != 0)
+        if (userInput.mouseScroll != 0 || userInput.mouseHorizontal != 0 || userInput.mouseVertical != 0)
         {
-            cameraDelta.delta_pitch = userInputManager.mouseVertical;
-            cameraDelta.delta_yaw = userInputManager.mouseHorizontal;
-            cameraDelta.delta_dstToTarget = userInputManager.mouseScroll;
+            cameraDelta.delta_pitch = userInput.mouseVertical;
+            cameraDelta.delta_yaw = userInput.mouseHorizontal;
+            cameraDelta.delta_dstToTarget = userInput.mouseScroll;
 
             cameraManager.SetCameraDelta(cameraDelta);
 
-            userInputManager.mouseVertical = 0;
-            userInputManager.mouseHorizontal = 0;
+            userInput.mouseVertical = 0;
+            userInput.mouseHorizontal = 0;
         }
         cameraManager.UpdateCameraManager();
-    }
-    //======================================================
-    public void ChangeItemInputSystem(InputActionManager _itemInput)
-    {
-        if (inputActionManager != null)
-        {
-            inputActionManager.ShutDown();
-            inputActionManager.enabled = false;
-        }
-        inputActionManager = _itemInput;
-
-        //Non Item
-        if (inputActionManager != null)
-            inputActionManager.enabled = true;
     }
 
     //========================================================
@@ -115,16 +97,9 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
     //========================================================
     public void GetDamage(float num)
     {
-
         ledata.currentHealth -= num;
-
-        //if(!test)
         GameUIPr.Instance.UpdateHealthBar(ledata.currentHealth,ledata.maxHealth);
-
-        if (ledata.currentHealth <= 0.0f)
-        {
-            Die();
-        }
+        if (ledata.currentHealth <= 0.0f){ Die();}
         animationManager.SetTriggerImmediately("Impact");
     }
 
@@ -174,5 +149,10 @@ public class CentralProcessorA : LEUnitProcessor,IDamageable {
         {
             return false;
         }
+    }
+
+    public override void Dispatch_Animation_Message(AnimationMessageType messageType,object messageValue)
+    {
+        
     }
 }

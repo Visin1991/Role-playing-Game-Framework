@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LEUnitBasicMoveMentPr : LEUnitBasicMoveMent
+public class LEUnitBasicMoveMentPr : LEUnitBasicMoveMentManager
 {
    
 

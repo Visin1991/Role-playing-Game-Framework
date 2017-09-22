@@ -329,7 +329,7 @@ namespace Visin1_1
         string[] GetCallBackNames()
         {
             List<string> callbackInfoNames = new List<string>();
-            MethodInfo[] ms = typeof(LEUnitAnimatorPr).GetMethods(BindingFlags.Instance | BindingFlags.Public);
+            MethodInfo[] ms = typeof(LEUnitAnimatorManager).GetMethods(BindingFlags.Instance | BindingFlags.Public);
             foreach (MethodInfo m in ms)
             {
                 AMBCallback attr = System.Attribute.GetCustomAttribute(m, typeof(AMBCallback)) as AMBCallback;
@@ -345,7 +345,7 @@ namespace Visin1_1
 
         void GetWPCallBackInfos(ref List<string> names,ref List<ParameterInfo[]> parameterInfos) 
         {
-            MethodInfo[] ms = typeof(LEUnitAnimatorPr).GetMethods(BindingFlags.Instance | BindingFlags.Public);
+            MethodInfo[] ms = typeof(LEUnitAnimatorManager).GetMethods(BindingFlags.Instance | BindingFlags.Public);
             foreach (MethodInfo m in ms)
             {
                 AMBWPCallback attr = System.Attribute.GetCustomAttribute(m, typeof(AMBWPCallback)) as AMBWPCallback;

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CentralProcessorB : LEUnitProcessor, IDamageable, AiInfomationReciver {
+public class CentralProcessorB : LEUnitProcessorBase, IDamageable, AiInfomationReciver {
 
     public LEData data;
     bool upStateMachine;
@@ -35,19 +35,40 @@ public class CentralProcessorB : LEUnitProcessor, IDamageable, AiInfomationReciv
         
     }
 
+    public override void Dispatch_Animation_Message(AnimationMessageType messageType, object messageValue)
+    {
+        switch (messageType)
+        {
+            case AnimationMessageType.LookAtTarget:
+                aistateMachine.LookAtTarget();
+                break;
+            case AnimationMessageType.SetBasicMoveMent_ActiveStatu:
+                SetBasicMovement_ActiveStatu((bool)messageValue);
+                break;
+            case AnimationMessageType.SetAnimation_AttackStatue:
+                inputClientManager.SetIInputClientAttackStatu((bool)messageValue);
+                break;
+            default:
+                Debug.LogErrorFormat("Message Type {0} is not defined", messageType);
+                break;
+        }
+    }
+
+    //AiInfomationReciver
     public void StartAiBehavior()
     {
         upStateMachine = true;
     }
-
+    //AiInfomationReciver
     public void StopAiBehavior()
     {
         upStateMachine = false;
-        animationManager.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
+        animationManager.SetMotionTypeImmediately(LEUnitAnimatorManager.AnimationMotionType.IWR_0);
         animationManager.SetMovementForward(0.0f);
         aistateMachine.StopAiBehaviour();
     }
 
+    //IDamageable
     public void GetDamage(float num)
     {
         data.currentHealth -= num;
@@ -70,7 +91,4 @@ public class CentralProcessorB : LEUnitProcessor, IDamageable, AiInfomationReciv
         Instantiate(manaPrafbs, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
         die = true;
     }
-
-
-    
 }

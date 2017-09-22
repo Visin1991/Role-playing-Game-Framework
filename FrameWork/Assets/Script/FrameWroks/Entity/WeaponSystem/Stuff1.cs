@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stuff1 : Weapon,IInputActable, ItemOnGUIDoubleClickable {
+public class Stuff1 : Weapon,IInputClient, ItemOnGUIDoubleClickable {
 
-    public InputActionManager inputActionManager;
+    public InputClientManager inputActionManager;
     ItemHandleOnObj handle;
     public Transform muzz; 
 
@@ -15,13 +15,13 @@ public class Stuff1 : Weapon,IInputActable, ItemOnGUIDoubleClickable {
         //gameObject.layer = layer;
     }
 
-    public void Init(InputActionManager actionManager)
+    public void Init(InputClientManager actionManager)
     {
         inputActionManager = actionManager;
         transform.position = inputActionManager.RightHandMid1.position;
         transform.rotation = inputActionManager.RightHandMid1.rotation;
         transform.SetParent(inputActionManager.RightHandMid1);
-        inputActionManager.ChangeAnimationMotionType(LEUnitAnimatorPr.AnimationMotionType.STUFF_3);
+        inputActionManager.ChangeAnimationMotionType(LEUnitAnimatorManager.AnimationMotionType.STUFF_3);
         handle = GetComponentInChildren<ItemHandleOnObj>();
     }
 
@@ -52,7 +52,7 @@ public class Stuff1 : Weapon,IInputActable, ItemOnGUIDoubleClickable {
         transform.gameObject.SetActive(false);
     }
 
-    public void SetIInputActableItemStatu(LEUnitAnimatorPr.AnimationAttackStatue s)
+    public void SetIInputActableItemStatu(bool s)
     {
         
     }

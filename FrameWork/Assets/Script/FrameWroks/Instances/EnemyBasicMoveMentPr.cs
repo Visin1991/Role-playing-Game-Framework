@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBasicMoveMentPr : LEUnitBasicMoveMent
+public class EnemyBasicMoveMentPr : LEUnitBasicMoveMentManager
 {
 
     public override void UpdateBasicMoveMent()

@@ -24,15 +24,15 @@ public class GameCentalPr : Singleton<GameCentalPr> {
     bool loadSaveData;
 
     GameObject LplayerObj;
-    LEUnitProcessor leUnitProcessor;
-    LEUnitAnimatorPr leUnitAnimationManager;
-    LEUnitBasicMoveMent leUnitBasicMovementManager;
-    InputActionManager inputActionManager;
+    LEUnitProcessorBase leUnitProcessor;
+    LEUnitAnimatorManager leUnitAnimationManager;
+    LEUnitBasicMoveMentManager leUnitBasicMovementManager;
+    InputClientManager inputActionManager;
     
-    public LEUnitProcessor PlayerProcessor {get { if (leUnitProcessor == null) { InitalLPlayer(); } return leUnitProcessor; }}
-    public LEUnitAnimatorPr PlayerAnimationManager { get { if (leUnitAnimationManager == null) { InitalLPlayer(); } return leUnitAnimationManager; } }
-    public LEUnitBasicMoveMent PlayerBasicMovementManager { get { if (leUnitBasicMovementManager == null) { InitalLPlayer(); } return leUnitBasicMovementManager; } }
-    public InputActionManager PlayerInputActionManager { get { if (leUnitBasicMovementManager == null) { InitalLPlayer(); } return inputActionManager; } }
+    public LEUnitProcessorBase PlayerProcessor {get { if (leUnitProcessor == null) { InitalLPlayer(); } return leUnitProcessor; }}
+    public LEUnitAnimatorManager PlayerAnimationManager { get { if (leUnitAnimationManager == null) { InitalLPlayer(); } return leUnitAnimationManager; } }
+    public LEUnitBasicMoveMentManager PlayerBasicMovementManager { get { if (leUnitBasicMovementManager == null) { InitalLPlayer(); } return leUnitBasicMovementManager; } }
+    public InputClientManager PlayerInputActionManager { get { if (leUnitBasicMovementManager == null) { InitalLPlayer(); } return inputActionManager; } }
 
     void Start()
     {
@@ -54,10 +54,10 @@ public class GameCentalPr : Singleton<GameCentalPr> {
     void InitalLPlayer()
     {
         LplayerObj = FindObjectOfType<LPlayer>().gameObject;
-        leUnitProcessor = LplayerObj.GetComponent<LEUnitProcessor>();
-        leUnitAnimationManager = LplayerObj.GetComponent<LEUnitAnimatorPr>();
-        leUnitBasicMovementManager = LplayerObj.GetComponent<LEUnitBasicMoveMent>();
-        inputActionManager = LplayerObj.GetComponent<InputActionManager>();
+        leUnitProcessor = LplayerObj.GetComponent<LEUnitProcessorBase>();
+        leUnitAnimationManager = LplayerObj.GetComponent<LEUnitAnimatorManager>();
+        leUnitBasicMovementManager = LplayerObj.GetComponent<LEUnitBasicMoveMentManager>();
+        inputActionManager = LplayerObj.GetComponent<InputClientManager>();
     }
 
     void OnApplicationPause(bool pause)

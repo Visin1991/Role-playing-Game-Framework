@@ -75,7 +75,7 @@ public class AiFightState : AiState {
 
     bool UpdateLEAlive()
     {
-      return !stateMachine.targetTF.GetComponent<LEUnitProcessor>().Alive;
+      return !stateMachine.targetTF.GetComponent<LEUnitProcessorBase>().Alive;
     }
 
     float nextAttackTime = 3.5f;
@@ -101,13 +101,13 @@ public class AiFightState : AiState {
             if (shouldAttack)
             {
                 //Attack motion
-                stateMachine.animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
+                stateMachine.animationPro.SetMotionTypeImmediately(LEUnitAnimatorManager.AnimationMotionType.MELEE_1);
                 stateMachine.animationPro.SetMotionIndex_Random_From_To(0, 4);
             }
             else
             {
                 //Random Idle
-                stateMachine.animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
+                stateMachine.animationPro.SetMotionTypeImmediately(LEUnitAnimatorManager.AnimationMotionType.IWR_0);
                 stateMachine.animationPro.SetMotionIndex_Random_From_To(0, 3);
             }
         }

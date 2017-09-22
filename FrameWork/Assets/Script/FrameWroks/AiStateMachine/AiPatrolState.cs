@@ -21,7 +21,7 @@ public class AiPatrolState : AiState {
 
     public override void OnStateEnter()
     {
-        stateMachine.animationPro.SetMotionType(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
+        stateMachine.animationPro.SetMotionType(LEUnitAnimatorManager.AnimationMotionType.IWR_0);
         stateMachine.animationPro.SetMotionIndex(0);
         stateMachine.angent.SetDestination(stateMachine.transform.position);
     }
@@ -46,7 +46,7 @@ public class AiPatrolState : AiState {
         if (nextCheckTime <= 0.0f)
         {
             nextCheckTime = findEnemyCheckFrequency;
-            Collider c = AiUtility.AiFind.FindNearestAliveLEColliderOverlapSphere<LEUnitProcessor>(stateMachine.transform.position, stateMachine.findEnemyRange, 1 << 8, isLEAlive);
+            Collider c = AiUtility.AiFind.FindNearestAliveLEColliderOverlapSphere<LEUnitProcessorBase>(stateMachine.transform.position, stateMachine.findEnemyRange, 1 << 8, isLEAlive);
             if (c == null) return false;
             else
             {
@@ -58,7 +58,7 @@ public class AiPatrolState : AiState {
         return false;
     }
 
-    bool isLEAlive(LEUnitProcessor le)
+    bool isLEAlive(LEUnitProcessorBase le)
     {
         return le.IsAlive();
     }

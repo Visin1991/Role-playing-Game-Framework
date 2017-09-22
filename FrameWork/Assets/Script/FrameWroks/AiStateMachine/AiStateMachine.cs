@@ -18,8 +18,8 @@ public class AiStateMachine : MonoBehaviour {
 
     public bool findTarget;
 
-    LEUnitProcessor processor;
-    public LEUnitAnimatorPr animationPro;
+    LEUnitProcessorBase processor;
+    public LEUnitAnimatorManager animationPro;
 
     public float findEnemyRange = 10.0f;
 
@@ -47,20 +47,20 @@ public class AiStateMachine : MonoBehaviour {
     [HideInInspector]
     public float distanceToEnemyTarget = 100;
 
-    IInputActable wapon1;
+    IInputClient wapon1;
     // Use this for initialization
 
 
     // Use this for initialization
     void Start () {
 
-        wapon1 = GetComponentInChildren<IInputActable>();
-        GetComponent<InputActionManager>().ResetClient(wapon1);
+        wapon1 = GetComponentInChildren<IInputClient>();
+        GetComponent<InputClientManager>().ResetClient(wapon1);
 
 
-        processor = GetComponent<LEUnitProcessor>();
-        animationPro = GetComponent<LEUnitAnimatorPr>();
-        animationPro.SetMotionTypeImmediately(LEUnitAnimatorPr.AnimationMotionType.IWR_0);
+        processor = GetComponent<LEUnitProcessorBase>();
+        animationPro = GetComponent<LEUnitAnimatorManager>();
+        animationPro.SetMotionTypeImmediately(LEUnitAnimatorManager.AnimationMotionType.IWR_0);
 
         angent = GetComponent<NavMeshAgent>();
 
@@ -93,6 +93,14 @@ public class AiStateMachine : MonoBehaviour {
     public void ResetCurrentState(AiState state)
     {
         currentState = state;
+    }
+
+    public void LookAtTarget() {
+        if (targetTF == null) return;
+        targetPos.x = targetTF.position.x;
+        targetPos.y = transform.position.y;
+        targetPos.z = targetTF.position.z;
+        transform.LookAt(targetPos);
     }
 
     private void OnDrawGizmos()

@@ -8,9 +8,9 @@ using UnityEngine;
 /// We put the actual mesh, physics, riggid body into it's child class. So we can easily add axtra mesh
 /// or do some transform offset to it.
 /// </summary>
-public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
+public class Sword1 : Weapon, IInputClient, ItemOnGUIDoubleClickable {
 
-    public InputActionManager inputActionManager;
+    public InputClientManager inputActionManager;
     ItemHandleOnObj handle;
 
     RaycastHit hit = new RaycastHit();
@@ -24,13 +24,13 @@ public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
         weaponCollider.Active = true;
     }
 
-    public void Init(InputActionManager actionManager)
+    public void Init(InputClientManager actionManager)
     {
         inputActionManager = actionManager;
         transform.position = inputActionManager.RightHandMid1.position;
         transform.rotation = inputActionManager.RightHandMid1.rotation;
         transform.SetParent(inputActionManager.RightHandMid1);
-        inputActionManager.ChangeAnimationMotionType(LEUnitAnimatorPr.AnimationMotionType.MELEE_1);
+        inputActionManager.ChangeAnimationMotionType(LEUnitAnimatorManager.AnimationMotionType.MELEE_1);
         DisableCollision();
         handle = GetComponentInChildren<ItemHandleOnObj>();
     }
@@ -80,9 +80,9 @@ public class Sword1 : Weapon, IInputActable, ItemOnGUIDoubleClickable {
         GetComponentInChildren<Collider>().enabled = true;
     }
 
-    public void SetIInputActableItemStatu(LEUnitAnimatorPr.AnimationAttackStatue s)
+    public void SetIInputActableItemStatu(bool s)
     {
-        if (s == LEUnitAnimatorPr.AnimationAttackStatue.OnAttack)
+        if (s == true)
         {
             EnableCollision();
         }

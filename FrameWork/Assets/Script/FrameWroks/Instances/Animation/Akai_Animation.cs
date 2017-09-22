@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Akai_Animation : LEUnitAnimatorPr
+public class Akai_Animation : LEUnitAnimatorManager
 {
 
     protected override void Start()

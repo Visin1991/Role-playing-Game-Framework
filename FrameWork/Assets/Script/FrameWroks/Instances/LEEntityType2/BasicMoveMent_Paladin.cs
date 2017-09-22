@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BasicMoveMent_Paladin : LEUnitBasicMoveMent {
+public class BasicMoveMent_Paladin : LEUnitBasicMoveMentManager {
 
     NavMeshAgent navMeshAngent; 
 

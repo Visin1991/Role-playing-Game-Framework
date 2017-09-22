@@ -11,6 +11,4 @@ public class StateMachineCanvas : NodeCanvas {
 
     private Dictionary<int, BaseStateNode> _lsStates = new Dictionary<int, BaseStateNode>();
 
-
-
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAnimationPr : LEUnitAnimatorPr
+public class EnemyAnimationPr : LEUnitAnimatorManager
 {
 
     protected override void Start()
