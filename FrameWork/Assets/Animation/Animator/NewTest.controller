@@ -33,7 +33,7 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!114 &114372881957477734
+--- !u!114 &114947385835713806
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -46,17 +46,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   managerTypeName: PaladinAnimationManager
   managerIndex: 2
-  voidEnterCallObjects: []
-  voidExitCallObjects: []
-  floatEnterCallObjects: []
-  floatExitCallObjects: []
+  voidEnter_indices: 010000000200000003000000
+  voidEnter_methodNames:
+  - DoSomeThing
+  - DoWhatEverThing
+  - DoSomeThingElse
+  voidEnterCallObjects:
+  - methodIndex: 1
+    methodName: DoSomeThing
+  voidExitCallObjects:
+  - methodIndex: 2
+    methodName: DoWhatEverThing
+  - methodIndex: 3
+    methodName: DoSomeThingElse
+  floatEnterCallObjects:
+  - methodIndex: 1
+    methodName: PrintNumberOf
+    value: 55
+  floatExitCallObjects:
+  - methodIndex: 1
+    methodName: PrintNumberOf
+    value: 99
   boolEnterCallObjects: []
   boolExitCallObjects: []
   vec3EnterCallBacks:
   - methodIndex: 1
     methodName: SetVector3
-    value: {x: 5, y: 4, z: 3}
-  vec3ExitCallBacks: []
+    value: {x: 0, y: 0, z: 0}
+  vec3ExitCallBacks:
+  - methodIndex: 1
+    methodName: SetVector3
+    value: {x: 9, y: 9, z: 9}
   boolObjectsEnter: []
   boolObjectsExit: []
   intObjectsEnter: []
@@ -117,7 +137,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101604745402261558}
   m_StateMachineBehaviours:
-  - {fileID: 114372881957477734}
+  - {fileID: 114947385835713806}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -140,7 +160,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102623862329953264}
-    m_Position: {x: 312, y: 240, z: 0}
+    m_Position: {x: 216, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102263297853140674}
     m_Position: {x: 336, y: 144, z: 0}

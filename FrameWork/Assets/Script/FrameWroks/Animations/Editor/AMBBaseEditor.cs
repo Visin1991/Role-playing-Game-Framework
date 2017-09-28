@@ -119,7 +119,7 @@ public class AMBBaseEditor : Editor
     }
 
     #region Void CallBack
-     
+
     void DrawVoidCallBacks()
     {
         GUILayout.BeginVertical("Box");
@@ -173,6 +173,7 @@ public class AMBBaseEditor : Editor
             {
                 if (ambBase.voidEnterCallObjects[i].methodIndex == 0) { GUI.color = Color.red; }
                 int index = EditorGUILayout.Popup("", ambBase.voidEnterCallObjects[i].methodIndex,void_CallBackNames, EditorStyles.popup);
+                // ambBase.voidEnterCallObjects[i].methodIndex = index;
                 ambBase.voidEnterCallObjects[i].methodIndex = index;
                 ambBase.voidEnterCallObjects[i].methodName = voidCallbacNames[index];
 
@@ -207,7 +208,7 @@ public class AMBBaseEditor : Editor
     {
         for (int i = 0; i < ambBase.voidEnterCallObjects.Count; i++)
         {
-            AMBBase.VoidCallBackObject functionCall = ambBase.voidEnterCallObjects[i];
+            VoidCallBackObject functionCall = ambBase.voidEnterCallObjects[i];
             if (functionCall.methodName != voidCallbacNames[functionCall.methodIndex])
             {
                 ambBase.voidEnterCallObjects[i].methodIndex = voidCallbacNames.FindIndex(name => name == functionCall.methodName);
@@ -222,7 +223,7 @@ public class AMBBaseEditor : Editor
 
     void ReMatchVoidExit()
     {
-        foreach (AMBBase.VoidCallBackObject callObj in ambBase.voidExitCallObjects)
+        foreach (VoidCallBackObject callObj in ambBase.voidExitCallObjects)
         {
             if (callObj.methodName != voidCallbacNames[callObj.methodIndex])
             {
@@ -327,7 +328,7 @@ public class AMBBaseEditor : Editor
 
     void ReMatchFloatEnter()
     {
-        foreach (AMBBase.FloatCallBackObject callObj in ambBase.floatEnterCallObjects)
+        foreach (FloatCallBackObject callObj in ambBase.floatEnterCallObjects)
         {
             if (callObj.methodName != floatCallbackNames[callObj.methodIndex])
             {
@@ -343,7 +344,7 @@ public class AMBBaseEditor : Editor
 
     void ReMatchFloatExit()
     {
-        foreach (AMBBase.FloatCallBackObject callObj in ambBase.floatExitCallObjects)
+        foreach (FloatCallBackObject callObj in ambBase.floatExitCallObjects)
         {
             if (callObj.methodName != floatCallbackNames[callObj.methodIndex])
             {
@@ -447,7 +448,7 @@ public class AMBBaseEditor : Editor
 
     void ReMatchBoolEnter()
     {
-        foreach (AMBBase.BoolCallBackObject callObj in ambBase.boolEnterCallObjects)
+        foreach (BoolCallBackObject callObj in ambBase.boolEnterCallObjects)
         {
             if (callObj.methodName != boolCallBackNames[callObj.methodIndex])
             {
@@ -463,7 +464,7 @@ public class AMBBaseEditor : Editor
 
     void ReMatchBoolExit()
     {
-        foreach (AMBBase.BoolCallBackObject callObj in ambBase.boolExitCallObjects)
+        foreach (BoolCallBackObject callObj in ambBase.boolExitCallObjects)
         {
             if (callObj.methodName != boolCallBackNames[callObj.methodIndex])
             {
@@ -559,7 +560,7 @@ public class AMBBaseEditor : Editor
 
     void ReMatchVec3Enter()
     {
-        foreach (AMBBase.Vec3CallBackObject callObj in ambBase.vec3EnterCallBacks)
+        foreach (Vec3CallBackObject callObj in ambBase.vec3EnterCallBacks)
         {
             if (callObj.methodName != vec3CallBackNames[callObj.methodIndex])
             {
@@ -575,7 +576,7 @@ public class AMBBaseEditor : Editor
 
     void ReMatchVec3Exit()
     {
-        foreach (AMBBase.Vec3CallBackObject callObj in ambBase.vec3ExitCallBacks)
+        foreach (Vec3CallBackObject callObj in ambBase.vec3ExitCallBacks)
         {
             if (callObj.methodName != vec3CallBackNames[callObj.methodIndex])
             {
@@ -617,7 +618,7 @@ public class AMBBaseEditor : Editor
                 GUI.color = Color.green;
                 if (GUILayout.Button("Add", GUILayout.Width(100)))
                 {
-                    AMBBase.BoolObject boolObj = new AMBBase.BoolObject();
+                    BoolObject boolObj = new BoolObject();
                     ambBase.boolObjectsEnter.Add(boolObj);
                 }
                 GUI.color = Color.white;
@@ -651,7 +652,7 @@ public class AMBBaseEditor : Editor
                 GUI.color = Color.green;
                 if (GUILayout.Button("Add", GUILayout.Width(100)))
                 {
-                    AMBBase.BoolObject boolObj = new AMBBase.BoolObject();
+                    BoolObject boolObj = new BoolObject();
                     ambBase.boolObjectsExit.Add(boolObj);
                 }
                 GUI.color = Color.white;
@@ -701,7 +702,7 @@ public class AMBBaseEditor : Editor
                 GUI.color = Color.green;
                 if (GUILayout.Button("Add", GUILayout.Width(100)))
                 {
-                    AMBBase.IntObject intObj = new AMBBase.IntObject();
+                    IntObject intObj = new IntObject();
                     ambBase.intObjectsEnter.Add(intObj);
                 }
                 GUI.color = Color.white;
@@ -739,7 +740,7 @@ public class AMBBaseEditor : Editor
                 GUI.color = Color.green;
                 if (GUILayout.Button("Add", GUILayout.Width(100)))
                 {
-                    AMBBase.IntObject intObj = new AMBBase.IntObject();
+                    IntObject intObj = new IntObject();
                     ambBase.intObjectsExit.Add(intObj);
                 }
                 GUI.color = Color.white;

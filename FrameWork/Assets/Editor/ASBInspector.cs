@@ -29,7 +29,7 @@ namespace Visin1_1
 
         public override void OnInspectorGUI()
         {
-            //base.DrawDefaultInspector();
+            base.DrawDefaultInspector();
             DrawCallBackFunctions();
             DrawBoolValues();
             DrawIntValues();

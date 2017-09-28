@@ -277,100 +277,6 @@ public class AMBBase : StateMachineBehaviour {
         allVec3CallBackDic.Add(animatorManagerType, vec3OfType);
     }
 
-    [System.Serializable]
-    public class VoidCallBackObject
-    {
-        public int methodIndex;
-        public string methodName;
-        //Because MethodInfo is not a structure type. so we get the index ID, and retch it at the run time......
-    }
-
-    [System.Serializable]
-    public class FloatCallBackObject
-    {
-        public int methodIndex;
-        public string methodName;
-        public float value;
-        //Because MethodInfo is not a structure type. so we get the index ID, and retch it at the run time......
-    }
-
-    public struct FloatMethodInfo
-    {
-       public MethodInfo methodInfo;
-       public object[] value;
-       public FloatMethodInfo(MethodInfo _m, float v)
-       {
-            methodInfo = _m;
-            value = new object[1];
-            value[0] = v;
-       }
-    }
-
-    [System.Serializable]
-    public class BoolCallBackObject
-    {
-        public int methodIndex;
-        public string methodName;
-        public bool value;
-    }
-
-    public struct BoolMethodInfo
-    {
-        public MethodInfo methodInfo;
-        public object[] value;
-        public BoolMethodInfo(MethodInfo _m, bool v)
-        {
-            methodInfo = _m;
-            value = new object[1];
-            value[0] = v;
-        }
-    }
-
-    [System.Serializable]
-    public class Vec3CallBackObject
-    {
-        public int methodIndex;
-        public string methodName;
-        [SerializeField]
-        public Vector3 value;
-    }
-
-    public struct Vec3MethodInfo
-    {
-        public MethodInfo methodInfo;
-        public object[] value;
-        public Vec3MethodInfo(MethodInfo _m, Vector3 v3)
-        {
-            methodInfo = _m;
-            value = new object[1];
-            value[0] = v3;
-        }
-    }
-
-    [System.Serializable]
-    public class BoolObject
-    {
-        public string boolName;
-        public bool value;
-        public BoolObject(string name = "Non", bool _value = false)
-        {
-            boolName = name;
-            value = _value;
-        }
-    }
-
-    [System.Serializable]
-    public class IntObject
-    {
-        public string intName;
-        public int value;
-        public IntObject(string name = "Non", int _value = 0)
-        {
-            intName = name;
-            value = _value;
-        }
-    }
-
     public void AddNew_Void_EnterCallBack()
     {
         voidEnterCallObjects.Add(new VoidCallBackObject());
@@ -409,5 +315,115 @@ public class AMBBase : StateMachineBehaviour {
     public void AddNew_Vec3_ExitCallBack()
     {
         vec3ExitCallBacks.Add(new Vec3CallBackObject());
+    }
+}
+
+
+//Because string is a reference type, it size is unknowed.
+//So we need to tell unity to serialize the string value.
+
+[Serializable]
+public class VoidCallBackObject
+{
+    public int methodIndex;
+    [SerializeField]
+    public string methodName;
+    //Because MethodInfo is a unknow size of reference type. so we get the index ID, and retch it at the run time......
+    //Another way is to tell Unity to serialize the MethodInfo. it may workes. may not
+}
+
+[System.Serializable]
+public class FloatCallBackObject
+{
+    public int methodIndex;
+    [SerializeField]
+    public string methodName;
+    public float value;
+    //Because MethodInfo is a unknow size of reference type. so we get the index ID, and retch it at the run time......
+    //Another way is to tell Unity to serialize the MethodInfo. it may workes. may not
+}
+
+public struct FloatMethodInfo
+{
+    public MethodInfo methodInfo;
+    public object[] value;
+    public FloatMethodInfo(MethodInfo _m, float v)
+    {
+        methodInfo = _m;
+        value = new object[1];
+        value[0] = v;
+    }
+}
+
+[System.Serializable]
+public class BoolCallBackObject
+{
+    public int methodIndex;
+    [SerializeField]
+    public string methodName;
+    public bool value;
+    //Because MethodInfo is a unknow size of reference type. so we get the index ID, and retch it at the run time......
+    //Another way is to tell Unity to serialize the MethodInfo. it may workes. may not
+}
+
+public struct BoolMethodInfo
+{
+    public MethodInfo methodInfo;
+    public object[] value;
+    public BoolMethodInfo(MethodInfo _m, bool v)
+    {
+        methodInfo = _m;
+        value = new object[1];
+        value[0] = v;
+    }
+}
+
+[System.Serializable]
+public class Vec3CallBackObject
+{
+    public int methodIndex;
+    [SerializeField]
+    public string methodName;
+    [SerializeField]
+    public Vector3 value;
+    //Because MethodInfo is a unknow size of reference type. so we get the index ID, and retch it at the run time......
+    //Another way is to tell Unity to serialize the MethodInfo. it may workes. may not
+}
+
+public struct Vec3MethodInfo
+{
+    public MethodInfo methodInfo;
+    public object[] value;
+    public Vec3MethodInfo(MethodInfo _m, Vector3 v3)
+    {
+        methodInfo = _m;
+        value = new object[1];
+        value[0] = v3;
+    }
+}
+
+[System.Serializable]
+public class BoolObject
+{
+    [SerializeField]
+    public string boolName;
+    public bool value;
+    public BoolObject(string name = "Non", bool _value = false)
+    {
+        boolName = name;
+        value = _value;
+    }
+}
+
+[System.Serializable]
+public class IntObject
+{
+    [SerializeField]
+    public string intName;
+    public int value;
+    public IntObject(string name = "Non", int _value = 0)
+    {
+        intName = name;
+        value = _value;
     }
 }
