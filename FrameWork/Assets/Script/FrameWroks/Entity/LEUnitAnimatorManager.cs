@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 public abstract class LEUnitAnimatorManager : MonoBehaviour {
 
@@ -141,6 +142,30 @@ public abstract class LEUnitAnimatorManager : MonoBehaviour {
     {
         if (processor == null) return;
         processor.Dispatch_Animation_Message(AnimationMessageType.LookAtTarget, null);
+    }
+
+    [Visin1_1.AMBCallback()]
+    public virtual void XixiHaha()
+    {
+        Debug.Log("Xi Xi Ha Ha");
+    }
+
+    public abstract void InvokeMethod(MethodInfo m,object[] obj);
+
+
+    //This function need to be public and static
+    public static void Non(){ Debug.LogError("This Function Should Not be Called"); }
+
+    public static void NonFloat(float number) { Debug.LogError("This Function Should Not be Called"); }
+
+    public static void NonBool(bool value) { Debug.LogError("This Function Should Not be Called"); }
+
+    public static void NonVec3(Vector3 vec3) { Debug.LogError("This Function Should Not be Called"); }
+
+    //this is used to blending to 
+    public virtual void Dispatch_Message(AnimationMessageType messageType, object messageValue)
+    {
+
     }
 
     public enum AnimationMotionType

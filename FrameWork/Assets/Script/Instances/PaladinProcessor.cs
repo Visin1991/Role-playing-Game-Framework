@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CentralProcessorB : LEUnitProcessorBase, IDamageable, AiInfomationReciver {
+public class PaladinProcessor : LEUnitProcessorBase, IDamageable, AiInfomationReciver {
 
     public LEData data;
     bool upStateMachine;
@@ -33,25 +33,6 @@ public class CentralProcessorB : LEUnitProcessorBase, IDamageable, AiInfomationR
     public override void Pause(bool b)
     {
         
-    }
-
-    public override void Dispatch_Animation_Message(AnimationMessageType messageType, object messageValue)
-    {
-        switch (messageType)
-        {
-            case AnimationMessageType.LookAtTarget:
-                aistateMachine.LookAtTarget();
-                break;
-            case AnimationMessageType.SetBasicMoveMent_ActiveStatu:
-                SetBasicMovement_ActiveStatu((bool)messageValue);
-                break;
-            case AnimationMessageType.SetAnimation_AttackStatue:
-                inputClientManager.SetIInputClientAttackStatu((bool)messageValue);
-                break;
-            default:
-                Debug.LogErrorFormat("Message Type {0} is not defined", messageType);
-                break;
-        }
     }
 
     //AiInfomationReciver
@@ -90,5 +71,25 @@ public class CentralProcessorB : LEUnitProcessorBase, IDamageable, AiInfomationR
         Instantiate(potionPrafbs, transform.position + new Vector3(0,1,0), Quaternion.identity);
         Instantiate(manaPrafbs, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
         die = true;
+    }
+
+    //Dispatch Animation Message 
+    public override void Dispatch_Animation_Message(AnimationMessageType messageType, object messageValue)
+    {
+        switch (messageType)
+        {
+            case AnimationMessageType.LookAtTarget:
+                aistateMachine.LookAtTarget();
+                break;
+            case AnimationMessageType.SetBasicMoveMent_ActiveStatu:
+                SetBasicMovement_ActiveStatu((bool)messageValue);
+                break;
+            case AnimationMessageType.SetAnimation_AttackStatue:
+                inputClientManager.SetIInputClientAttackStatu((bool)messageValue);
+                break;
+            default:
+                Debug.LogErrorFormat("Message Type {0} is not defined", messageType);
+                break;
+        }
     }
 }

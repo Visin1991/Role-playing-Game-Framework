@@ -832,10 +832,10 @@ GameObject:
   - component: {fileID: 136855132362146262}
   - component: {fileID: 114040367021990422}
   - component: {fileID: 114006091137456386}
-  - component: {fileID: 195296112055221888}
   - component: {fileID: 114088861339220420}
   - component: {fileID: 114996880567685714}
   - component: {fileID: 114194051788407828}
+  - component: {fileID: 195296112055221888}
   m_Layer: 10
   m_Name: Paladin_J_Nordstrom
   m_TagString: Untagged
