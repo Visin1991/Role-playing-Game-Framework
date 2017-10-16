@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Threading;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -14,31 +17,32 @@ using UnityEditor;
 public class GameCentalPr : Singleton<GameCentalPr> {
 	protected GameCentalPr(){} // guarantee this will be always a singleton only - can't use the constructor!
 
-    public GameData gameData;
-
     public System.Action<bool> Adapter_Pause;
 	public System.Action Adapter_GameOver;
 
-    int currentLevel = 0;
+    public int currentLevel = 0;
     int lastLoadIndex = 0;
     bool loadSaveData;
 
-    GameObject LplayerObj;
+    GameObject targetLEObject;
     LEUnitProcessorBase leUnitProcessor;
     LEUnitAnimatorManager leUnitAnimationManager;
     LEUnitBasicMoveMentManager leUnitBasicMovementManager;
     InputClientManager inputActionManager;
     
-    public LEUnitProcessorBase PlayerProcessor {get { if (leUnitProcessor == null) { InitalLPlayer(); } return leUnitProcessor; }}
-    public LEUnitAnimatorManager PlayerAnimationManager { get { if (leUnitAnimationManager == null) { InitalLPlayer(); } return leUnitAnimationManager; } }
-    public LEUnitBasicMoveMentManager PlayerBasicMovementManager { get { if (leUnitBasicMovementManager == null) { InitalLPlayer(); } return leUnitBasicMovementManager; } }
-    public InputClientManager PlayerInputActionManager { get { if (leUnitBasicMovementManager == null) { InitalLPlayer(); } return inputActionManager; } }
+    public LEUnitProcessorBase PlayerProcessor {get { if (leUnitProcessor == null) { InitalTarget(); } return leUnitProcessor; }}
+    public LEUnitAnimatorManager PlayerAnimationManager { get { if (leUnitAnimationManager == null) { InitalTarget(); } return leUnitAnimationManager; } }
+    public LEUnitBasicMoveMentManager PlayerBasicMovementManager { get { if (leUnitBasicMovementManager == null) { InitalTarget(); } return leUnitBasicMovementManager; } }
+    public InputClientManager PlayerInputActionManager { get { if (leUnitBasicMovementManager == null) { InitalTarget(); } return inputActionManager; } }
+
+    public static BaseSerializableData[] buildInDatas;
+
 
     void Start()
     {
         PlayerProcessor.transform.parent = transform;
-        LplayerObj = PlayerProcessor.gameObject;
-        LplayerObj.SetActive(false);
+        targetLEObject = PlayerProcessor.gameObject;
+        targetLEObject.SetActive(false);
         DontDestroyOnLoad(this);
     }
 
@@ -51,13 +55,13 @@ public class GameCentalPr : Singleton<GameCentalPr> {
         
     }
 
-    void InitalLPlayer()
+    void InitalTarget()
     {
-        LplayerObj = FindObjectOfType<LPlayer>().gameObject;
-        leUnitProcessor = LplayerObj.GetComponent<LEUnitProcessorBase>();
-        leUnitAnimationManager = LplayerObj.GetComponent<LEUnitAnimatorManager>();
-        leUnitBasicMovementManager = LplayerObj.GetComponent<LEUnitBasicMoveMentManager>();
-        inputActionManager = LplayerObj.GetComponent<InputClientManager>();
+        targetLEObject = FindObjectOfType<TargetLE>().gameObject;
+        leUnitProcessor = targetLEObject.GetComponent<LEUnitProcessorBase>();
+        leUnitAnimationManager = targetLEObject.GetComponent<LEUnitAnimatorManager>();
+        leUnitBasicMovementManager = targetLEObject.GetComponent<LEUnitBasicMoveMentManager>();
+        inputActionManager = targetLEObject.GetComponent<InputClientManager>();
     }
 
     void OnApplicationPause(bool pause)
@@ -79,42 +83,126 @@ public class GameCentalPr : Singleton<GameCentalPr> {
 #endif
     }
 
+    //============================================================
+
     public void StartNewGame()
     {
         currentLevel = 1;
         SceneManager.LoadScene(1, LoadSceneMode.Single);
+        SceneInitCommandQueue.Enqueue(new SceneInitCommandInfo(Default_Init,null));
     }
 
-    public void LoadSave(int index)
+    public void LoadSave_by_Index(int index)
     {
-        lastLoadIndex = index;
-        if (index < 0 && index > gameData.saves.Length) {
-            Debug.LogErrorFormat("Sene {0} is out of range", index);
-            return;
+        //GameDataManager.RequestData(Generate_Big_Data, Print_Big_Data);
+
+        string path = Path.Combine(Application.persistentDataPath, "Save" + index.ToString() + ".vSave");
+        if (File.Exists(path))
+        {
+            
+            //With the use.... when code get out of the scope......automatically Close.
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(path)))
+            {
+                //1.) Read the Scene Name
+                string sceneName = reader.ReadString();
+
+                //2. push a load data command to command Queue. And Block the current SceneExecuter
+                SceneInitCommandQueue.Enqueue(new SceneInitCommandInfo(LoadSave, path));
+
+                //3.) Load the Scene         
+                SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+            }
+        }
+        else
+        {
+            Debug.Log("The Save is Invalidate");
+        }
+    }
+
+    public void LoadSave_by_FilePath(string path)
+    {
+
+        BinaryReader reader = new BinaryReader(File.OpenRead(path));
+        string sceneName = reader.ReadString();                       //Reader The sceneName again
+
+        //3. Find all build in SerialiazableDatas
+        buildInDatas = FindObjectsOfType<BaseSerializableData>();
+
+        //4.) Deserialize All Data
+        while (reader.BaseStream.Position != reader.BaseStream.Length)
+        {
+            string uniqueID = reader.ReadString();
+            if (uniqueID == "runTimeSpawn")
+            {
+                CreateAndLoad_RTS_Object(reader);
+            }
+            else
+            {
+                LoadEditorTimeBuildInObject(reader, uniqueID);
+            }
         }
 
-        if (gameData.saves[index - 1].isEmpty)
-        {
-            Debug.LogFormat("Save {0} is empty", index);
-        }else
-        {
-            loadSaveData = true;
-            string sceneName = gameData.saves[index - 1].sceneName;
-            SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-        }
-        
+        reader.Close();
     }
 
-    public void EnablePlayerObj()
+    void CreateAndLoad_RTS_Object(BinaryReader reader)
     {
-        LplayerObj.SetActive(true);
+        System.Type t = System.Type.GetType(reader.ReadString());
+        GameDataManager.Instance.InstantiatePrefeb_By_Type(t).DeSerializeData(reader);
     }
+
+    void LoadEditorTimeBuildInObject(BinaryReader reader,string uniqueID)
+    {
+        //Because The Build In Object already in the scene, So we do not need to 
+        //Creae a Instance of the Object, Just find the Data Object, and Serialize it Directly.
+
+        foreach (BaseSerializableData data in buildInDatas)
+        {
+            if (data.uniqueId == uniqueID)
+            {
+                data.DeSerializeData(reader);
+            }
+        }
+    }
+
+    public void LoadTargetCharacter()
+    {
+        targetLEObject.SetActive(true);
+        PlayerProcessor.transform.parent = null;
+    }
+
+    //=============================================================
+    //  SceneInitCommandExecuter Delegate........
+    //-------------------------------------------------------------
+    public void Default_Init(object a)
+    {
+        GameUIPr.Instance.CloseLoadingPanel();
+        LoadTargetCharacter();
+        PlayerProcessor.transform.position = FindObjectOfType<SceneInitCommandExecuter>().transform.position;
+    }
+
+    public void LoadSave(object path)
+    {
+        Default_Init(null);
+        currentLevel = SceneManager.GetActiveScene().buildIndex;
+        LoadSave_by_FilePath((string)path);
+    }
+
+    //=============================================================
 
     public void SaveGame(int index)
     {
-        gameData.saves[index - 1].sceneName = SceneManager.GetActiveScene().name;
-        gameData.saves[index - 1].playerData.pos = FindObjectOfType<LPlayer>().gameObject.transform.position;
-        gameData.saves[index - 1].isEmpty = false;
+        string path = Path.Combine(Application.persistentDataPath, "Save" + index.ToString() + ".vSave");
+        using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
+        {
+            writer.Write(SceneManager.GetActiveScene().name);
+
+            BaseSerializableData[] allData = FindObjectsOfType<BaseSerializableData>();
+            foreach (BaseSerializableData data in allData)
+            {
+                data.SerializeData(writer);
+            }
+        }
     }
 
     public void PauseResumeEvent(bool pause)
@@ -124,40 +212,50 @@ public class GameCentalPr : Singleton<GameCentalPr> {
             Adapter_Pause.Invoke(pause);
     }
 
-    public void LoadLevel(int index)
-    {
-        SceneManager.LoadScene(index, LoadSceneMode.Single);
-    }
-
     public void NextLevel()
     {
         currentLevel++;
-        Debug.Log(currentLevel);
-        SceneManager.LoadScene(currentLevel, LoadSceneMode.Single);
+        SceneInitCommandQueue.Enqueue(new SceneInitCommandInfo(Default_Init, true));
+        SceneManager.LoadScene(currentLevel, LoadSceneMode.Single);      
     }
 
-    public Transform GetPlayerTransform()
+    public Transform GetTargetLETransform()
     {
-        if (LplayerObj == null)
+        if (targetLEObject == null)
         {
-            LplayerObj = PlayerProcessor.gameObject;
+            targetLEObject = PlayerProcessor.gameObject;
         }
-        if (LplayerObj != null)
-            return LplayerObj.transform;
+        if (targetLEObject != null)
+            return targetLEObject.transform;
         else
             return null;
     }
-    /// <summary>
-    /// This function will be called when the SceneInitializer Script Start function get auto called by Unity.
-    /// </summary>
-    public void LoadSave()
+
+    //========================================
+    //Multi-Thread Test
+    //========================================
+    //This function will be called in a seperate Thread
+    public List<int> Generate_Big_Data()
     {
-        if (loadSaveData)
+        List<int> data = new List<int>();
+        for (int i = 0; i < 10000; i++)
         {
-            if (lastLoadIndex > 0 && lastLoadIndex <= gameData.saves.Length)
-                FindObjectOfType<LPlayer>().gameObject.transform.position = gameData.saves[lastLoadIndex - 1].playerData.pos;
-            loadSaveData = false;
+            data.Add(i);
+            Debug.Log(i);
         }
+        return data;
     }
+
+    //This function will be called inside the Unity Main Thread
+    public void Print_Big_Data(object data)
+    {
+        data = (List<int>)data;
+        Debug.Log(((List<int>)data).Count);  
+    }
+
+    //========================================
+
 }
+
+
 

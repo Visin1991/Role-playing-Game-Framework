@@ -6,11 +6,14 @@ public class Potion : MonoBehaviour, ItemOnGUIDoubleClickable {
 
     public float addHealth = 100;
 
-    public void ItemOnGUIDoubleClick(ItemHandleOnGUI obj)
+    public void ItemOnGUIDoubleClick(ItemHandleOnGUI guiObj)
     {
         if (GameCentalPr.Instance.PlayerProcessor.AddHealth(addHealth))
         {
-            obj.Clean();
+            guiObj.Clean();
+            LEInventory inventory = GetComponent<LEInventory>();
+            //inventory.items.Remove()
+            DestroyImmediate(gameObject);
         }
     }
 }

@@ -19,14 +19,16 @@ public class LEInventory : MonoBehaviour {
         }
     }
 
-    public void AddItem(Item item,Transform itemTransform)
+    public void AddItem(Item item)
     {
         items.Add(item);
-        itemTransform.SetParent(transform);
         GameUIPr.Instance.AddItemToInventory(item);
     }
 
-
+    public void RemoveItem(Item item)
+    {
+        items.Remove(item);
+    }
 
 
 }

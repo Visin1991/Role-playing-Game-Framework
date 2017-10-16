@@ -53,6 +53,12 @@ public class PaladinAnimationManager : LEUnitAnimatorManager
         Debug.LogFormat("The Vector3 Value is : {0}", v);
     }
 
+    [Visin1_1.AMBCallback()]
+    public void DoSomeShit(Vector3 v)
+    {
+
+    }
+
     public override void InvokeMethod(MethodInfo m,object[] obj)
     {
         m.Invoke(this,obj);

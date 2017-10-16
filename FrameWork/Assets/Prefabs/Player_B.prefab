@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114486626903903248}
   - component: {fileID: 114470434096584202}
   - component: {fileID: 114912947789321206}
-  - component: {fileID: 114242584219021242}
+  - component: {fileID: 114752353365166822}
   m_Layer: 8
   m_Name: Player_B
   m_TagString: Player
@@ -866,7 +866,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4663021359294348}
   - component: {fileID: 137524994581452398}
-  - component: {fileID: 114642262949102418}
   m_Layer: 8
   m_Name: Akai
   m_TagString: Untagged
@@ -2098,7 +2097,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!54 &54887061596460024
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -2179,24 +2177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395c053731b31d545bf3dfa1407315e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ledata:
-    pos: {x: 0, y: 0, z: 0}
-    maxHealth: 200
-    currentHealth: 200
-    maxMana: 0
-    currentMana: 0
---- !u!114 &114242584219021242
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1034868849836136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3feaa5d3ae931df42abf11aaa92cdea9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  items: []
+  basicData: {fileID: 0}
 --- !u!114 &114412881096602080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2239,6 +2220,7 @@ MonoBehaviour:
   cameraMoveSensitivity: 5
   isFixedYaw: 1
   XboxPad: 0
+  adjustTime: 1.5
   detal_yaw: 0
   detal_pitch: 0
   detal_dstToTarget: 0
@@ -2292,17 +2274,6 @@ MonoBehaviour:
   moveSpeed: 0
   speedScales: 0
   maxSpeed: 0
---- !u!114 &114642262949102418
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1693003780908326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba31921ef02e8534c8a80e72485cbede, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114716524039775802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2315,6 +2286,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraType: 1
+--- !u!114 &114752353365166822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1034868849836136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde122f9893961a4e8f1a5ac4da7ec79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: Start_c44a6511-8134-45f9-81ce-6aa63b97c0bf
+  type: AkaiBasicData
+  pos: {x: 0, y: 0, z: 0}
+  maxHealth: 100
+  currentHealth: 100
+  maxMana: 100
+  currentMana: 100
 --- !u!114 &114912947789321206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2381,6 +2370,7 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2396,6 +2386,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

@@ -18,6 +18,6 @@ public class LoadSaveButton : MonoBehaviour {
 
     public void OnClick()
     {
-        GameCentalPr.Instance.LoadSave(loadIndex);
+        GameCentalPr.Instance.LoadSave_by_Index(loadIndex);
     }
 }

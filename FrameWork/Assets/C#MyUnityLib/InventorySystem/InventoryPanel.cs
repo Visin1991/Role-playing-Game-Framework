@@ -6,14 +6,14 @@ using System.Linq;
 public class InventoryPanel : MonoBehaviour {
 
     ItemHandleOnGUI[] allHandles;
-    LPlayer player;
+    TargetLE player;
     
 
     // Use this for initialization
     private void OnEnable()
     {
         allHandles = GetComponentsInChildren<ItemHandleOnGUI>();
-        player = FindObjectOfType<LPlayer>();
+        player = FindObjectOfType<TargetLE>();
     }
 
     private void Update()

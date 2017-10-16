@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class PaladinProcessor : LEUnitProcessorBase, IDamageable, AiInfomationReciver {
 
-    public LEData data;
+    public float maxHealth =100;
+    public float currentHealth = 100;
+   
     bool upStateMachine;
     AiStateMachine aistateMachine;
 
@@ -40,6 +42,7 @@ public class PaladinProcessor : LEUnitProcessorBase, IDamageable, AiInfomationRe
     {
         upStateMachine = true;
     }
+
     //AiInfomationReciver
     public void StopAiBehavior()
     {
@@ -52,8 +55,8 @@ public class PaladinProcessor : LEUnitProcessorBase, IDamageable, AiInfomationRe
     //IDamageable
     public void GetDamage(float num)
     {
-        data.currentHealth -= num;
-        if (data.currentHealth <= 0) {
+        currentHealth -= num;
+        if (currentHealth <= 0) {
             Die();
         }
         animationManager.SetTrigger("Impact");

@@ -382,7 +382,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4486921371418102}
   - component: {fileID: 137924362645300180}
-  - component: {fileID: 114402198457622620}
   m_Layer: 10
   m_Name: Paladin_J_Nordstrom
   m_TagString: Untagged
@@ -2071,6 +2070,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2086,6 +2086,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2196,12 +2197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839ae96b5ea2b1046ab3844a959c42f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    pos: {x: 0, y: 0, z: 0}
-    maxHealth: 100
-    currentHealth: 100
-    maxMana: 0
-    currentMana: 0
+  maxHealth: 100
+  currentHealth: 100
   potionPrafbs: {fileID: 1931401742535334, guid: eda131b9b887f804c81e70471359d886,
     type: 2}
   manaPrafbs: {fileID: 1721091639859826, guid: 86dc97aaf141dfb4fa1f804c3cd5a18a, type: 2}
@@ -2262,17 +2259,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a994a42573b4844c859a3983e6a826c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114402198457622620
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1455434779572778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba31921ef02e8534c8a80e72485cbede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114445465680710386
@@ -2358,6 +2344,7 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2373,6 +2360,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2407,6 +2395,7 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2422,6 +2411,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

@@ -12,7 +12,8 @@ public class CentralProcessorA : LEUnitProcessorBase,IDamageable {
     protected Visin1_1.CameraManager cameraManager;
     Visin1_1.CameraManager.CameraDelta cameraDelta;
 
-    public LEData ledata;
+    [HideInInspector]
+    public AkaiBasicData basicData;
 
     bool pause;
     protected bool die = false;
@@ -22,6 +23,8 @@ public class CentralProcessorA : LEUnitProcessorBase,IDamageable {
         userInput = GetComponent<UserInputPr>();
         cameraManager = GetComponentInChildren<Visin1_1.CameraManager>();
         base.Start();
+
+        basicData = GetComponent<AkaiBasicData>();
     }
 
     private void Update()
@@ -97,22 +100,22 @@ public class CentralProcessorA : LEUnitProcessorBase,IDamageable {
     //========================================================
     public void GetDamage(float num)
     {
-        ledata.currentHealth -= num;
-        GameUIPr.Instance.UpdateHealthBar(ledata.currentHealth,ledata.maxHealth);
-        if (ledata.currentHealth <= 0.0f){ Die();}
+        basicData.currentHealth -= num;
+        GameUIPr.Instance.UpdateHealthBar(basicData.currentHealth, basicData.maxHealth);
+        if (basicData.currentHealth <= 0.0f){ Die();}
         animationManager.SetTriggerImmediately("Impact");
     }
 
     public void ConsumeMana(float num)
     {
-        ledata.currentMana -= num;
-        if (ledata.currentMana < 0) ledata.currentMana = 0;
-        GameUIPr.Instance.UpdateManaBar(ledata.currentMana, ledata.maxMana);
+        basicData.currentMana -= num;
+        if (basicData.currentMana < 0) basicData.currentMana = 0;
+        GameUIPr.Instance.UpdateManaBar(basicData.currentMana, basicData.maxMana);
     }
 
     public float GetCurrentMama()
     {
-        return ledata.currentMana;
+        return basicData.currentMana;
     }
 
     void Die()
@@ -125,10 +128,10 @@ public class CentralProcessorA : LEUnitProcessorBase,IDamageable {
 
     public override bool AddHealth(float addHealth)
     {
-        if (ledata.currentHealth < ledata.maxHealth)
+        if (basicData.currentHealth < basicData.maxHealth)
         {
-            ledata.currentHealth += addHealth;
-            GameUIPr.Instance.Adapter_Healthbar(ledata.currentHealth, ledata.maxHealth);
+            basicData.currentHealth += addHealth;
+            GameUIPr.Instance.Adapter_Healthbar_CA(basicData.currentHealth, basicData.maxHealth);
             return true;
         }
         else
@@ -139,10 +142,10 @@ public class CentralProcessorA : LEUnitProcessorBase,IDamageable {
 
     public override bool AddMana(float addMana)
     {
-        if (ledata.currentMana < ledata.maxMana)
+        if (basicData.currentMana < basicData.maxMana)
         {
-            ledata.currentMana += addMana;
-            GameUIPr.Instance.Adapter_Manabar(ledata.currentMana, ledata.maxMana);
+            basicData.currentMana += addMana;
+            GameUIPr.Instance.Adapter_Manabar_CA(basicData.currentMana, basicData.maxMana);
             return true;
         }
         else
@@ -155,4 +158,7 @@ public class CentralProcessorA : LEUnitProcessorBase,IDamageable {
     {
         
     }
+
+    
+
 }

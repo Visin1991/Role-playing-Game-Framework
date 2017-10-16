@@ -1,13 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class GameUIPr : Singleton<GameUIPr> {
+
 	protected GameUIPr(){}
 
-    public System.Action<float, float> Adapter_Healthbar;
-    public System.Action<float, float> Adapter_Manabar;
+    public System.Action<Image>        Adapter_Avatar_CA;    //Character A Avatar Function Delegate
+    public System.Action<float, float> Adapter_Healthbar_CA; //Character A Health Bar Func Delegate
+    public System.Action<float, float> Adapter_Manabar_CA;   //Character A Mana Bar Func Delegate
+    //......CB......
+    //......CC......   A player may control multiple Characters. Each character have it's own UI Health bar and Mana bar....
+    //......CD......
+
+    
+    public System.Action<Image>        Adapter_Avatar_PopUp;
+    public System.Action<float, float> Adapter_Healthbar_PopUp;
+    public System.Action<float, float> Adapter_Manabar_PopUp;
 
     [HideInInspector]
     public GameObject mainManueObj;    //This is the main Manue Object----Press Icon Botton or press Esc key
@@ -15,16 +26,16 @@ public class GameUIPr : Singleton<GameUIPr> {
     GameObject LoadSaveObj;     //Load the save data Panel
     GameObject SaveGameObj;
     GameObject loadingPanelObj;
-    GameObject LevelPanelObj;
+    GameObject LevelTransitionPanelObj;
     GameObject inventoryPanelObj;
     GameObject itemInfoObj;
 
-    SYS_UI_Event_UpdateHealthBar healthBarInfo;
     List<GameObject> subMainPanelObjs = new List<GameObject>();
     
     private void Start()
     {
         // Debug.Log("GameCentalPr Start");
+        
         //mainManue Panel
         if (mainManueObj == null)
         {
@@ -66,17 +77,17 @@ public class GameUIPr : Singleton<GameUIPr> {
         }
         
         //LevelPanel
-        if (LevelPanelObj == null)
+        if (LevelTransitionPanelObj == null)
         {
-            LevelPanelObj = GetComponentInChildren<LevelPanel>().gameObject;
-            if (LevelPanelObj != null)
-            {
-                
-                subMainPanelObjs.Add(LevelPanelObj);
-                LevelPanelObj.SetActive(false);
+            LevelTransitionPanelObj = GetComponentInChildren<LevelTransitionPanel>().gameObject;
+            if (LevelTransitionPanelObj != null)
+            {    
+                subMainPanelObjs.Add(LevelTransitionPanelObj);
+                LevelTransitionPanelObj.SetActive(false);
             }
         }
 
+        //Inventory Panel
         if (inventoryPanelObj == null)
         {
             inventoryPanelObj = GetComponentInChildren<InventoryPanel>().gameObject;
@@ -85,6 +96,7 @@ public class GameUIPr : Singleton<GameUIPr> {
                 inventoryPanelObj.SetActive(false);
             }
         }
+
 
         if (itemInfoObj == null)
         {
@@ -96,12 +108,12 @@ public class GameUIPr : Singleton<GameUIPr> {
 
     public void UpdateHealthBar(float current,float max)
     {
-        if (Adapter_Healthbar != null) { Adapter_Healthbar(current,max); }
+        if (Adapter_Healthbar_CA != null) { Adapter_Healthbar_CA(current,max); }
     }
 
     public void UpdateManaBar(float current, float max)
     {
-        if (Adapter_Manabar != null) { Adapter_Manabar(current, max); }
+        if (Adapter_Manabar_CA != null) { Adapter_Manabar_CA(current, max); }
     }
 
     public void MailBox_SYS_UI_Event(SYS_UI_Event sysUIEvent)
@@ -127,19 +139,19 @@ public class GameUIPr : Singleton<GameUIPr> {
             if (LoadSaveObj != null)
                 LoadSaveObj.SetActive(true);
         }
+        else if (target == PanelType.SaveGame)
+        {
+            if (SaveGameObj != null)
+                SaveGameObj.SetActive(true);
+        }
 
-    }
-
-    public void LoadLevel(int index = 1)
-    {
-        GameCentalPr.Instance.LoadLevel(index);
     }
 
     public void OpenLevelPanel()
     {
-        if (LevelPanelObj != null)
+        if (LevelTransitionPanelObj != null)
         {
-            LevelPanelObj.SetActive(true);
+            LevelTransitionPanelObj.SetActive(true);
         }
     }
 
@@ -242,7 +254,7 @@ public class GameUIPr : Singleton<GameUIPr> {
         loadingPanelObj.SetActive(true);
         LoadSaveObj.SetActive(false);
 
-        GameCentalPr.Instance.LoadSave(index);
+        GameCentalPr.Instance.LoadSave_by_Index(index);
 
     }
 
@@ -260,7 +272,7 @@ public class GameUIPr : Singleton<GameUIPr> {
 
     public void NextLevel()
     {
-        LevelPanelObj.SetActive(false);
+        LevelTransitionPanelObj.SetActive(false);
         loadingPanelObj.SetActive(true);
         GameCentalPr.Instance.NextLevel();
     }

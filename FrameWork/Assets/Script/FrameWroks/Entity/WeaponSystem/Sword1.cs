@@ -66,7 +66,8 @@ public class Sword1 : Weapon, IInputClient, ItemOnGUIDoubleClickable {
     public void ShutDown()
     {
         LEInventory inventory = transform.root.GetComponentInChildren<LEInventory>();
-        inventory.AddItem(handle.item, transform);
+        inventory.AddItem(handle.item);
+        transform.SetParent(inventory.transform);
         transform.gameObject.SetActive(false);
     }
 

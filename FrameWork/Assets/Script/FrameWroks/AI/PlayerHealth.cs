@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= amount;
 
         // healthSlider.value = currentHealth;
-        GameUIPr.Instance.Adapter_Healthbar(currentHealth, startingHealth);
+        GameUIPr.Instance.Adapter_Healthbar_CA(currentHealth, startingHealth);
 
         //playerAudio.Play ();
 

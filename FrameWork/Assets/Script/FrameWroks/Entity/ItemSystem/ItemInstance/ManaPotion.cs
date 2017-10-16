@@ -6,11 +6,17 @@ public class ManaPotion : MonoBehaviour, ItemOnGUIDoubleClickable {
 
     public float addMana = 100;
 
-    public void ItemOnGUIDoubleClick (ItemHandleOnGUI obj)
+    public void ItemOnGUIDoubleClick (ItemHandleOnGUI gui)
     {
         if (GameCentalPr.Instance.PlayerProcessor.AddMana(addMana))
         {
-            obj.Clean();
+            gui.Clean();
+
+            LEInventory leInventory = GetComponentInParent<LEInventory>();
+            Item item = GetComponentInChildren<ItemHandleOnObj>().item;
+            leInventory.RemoveItem(item);
+
+            DestroyImmediate(gameObject);
         }
     }
     

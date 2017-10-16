@@ -29,7 +29,6 @@ public class ItemHandleOnObj : MonoBehaviour{
         {
             return null;
         }
-
     }
 
     //Picke Upable Object. When we double click on the object in the scene.
@@ -42,13 +41,14 @@ public class ItemHandleOnObj : MonoBehaviour{
             FetchItemInfo();
         }
 
-            //Find Player and Players inventory
-            LPlayer lplayer = FindObjectOfType<LPlayer>();
-            LEInventory inventory = lplayer.transform.GetComponentInChildren<LEInventory>();
-            inventory.AddItem(item, transform.parent);
-
-            transform.parent.gameObject.SetActive(false);
-            CursorManager.GetInstance().setMouse();
+        //Find Player and Players inventory
+        TargetLE lplayer = FindObjectOfType<TargetLE>();
+        LEInventory inventory = lplayer.transform.GetComponentInChildren<LEInventory>();
+            
+        inventory.AddItem(item);
+        transform.parent.parent = inventory.transform;
+        transform.parent.gameObject.SetActive(false);
+        CursorManager.GetInstance().setMouse();
 
     }
 
