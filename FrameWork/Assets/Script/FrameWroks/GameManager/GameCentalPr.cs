@@ -106,7 +106,7 @@ public class GameCentalPr : Singleton<GameCentalPr> {
                 //1.) Read the Scene Name
                 string sceneName = reader.ReadString();
 
-                //2. push a load data command to command Queue. And Block the current SceneExecuter
+                //2. push a load data command to command Queue. After we Change Scene, We will Load the Data
                 SceneInitCommandQueue.Enqueue(new SceneInitCommandInfo(LoadSave, path));
 
                 //3.) Load the Scene         

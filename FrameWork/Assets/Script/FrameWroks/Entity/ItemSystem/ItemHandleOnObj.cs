@@ -6,7 +6,7 @@ public class ItemHandleOnObj : MonoBehaviour{
 
     public int itemId_InDataBase;
 
-    public Item item;
+    public Item item = null;
 
     [SerializeField]
     public bool isInit = false;
@@ -16,7 +16,6 @@ public class ItemHandleOnObj : MonoBehaviour{
     public void Start()
     {
         clickManager = new WeiClickManager();
-        FetchItemInfo();
     }
 
     public Item GetItem()
@@ -60,13 +59,8 @@ public class ItemHandleOnObj : MonoBehaviour{
     void FetchItemInfo()
     {
         isInit = true;
-        item = GameDataManager.Instance.itemDatabase.getNewInstanceByID(itemId_InDataBase);
         
-        /*
-            item.itemAttributes = new List<ItemAttribute>();
-            item.itemAttributes.Add(........)
-            resign new extra Attribute for our item.
-        */
+        item = GameDataManager.Instance.itemDatabase.getNewInstanceByID(itemId_InDataBase);
 
         //Add GUI Double Click callback to 
         ItemOnGUIDoubleClickable iGUIDoubleClickable = GetComponentInParent<ItemOnGUIDoubleClickable>();
@@ -77,9 +71,21 @@ public class ItemHandleOnObj : MonoBehaviour{
         }
     }
 
-    public void ReloadItemInfoFromSave()
+    public void ReloadItemInfoFromSave(Item _item,LEInventory inventory)
     {
         isInit = true;
-        //........
+        item = _item;
+
+        //Add GUI Double Click callback to 
+        ItemOnGUIDoubleClickable iGUIDoubleClickable = GetComponentInParent<ItemOnGUIDoubleClickable>();
+        if (iGUIDoubleClickable != null)
+        {
+            //item.OnGUIDoubleClick will be call when we double click the GUI on inventory
+            item.OnGUIDoubleClick = iGUIDoubleClickable.ItemOnGUIDoubleClick;
+        }
+
+        inventory.AddItem(item);
+        transform.parent.parent = inventory.transform;
+        transform.parent.gameObject.SetActive(false);
     }
 }

@@ -12,7 +12,8 @@ public class Potion : MonoBehaviour, ItemOnGUIDoubleClickable {
         {
             guiObj.Clean();
             LEInventory inventory = GetComponent<LEInventory>();
-            //inventory.items.Remove()
+            Item item = GetComponentInChildren<ItemHandleOnObj>().item;
+            inventory.RemoveItem(item);
             DestroyImmediate(gameObject);
         }
     }

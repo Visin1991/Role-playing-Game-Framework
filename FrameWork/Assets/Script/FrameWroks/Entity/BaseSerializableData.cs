@@ -23,7 +23,7 @@ public abstract class BaseSerializableData : MonoBehaviour {
 
     public string type;
 
-    void Start()
+    protected virtual void Start()
     {
         SetUpDataType();
     }
@@ -32,7 +32,7 @@ public abstract class BaseSerializableData : MonoBehaviour {
 #if UNITY_EDITOR
 
     // Whenever something changes in the editor (note the [ExecuteInEditMode])
-    void Update()
+    protected virtual void Update()
     {
         // Don't do anything when running the game
         if (Application.isPlaying)
